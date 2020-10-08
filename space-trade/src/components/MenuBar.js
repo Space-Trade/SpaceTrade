@@ -9,9 +9,6 @@ import logo from "../assets/logoWhite.png";
 import Modal from '@material-ui/core/Modal';
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
-import Welcome from "./Welcome";
-import Navbar from 'react-bootstrap/Navbar'
-import DarkModeToggle from './theme/darkmodetoggle';
 import {
     Link,
 } from "react-router-dom";
@@ -99,18 +96,6 @@ export default function ButtonAppBar() {
                                 <Logo src={logo} />
                             </Link>
                         </Typography>
-                        {userId != '' ?
-                            <Link to="/calendar" style={{ color: '#FFF' }} >
-                                <Button color="inherit">Calendar</Button>
-                            </Link>
-                            : ''
-                        }
-                        {userId != '' ?
-                            <Link to="/stats" style={{ color: '#FFF' }} >
-                                <Button color="inherit">Stats</Button>
-                            </Link>
-                            : ''
-                        }
                         {userId == '' ?
                             <Link to="/login" style={{ color: '#FFF' }} >
                                 <Button color="inherit">Login</Button>
@@ -129,7 +114,6 @@ export default function ButtonAppBar() {
                             </Button>
                             : ''
                         }
-                        <DarkModeToggle />
                     </Toolbar>
                 </AppBar>
                 <Modal

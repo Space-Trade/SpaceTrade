@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const jwt = require("jsonwebtoken");
 
 const JWT_SECRET = process.env.JWT_SECRET || "superJWTSecret";
-const CONNECTION_STRING = process.env.CONNECTION_STRING || `mongodb+srv://dbAdmin:dbAdmin123@cluster0.zstyd.mongodb.net/Cluster0?retryWrites=true&w=majority`;
+const CONNECTION_STRING = process.env.CONNECTION_STRING || `mongodb+srv://dbAdmin:dbAdmin123@cluster0.ggr9w.mongodb.net/Cluster0?retryWrites=true&w=majority`;
 
 mongoose.connect(CONNECTION_STRING, {
     useNewUrlParser: true,

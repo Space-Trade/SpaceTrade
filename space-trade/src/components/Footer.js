@@ -86,10 +86,8 @@ function Footer() {
   return (
     <FooterStyle >
       <Typography variant="body2" color="textSecondary" className={classes.footerInfo}>
-        
         <Clock />
-        
-        <p style={{margin: 0}}>Copyright © SpaceDream</p>
+        <p style={{margin: 0}}>Copyright © SpaceTrade</p>
 		<TimeZone />
       </Typography>
     </FooterStyle>
