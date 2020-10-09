@@ -17,6 +17,7 @@ class News extends React.Component {
       loading: true,
     };
   }
+
   getLatestNews() {
     fetch(
       `https://cloud.iexapis.com/stable/stock/${this.props.symbol}/news?token=pk_f18effa11483431cb853a29c987140cf`,
@@ -53,7 +54,7 @@ class News extends React.Component {
       })
       .then(() => {
         if (this._isMounted) {
-          this.setState({loading: false});
+          this.setState({ loading: false });
         }
       });
   }
@@ -61,12 +62,17 @@ class News extends React.Component {
     this._isMounted = true;
     this.getLatestNews();
   }
+
   componentWillUnmount() {
     this._isMounted = false;
   }
+
   render() {
     return (
       <div className="news__articles">
+        <h3>
+          Latest News
+        </h3>
         {newsHeadline.map((val, indx) => {
           return (
             <a
@@ -89,19 +95,6 @@ class News extends React.Component {
         })}
         {newsHeadline.length === 0 && !this.state.loading && (
           <div className="news__nothing">
-            <svg
-              enableBackground="new 0 0 512 512"
-              viewBox="0 0 512 512"
-              xmlns="http://www.w3.org/2000/svg">
-              <g>
-                <path d="m60 272h332v-152h-332zm30-122h272v92h-272z" />
-                <path d="m60 302h151v30h-151z" />
-                <path d="m60 362h151v30h-151z" />
-                <path d="m241 452h151v-150h-151zm30-120h91v90h-91z" />
-                <path d="m60 422h151v30h-151z" />
-                <path d="m60 0v60h-60v407c0 24.813 20.187 45 45 45h421.979c.172 0 .345-.001.518-.003 24.584-.268 44.503-20.351 44.503-44.997v-467zm-15 482c-8.271 0-15-6.729-15-15v-377h392v377c0 5.197.87 10.251 2.543 15zm437-15c0 8.174-6.571 14.841-14.708 14.997-4.094.084-7.857-1.43-10.75-4.244-2.929-2.85-4.542-6.669-4.542-10.753v-407h-362v-30h392z" />
-              </g>
-            </svg>
             <h3>Sorry, we couldn't find any related news.</h3>
           </div>
         )}

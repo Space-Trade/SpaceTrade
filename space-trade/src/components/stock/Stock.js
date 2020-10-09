@@ -167,6 +167,7 @@ export default class Stock extends React.Component {
             };
         };
     }
+
     numberWithCommas(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
@@ -233,11 +234,7 @@ export default class Stock extends React.Component {
                 .then(res => res.json())
                 .then(result => {
                     if (typeof result["Note"] === "undefined") {
-                        for (
-                            let i = Object.keys(result["Time Series (1min)"]).length - 1;
-                            i > 0;
-                            i--
-                        ) {
+                        for (let i = Object.keys(result["Time Series (1min)"]).length - 1; i > 0; i--) {
                             chartData1.push(
                                 parseFloat(
                                     result["Time Series (1min)"][
@@ -254,17 +251,11 @@ export default class Stock extends React.Component {
                     } else {
                         setTimeout(() => {
                             b++;
-                            const stockApi = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=1min&apikey=${apiKeys[parseInt(b)]
-                                }`;
+                            const stockApi = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=1min&apikey=${apiKeys[parseInt(b)]}`;
                             fetch(stockApi)
                                 .then(res => res.json())
                                 .then(result => {
-                                    for (
-                                        let i =
-                                            Object.keys(result["Time Series (1min)"]).length - 1;
-                                        i > 0;
-                                        i--
-                                    ) {
+                                    for (let i = Object.keys(result["Time Series (1min)"]).length - 1; i > 0; i--) {
                                         chartData1.push(
                                             parseFloat(
                                                 result["Time Series (1min)"][
@@ -272,11 +263,7 @@ export default class Stock extends React.Component {
                                                 ]["4. close"],
                                             ).toFixed(2),
                                         );
-                                        labels.push(
-                                            Object.keys(result["Time Series (1min)"])
-                                            [parseInt(i)].split(" ")[1]
-                                                .slice(0, -3),
-                                        );
+                                        labels.push(Object.keys(result["Time Series (1min)"])[parseInt(i)].split(" ")[1].slice(0, -3),);
                                     }
                                 });
                         }, 500);
@@ -309,7 +296,7 @@ export default class Stock extends React.Component {
         labels = [];
         chartData1 = [];
         if (ytdChart.length === 0) {
-            const stockApi = `https://cloud.iexapis.com/beta/stock/${symbol}/batch?token=${process.env.REACT_APP_API_KEY_2}&types=chart,quote&range=ytd`;
+            const stockApi = `https://cloud.iexapis.com/beta/stock/${symbol}/batch?token=pk_f18effa11483431cb853a29c987140cf&types=chart,quote&range=ytd`;
             fetch(stockApi)
                 .then(res => res.json())
                 .then(result => {
@@ -346,7 +333,7 @@ export default class Stock extends React.Component {
         labels = [];
         chartData1 = [];
         if (oneYear.length === 0) {
-            const stockApi = `https://cloud.iexapis.com/beta/stock/${symbol}/batch?token=${process.env.REACT_APP_API_KEY_2}&types=chart,quote&range=1y`;
+            const stockApi = `https://cloud.iexapis.com/beta/stock/${symbol}/batch?token=pk_f18effa11483431cb853a29c987140cf&types=chart,quote&range=1y`;
             fetch(stockApi)
                 .then(res => res.json())
                 .then(result => {
@@ -382,7 +369,7 @@ export default class Stock extends React.Component {
         labels = [];
         chartData1 = [];
         if (twoYears.length === 0) {
-            const stockApi = `https://cloud.iexapis.com/beta/stock/${symbol}/batch?token=${process.env.REACT_APP_API_KEY_2}&types=chart,quote&range=2y`;
+            const stockApi = `https://cloud.iexapis.com/beta/stock/${symbol}/batch?token=pk_f18effa11483431cb853a29c987140cf&types=chart,quote&range=2y`;
             fetch(stockApi)
                 .then(res => res.json())
                 .then(result => {
@@ -418,7 +405,7 @@ export default class Stock extends React.Component {
         labels = [];
         chartData1 = [];
         if (oneMonth.length === 0) {
-            const stockApi = `https://cloud.iexapis.com/beta/stock/${symbol}/batch?token=${process.env.REACT_APP_API_KEY_2}&types=chart,quote&range=1m`;
+            const stockApi = `https://cloud.iexapis.com/beta/stock/${symbol}/batch?token=pk_f18effa11483431cb853a29c987140cf&types=chart,quote&range=1m`;
             fetch(stockApi)
                 .then(res => res.json())
                 .then(result => {
@@ -449,11 +436,7 @@ export default class Stock extends React.Component {
         }
         options.annotation = "";
     }
-    /*
-     * converts number to short version of milions, bilions etc.
-     * @param {number} number to convert
-     * @param {decPlaces} how many decimal places
-     */
+
     abbrNum(number, decPlaces) {
         decPlaces = Math.pow(10, decPlaces);
         var abbrev = ["k", "m", "b", "t"];
@@ -472,19 +455,10 @@ export default class Stock extends React.Component {
 
         return number;
     }
-    /*
-     * check i value is in array
-     * @param {arr} array
-     * @param {val} value
-     */
+
     isInArray(arr, val) {
         return arr.indexOf(val) > -1;
     }
-
-    /*
-     * changes look of buttons above chart
-     * @param {option} selected option
-     */
 
     changeFocus(option) {
         setTimeout(
@@ -526,7 +500,7 @@ export default class Stock extends React.Component {
 
     rendering() {
         fetch(
-            `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=${process.env.REACT_APP_API_KEY_2}`,
+            `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=pk_f18effa11483431cb853a29c987140cf`,
         )
             .then(res => res.json())
             .then(result => {
@@ -603,7 +577,7 @@ export default class Stock extends React.Component {
             );
         document.title = `Trader24 - ${symbol}`;
         fetch(
-            `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=${process.env.REACT_APP_API_KEY_2}`,
+            `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=pk_f18effa11483431cb853a29c987140cf`,
         )
             .then(res => res.json())
             .then(result => {
@@ -617,7 +591,7 @@ export default class Stock extends React.Component {
                 if (this.state.marketStatus) {
                     setInterval(() => {
                         fetch(
-                            `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=${process.env.REACT_APP_API_KEY_2}`,
+                            `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=pk_f18effa11483431cb853a29c987140cf`,
                         )
                             .then(res => res.json())
                             .then(result => {
@@ -647,85 +621,6 @@ export default class Stock extends React.Component {
             });
         }
     }
-    /*handleBuyStock(num) {
-        let user = firebase.auth().currentUser.uid;
-        let positionsNumber;
-
-        db.collection("users")
-            .doc(user)
-            .get()
-            .then(doc => {
-                positionsNumber = doc.data()["positions"];
-            })
-            .then(() => {
-                firebase
-                    .firestore()
-                    .collection("users")
-                    .doc(user)
-                    .collection("stocks")
-                    .doc("Position" + positionsNumber)
-                    .set({
-                        symbol,
-                        moneyPaid: (Number(num) * Number(this.state.latestPrice)).toFixed(
-                            2,
-                        ),
-                        shares: num,
-                        value: (Number(num) * Number(this.state.latestPrice)).toFixed(2),
-                    })
-                    .catch(error => {
-                        console.log("Error getting document:", error);
-                    });
-            })
-            .then(() => {
-                firebase
-                    .firestore()
-                    .collection("users")
-                    .doc(user)
-                    .update({
-                        currentfunds: (
-                            Number(this.state.fundsWithoutCommas) -
-                            Number(num) * Number(this.state.latestPrice)
-                        ).toFixed(2),
-                        positions: Number(positionsNumber) + 1,
-                    })
-                    .catch(error => {
-                        console.log("Error getting document:", error);
-                    });
-            })
-            .then(() => {
-                this.getFunds();
-                if (this._isMounted) {
-                    this.setState({
-                        buyConfirmation: false,
-                    });
-                }
-            });
-    }*/
-    /*getFunds() {
-        if (this._isMounted) {
-            this.setState({
-                fundsWithoutCommas: "",
-            });
-        }
-        let user = firebase.auth().currentUser.uid;
-        let docRef = db.collection("users").doc(user);
-
-        docRef
-            .get()
-            .then(doc => {
-                if (this._isMounted) {
-                    this.setState({
-                        funds: "$" + this.numberWithCommas(doc.data()["currentfunds"]),
-                    });
-                    this.setState({
-                        fundsWithoutCommas: doc.data()["currentfunds"],
-                    });
-                }
-            })
-            .catch(function (error) {
-                console.log("Error getting document:", error);
-            });
-    }*/
 
     componentDidMount() {
         this._isMounted = true;
@@ -739,7 +634,7 @@ export default class Stock extends React.Component {
                 }
             });
         fetch(
-            `https://cloud.iexapis.com/stable/ref-data/symbols?token=${process.env.REACT_APP_API_KEY_2}`,
+            `https://cloud.iexapis.com/stable/ref-data/symbols?token=pk_f18effa11483431cb853a29c987140cf`,
         )
             .then(res => res.json())
             .then(result => {
@@ -757,15 +652,15 @@ export default class Stock extends React.Component {
                 setTimeout(() => {
                     if (this.isInArray(symbolsOnly, symbol)) {
                         if (this._isMounted) {
-                            this.setState({ valid: true });
+                            this.setState({ valid: false });
                         }
                         this.rendering();
                     } else if (this._isMounted) {
-                        this.setState({ valid: false });
+                        this.setState({ valid: true });
+                        this.rendering();
                     }
                 }, 1000);
             });
-        //this.getFunds();
     }
 
     componentWillUnmount() {
@@ -779,146 +674,121 @@ export default class Stock extends React.Component {
                 {this.state.buyConfirmation === true && (
                     <div className="buyConfirmation">
                         <h3>
-                            Are you sure you want to buy {this.buyInput.current.value} shares
-              of {symbol} for{" "}
+                            Are you sure you want to buy {this.buyInput.current.value} shares of {symbol} for{" "}
                             <span style={{ fontWeight: "bold" }}>
                                 {parseFloat(
                                     (
                                         this.buyInput.current.value * this.state.latestPrice
                                     ).toFixed(2),
                                 )}
-                            </span>{" "}
-              dollars
-            </h3>
+                            </span>{" "} dollars
+                        </h3>
                         <div>
-                            <button
-                                className="stockPage__buy-button"
-                                onClick={() => {
-                                    if (
-                                        this.buyInput.current.value * this.state.latestPrice <=
-                                        this.state.fundsWithoutCommas
-                                    ) {
-                                        //this.handleBuyStock(this.buyInput.current.value);
-                                    } else if (this._isMounted) {
-                                        this.setState({
-                                            buyConfirmation: false,
-                                        });
-                                    }
-                                }}>
-                                CONFIRM
-              </button>
-                            <button
-                                className="stockPage__buy-button cancel"
-                                onClick={() => {
-                                    if (this._isMounted) {
-                                        this.setState({
-                                            buyConfirmation: false,
-                                        });
-                                    }
-                                }}>
-                                CANCEL
-              </button>
+                            <button className="stockPage__buy-button" onClick={() => {
+                                if (this.buyInput.current.value * this.state.latestPrice <= this.state.fundsWithoutCommas) {
+                                    //this.handleBuyStock(this.buyInput.current.value);
+                                } else if (this._isMounted) {
+                                    this.setState({
+                                        buyConfirmation: false,
+                                    });
+                                }
+                            }}> CONFIRM
+                            </button>
+                            <button className="stockPage__buy-button cancel" onClick={() => {
+                                if (this._isMounted) {
+                                    this.setState({
+                                        buyConfirmation: false,
+                                    });
+                                }
+                            }}> CANCEL
+                            </button>
                         </div>
                     </div>
                 )}
                 {this.state.valid === "" && <Loader />}
                 {this.state.valid && (
                     <div style={{ display: "flex", height: "100%" }}>
-                        <Leftbar />
                         <div className="stockPage">
-                            <Topbar />
-                            {this.state.loaded ? (
-                                <div className="stockPage__top">
-                                    <FullChart
-                                        changeFocus={this.changeFocus}
-                                        getOneMonthChart={this.getOneMonthChart}
-                                        getOneYearChart={this.getOneYearChart}
-                                        getTwoYearChart={this.getTwoYearChart}
-                                        getYTDChart={this.getYTDChart}
-                                        getOneDayChart={this.getOneDayChart}
-                                        data1={this.data1}
-                                        year={this.year}
-                                        years={this.years}
-                                        stockData={stockData}
-                                        ytd={this.ytd}
-                                        month={this.month}
-                                        day={this.day}
-                                    />
-                                    <div className="stockPage__trade">
-                                        <div className="stockPage__mobile">
-                                            <h4>{stockData.name}</h4>
-                                            <div className="stockPage__trade-top">
-                                                <h2>${this.state.latestPrice}</h2>
-                                                <h6 style={{ color: this.state.changeColor }}>
-                                                    {stockData.change} ({stockData.changePercent}%)
-                        </h6>
-                                            </div>
-                                        </div>
-                                        {!this.state.marketStatus &
-                                            (stockData.extendedChange !== null) ? (
-                                                <h6>
-                                                    Extended Hours:{" "}
-                                                    <span style={{ color: this.state.extendedColor }}>
-                                                        ${stockData.extendedPrice} ({stockData.extendedChange}
-                          )
-                        </span>
+                            <div className="stockPage__top">
+                                <FullChart
+                                    changeFocus={this.changeFocus}
+                                    getOneMonthChart={this.getOneMonthChart}
+                                    getOneYearChart={this.getOneYearChart}
+                                    getTwoYearChart={this.getTwoYearChart}
+                                    getYTDChart={this.getYTDChart}
+                                    getOneDayChart={this.getOneDayChart}
+                                    data1={this.data1}
+                                    year={this.year}
+                                    years={this.years}
+                                    stockData={stockData}
+                                    ytd={this.ytd}
+                                    month={this.month}
+                                    day={this.day}
+                                />
+                                <div className="stockPage__trade">
+                                    <div className="stockPage__mobile">
+                                        <h4>{stockData.name}</h4>
+                                        <div className="stockPage__trade-top">
+                                            <h2>${this.state.latestPrice}</h2>
+                                            <h6 style={{ color: this.state.changeColor }}>
+                                                {stockData.change} ({stockData.changePercent}%)
                                                 </h6>
-                                            ) : (
-                                                <div />
-                                            )}
-                                        <h5>Buy {symbol}</h5>
-                                        <div className="stockPage__buy-container">
-                                            <input
-                                                autoCorrect="off"
-                                                autoCapitalize="off"
-                                                spellCheck="false"
-                                                className="stockPage__buy-input"
-                                                ref={this.buyInput}
-                                                id="buy-input"
-                                                type="number"
-                                                disabled
-                                            />
-
-                                            <button
-                                                onClick={function () {
-                                                    let value = this.buyInput.current.value;
-                                                    if (
-                                                        value.length > 0 &&
-                                                        value > 0 &&
-                                                        value * this.state.latestPrice <=
-                                                        this.state.fundsWithoutCommas &&
-                                                        this.state.marketStatus &&
-                                                        this._isMounted
-                                                    ) {
-                                                        this.setState({
-                                                            buyConfirmation: true,
-                                                        });
-                                                    } else {
-                                                        this.buyInput.current.style.border =
-                                                            "solid 1px #f45485";
-                                                    }
-                                                }.bind(this)}
-                                                className="stockPage__buy-button">
-                                                BUY
-                      </button>
                                         </div>
                                     </div>
+                                    {!this.state.marketStatus &
+                                        (stockData.extendedChange !== null) ? (
+                                            <h6>
+                                                Extended Hours:{" "}
+                                                <span style={{ color: this.state.extendedColor }}>
+                                                    ${stockData.extendedPrice} ({stockData.extendedChange}
+                                                    )
+                                                    </span>
+                                            </h6>
+                                        ) : (
+                                            <div />
+                                        )}
+                                    <h5>Buy {symbol}</h5>
+                                    <div className="stockPage__buy-container">
+                                        <input
+                                            autoCorrect="off"
+                                            autoCapitalize="off"
+                                            spellCheck="false"
+                                            className="stockPage__buy-input"
+                                            ref={this.buyInput}
+                                            id="buy-input"
+                                            type="number"
+                                            disabled
+                                        />
+                                        <button
+                                            onClick={function () {
+                                                let value = this.buyInput.current.value;
+                                                if (
+                                                    value.length > 0 &&
+                                                    value > 0 &&
+                                                    value * this.state.latestPrice <=
+                                                    this.state.fundsWithoutCommas &&
+                                                    this.state.marketStatus &&
+                                                    this._isMounted
+                                                ) {
+                                                    this.setState({
+                                                        buyConfirmation: true,
+                                                    });
+                                                } else {
+                                                    this.buyInput.current.style.border =
+                                                        "solid 1px #f45485";
+                                                }
+                                            }.bind(this)}
+                                            className="stockPage__buy-button">
+                                            BUY
+                                            </button>
+                                    </div>
                                 </div>
-                            ) : (
-                                    <Loader />
-                                )}
+                            </div>
                             <div className="stockPage__keyStats">
-                                <KeyInfo keyDataLabel={keyDataLabel} keyData={keyData} />
+                                <div className="info">
+                                    <KeyInfo keyDataLabel={keyDataLabel} keyData={keyData} />
+                                </div>
                                 <div className="news">
-                                    <h3>
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                            <g>
-                                                <path fill="none" d="M0 0h24v24H0z" />
-                                                <path d="M4.929 2.929l1.414 1.414A7.975 7.975 0 0 0 4 10c0 2.21.895 4.21 2.343 5.657L4.93 17.07A9.969 9.969 0 0 1 2 10a9.969 9.969 0 0 1 2.929-7.071zm14.142 0A9.969 9.969 0 0 1 22 10a9.969 9.969 0 0 1-2.929 7.071l-1.414-1.414A7.975 7.975 0 0 0 20 10c0-2.21-.895-4.21-2.343-5.657L19.07 2.93zM7.757 5.757l1.415 1.415A3.987 3.987 0 0 0 8 10c0 1.105.448 2.105 1.172 2.828l-1.415 1.415A5.981 5.981 0 0 1 6 10c0-1.657.672-3.157 1.757-4.243zm8.486 0A5.981 5.981 0 0 1 18 10a5.981 5.981 0 0 1-1.757 4.243l-1.415-1.415A3.987 3.987 0 0 0 16 10a3.987 3.987 0 0 0-1.172-2.828l1.415-1.415zM12 12a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm-1 2h2v8h-2v-8z" />
-                                            </g>
-                                        </svg>
-                    Latest News
-                  </h3>
                                     <News symbol={symbol} />
                                 </div>
                             </div>
