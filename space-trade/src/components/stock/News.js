@@ -20,7 +20,7 @@ class News extends React.Component {
 
   getLatestNews() {
     fetch(
-      `https://cloud.iexapis.com/stable/stock/${this.props.symbol}/news?token=pk_f18effa11483431cb853a29c987140cf`,
+      `https://cloud.iexapis.com/stable/stock/${this.props.symbol}/news?token=pk_c4db94f67a0b42a1884238b690ab06db`,
     )
       .then(res => res.json())
       .then(result => {
