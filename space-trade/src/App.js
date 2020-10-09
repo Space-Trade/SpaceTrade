@@ -9,6 +9,8 @@ import RegisterForm from "./components/RegisterForm";
 import Welcome from "./components/Welcome";
 import MenuBar from "./components/MenuBar"
 import Home from "./components/Home"
+import Dashboard from "./components/Dashboard"
+import Stock from "./components/Stock"
 import ChatBot from "./components/chatbot/chatbotTheme";
 import {
   BrowserRouter as Router,
@@ -34,15 +36,15 @@ function App() {
       <Router>
         <Route path="/" component={MenuBar} />
         <Route path="/" component={Welcome} />
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <ChatBot/>
+        <Route exact path="/" component={Home} />
         <Switch>
-          <Route path="/login" component={LoginForm} />
-          <Route path="/register" component={RegisterForm} />
+          <Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/stocks/:stockId" component={Stock} />
+          <Route exact path="/login" component={LoginForm} />
+          <Route exact path="/register" component={RegisterForm} />
         </Switch>
         <Footer />
+        <ChatBot/>
       </Router>
     </ApolloProvider>
   );

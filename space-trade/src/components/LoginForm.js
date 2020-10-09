@@ -115,7 +115,7 @@ const LoginForm = () => {
                 localStorage.setItem('userId', data.login.user.id);
                 localStorage.setItem('name', data.login.user.fullname);
                 show = false;
-                window.history.back();
+                window.location.assign("http://space-trade.vercel.app/dashboard");
               }
               else {
                 setErrorState(data.login.error);
