@@ -29,7 +29,6 @@ const Logo = styled.img`
 `;
 
 function App() {
-  var userId = localStorage.getItem('userId');
   return (
     <ApolloProvider client={client}>
       <Router>
