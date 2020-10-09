@@ -1,49 +1,48 @@
-import React, {useState} from "react";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import * as React from "react";
+import styled from "styled-components";
+import { Container, Typography, TextField, Button } from "@material-ui/core";
+import logo from "../assets/logo.png";
+import { Formik } from "formik";
+import * as Yup from 'yup';
+import { useMutation } from "@apollo/react-hooks";
+import { gql } from "apollo-boost";
+import Row from 'react-bootstrap/Row'
+import Spinner from 'react-bootstrap/Spinner'
+import { withRouter } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
+import { green } from '@material-ui/core/colors';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    useRouteMatch,
+    useParams
+} from "react-router-dom";
+import {
+    fade,
+    ThemeProvider,
+    withStyles,
+    makeStyles,
+    createMuiTheme,
+} from '@material-ui/core/styles';
 
-function Home({name, url, url2, name2}) {
-    const userId = localStorage.getItem('userId') != null;
+const Logo = styled.img`
+  margin-top: 40%;
+  height: auto;
+  object-fit: contain;
+`;
 
-  return (
-    <nav className="header">
-      <div className="header__logo">
-        <h3>Space Trade jaja xD</h3>
-        <span className="header__line" />
-        <h6>ah ok</h6>
-      </div>
-      {userId == "" ? (
-        <ul className="header__menu">
-          <Link to={url}>
-            <li>
-              <button type="submit" className="header__button-login">
-                {name}
-              </button>
-            </li>
-          </Link>
-          <Link to={url2}>
-            <li>
-              <button type="submit" className="header__button-register">
-                {name2}
-              </button>
-            </li>
-          </Link>
-        </ul>
-      ) : (
-        <Link to="/dashboard">
-          <button type="submit" className="header__button-register">
-            DASHBOARD
-          </button>
-        </Link>
-      )}
-    </nav>
-  );
-}
-Home.propTypes = {
-  url: PropTypes.string,
-  url2: PropTypes.string,
-  name: PropTypes.string,
-  name2: PropTypes.string,
+const Home = () => {
+    return (
+        <Container maxWidth="sm">
+            <div style={{ textAlign: "center" }}>
+                <br />
+                <Logo src={logo} />
+                <br />
+            </div>
+        </Container>
+    );
 };
 
 export default Home;

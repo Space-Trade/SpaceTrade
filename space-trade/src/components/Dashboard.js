@@ -1,11 +1,15 @@
 import * as React from "react";
 import { Container } from "@material-ui/core";
+import Leftbar from "./elements/leftbar"
 
 const Dashboard = ({ }) => {
     return (
-        <Container maxWidth="md">
-            Dashboard
-        </Container>
+        <div>
+            <Leftbar />
+            <Container maxWidth="md">
+                Dashboard
+            </Container>
+        </div>
     );
 }
 
