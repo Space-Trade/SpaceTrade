@@ -38,7 +38,7 @@ const ThemedExample = () => (
         headerTitle="Trader AI"
         speechSynthesis={{ enable: false, lang: 'en' }}
         steps={steps} 
-        floating={true} />;
+        floating={true} />
   </ThemeProvider>
 );
 
