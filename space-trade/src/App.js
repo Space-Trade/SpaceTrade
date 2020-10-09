@@ -28,7 +28,6 @@ const Logo = styled.img`
   object-fit: contain;
 `;
 
-
 function App() {
   return (
     <ApolloProvider client={client}>
