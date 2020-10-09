@@ -31,6 +31,7 @@ const Logo = styled.img`
   margin-top: 40%;
   height: auto;
   object-fit: contain;
+  width: 100%
 `;
 
 const Home = () => {
