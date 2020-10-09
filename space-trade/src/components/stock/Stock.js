@@ -575,7 +575,7 @@ export default class Stock extends React.Component {
                     }
                 }.bind(this),
             );
-        document.title = `Trader24 - ${symbol}`;
+        document.title = `SpaceTrade - ${symbol}`;
         fetch(
             `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=pk_c4db94f67a0b42a1884238b690ab06db`,
         )

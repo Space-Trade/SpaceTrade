@@ -9,7 +9,7 @@ import RegisterForm from "./components/RegisterForm";
 import Welcome from "./components/Welcome";
 import MenuBar from "./components/MenuBar"
 import Home from "./components/Home"
-import Dashboard from "./components/Dashboard"
+import Dashboard from "./components/dashboard/Dashboard"
 import Stock from "./components/stock/Stock"
 import ChatBot from "./components/chatbot/chatbotTheme";
 import {
