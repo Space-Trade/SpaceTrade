@@ -171,11 +171,6 @@ export default class Stock extends React.Component {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
-    /*
-     * searches stocks
-     * @param {e} value to search for
-     */
-
     searchStocks(e) {
         let results = this.results.current;
         results.innerHTML = "";

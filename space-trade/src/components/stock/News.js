@@ -19,7 +19,7 @@ class News extends React.Component {
   }
   getLatestNews() {
     fetch(
-      `https://cloud.iexapis.com/stable/stock/${this.props.symbol}/news?token=${process.env.REACT_APP_API_KEY_2}`,
+      `https://cloud.iexapis.com/stable/stock/${this.props.symbol}/news?token=pk_f18effa11483431cb853a29c987140cf`,
     )
       .then(res => res.json())
       .then(result => {
