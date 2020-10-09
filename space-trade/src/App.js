@@ -28,7 +28,6 @@ const Logo = styled.img`
   object-fit: contain;
 `;
 
-
 function App() {
   var userId = localStorage.getItem('userId');
   return (
