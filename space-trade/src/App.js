@@ -10,7 +10,7 @@ import Welcome from "./components/Welcome";
 import MenuBar from "./components/MenuBar"
 import Home from "./components/Home"
 import Dashboard from "./components/Dashboard"
-import Stock from "./components/Stock"
+import Stock from "./components/stock/Stock"
 import ChatBot from "./components/chatbot/chatbotTheme";
 import {
   BrowserRouter as Router,
