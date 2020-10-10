@@ -36,21 +36,21 @@ let portfolioStocks = [],
     portfolioColor = [],
     portfolioMoneyPaid = [];
 
-function getValue(symbol) {
-    var symbolValue = 0;
+function getValue(symbol, amount) {
+    var symbolValue = 70;
     const percentageChange = `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=pk_d0e99ea2ee134a4f99d0a3ceb700336c`;
     if (typeof symbol !== "undefined") {
         fetch(percentageChange)
             .then(res => res.json())
-            .then(result => {
-                symbolValue = result["latestPrice"];
+            .then(res => {
+                symbolValue = res["latestPrice"]; // no esta seteando XD
             });
     }
-    return symbolValue;
+    return symbolValue ;
 }
 
-function getGain(currentValue, oldValue) {
-    let gain = ((currentValue * 100) / oldValue) / 100;
+function getGain(currentValue, oldValue, amount) {
+    let gain = ((currentValue * amount * 100) / (oldValue));
     return gain;
 }
 
@@ -587,8 +587,6 @@ class Dashboard extends React.Component {
 
         return (
             <section className="Dashboard" id="dashboard">
-                {balance}
-                {stocks[0].name}
                 <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
                     <div style={{ display: "flex", height: "auto" }}>
                         <div className="panel">
@@ -671,7 +669,8 @@ class Dashboard extends React.Component {
                                                                 <th>SYMBOL</th>
                                                                 <th>QUANTITY</th>
                                                                 <th>GAIN/LOSS (%)</th>
-                                                                <th>CURRENT VALUE</th>
+                                                                <th>BOUGHT PRICE</th>
+                                                                <th>CURRENT PRICE</th>
                                                                 <th></th>
                                                             </tr>
                                                             {stocks.map((value, index) => {
@@ -679,8 +678,9 @@ class Dashboard extends React.Component {
                                                                     <tr key={index}>
                                                                         <td>{value.name}</td>
                                                                         <td>{value.amount}</td>
-                                                                        <td>{getGain(getValue(value.name), value.price)}%</td>
-                                                                        <td>${getValue(value.name)}</td>
+                                                                        <td>{getGain(getValue(value.name), value.price, value.amount)}%</td>
+                                                                        <td>${value.price}</td>
+                                                                        <td>${getValue(value.name, value.amount)}</td>
                                                                         <td><button><h3 className="stockChart__name">Sell</h3></button></td>
                                                                     </tr>
                                                                 );
