@@ -138,15 +138,15 @@ export default class Stock extends React.Component {
         this.data1 = canvas => {
             const ctx = canvas.getContext("2d");
             const gradient = ctx.createLinearGradient(0, 0, 600, 10);
-            gradient.addColorStop(0, "#7c83ff");
-            gradient.addColorStop(1, "#7cf4ff");
+            gradient.addColorStop(0, "rgba(0, 255, 231, 0.5)");
+            gradient.addColorStop(1, "rgba(0, 255, 231, 1)");
             let gradientFill = ctx.createLinearGradient(0, 0, 0, 100);
             gradientFill.addColorStop(0, "rgba(124, 131, 255,.3)");
             gradientFill.addColorStop(0.2, "rgba(124, 244, 255,.15)");
             gradientFill.addColorStop(1, "rgba(255, 255, 255, 0)");
             ctx.shadowBlur = 5;
             ctx.shadowOffsetX = 0;
-            ctx.shadowOffsetY = 4;
+            ctx.shadowOffsetY = 10;
             return {
                 labels,
                 datasets: [

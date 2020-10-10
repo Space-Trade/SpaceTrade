@@ -37,20 +37,21 @@ let portfolioStocks = [],
     portfolioMoneyPaid = [];
 
 function getValue(symbol, amount) {
-    var symbolValue = 70;
+    var symbolValue = 90;
     const percentageChange = `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=pk_d0e99ea2ee134a4f99d0a3ceb700336c`;
     if (typeof symbol !== "undefined") {
         fetch(percentageChange)
             .then(res => res.json())
             .then(res => {
-                symbolValue = res["latestPrice"]; // no esta seteando XD
+				symbolValue = res.latestPrice;
+				console.log(res , symbolValue)
             });
     }
     return symbolValue ;
 }
 
 function getGain(currentValue, oldValue, amount) {
-    let gain = ((currentValue * amount * 100) / (oldValue));
+    let gain = ((currentValue * amount) / (oldValue));
     return gain;
 }
 
@@ -663,32 +664,32 @@ class Dashboard extends React.Component {
                                                 className="panel__portfolio"
                                                 ref={this.portfolio}
                                                 id="portfolio">
-                                                <div>
-                                                    <table className="panel__portfolio-list">
-                                                        <tbody>
+                                                    <table className="panel__portfolio-list" style={{borderSpacing: "15px"}}>
+														<thead>
                                                             <tr>
-                                                                <th>SYMBOL</th>
-                                                                <th>QUANTITY</th>
-                                                                <th>GAIN/LOSS (%)</th>
-                                                                <th>BOUGHT PRICE</th>
-                                                                <th>CURRENT PRICE</th>
+                                                                <th style={{textAlign: "left", paddingLeft: "10px"}}>SYMBOL</th>
+                                                                <th style={{textAlign: "right"}}>QUANTITY</th>
+                                                                <th style={{textAlign: "right", paddingRight: "15px"}}>GAIN/LOSS (%)</th>
+                                                                <th style={{textAlign: "left"}}>BOUGHT PRICE</th>
+                                                                <th style={{textAlign: "left"}}>CURRENT PRICE</th>
                                                                 <th></th>
                                                             </tr>
-                                                            {stocks.map((value, index) => {
+														</thead>
+                                                        <tbody>
+															{stocks.map((value, index) => {
                                                                 return (
                                                                     <tr key={index}>
-                                                                        <td>{value.name}</td>
-                                                                        <td>{value.amount}</td>
-                                                                        <td>{getGain(getValue(value.name), value.price, value.amount)}%</td>
-                                                                        <td>${value.price}</td>
-                                                                        <td>${getValue(value.name, value.amount)}</td>
-                                                                        <td><button><h3 className="stockChart__name">Sell x1</h3></button></td>
+                                                                        <td style={{textAlign: "left"}}>{value.name}</td>
+                                                                        <td style={{textAlign: "right"}}>{value.amount}</td>
+                                                                        <td style={{textAlign: "right", paddingRight: "15px"}}>{getGain(getValue(value.name), value.price, value.amount)}%</td>
+                                                                        <td style={{textAlign: "left"}}>${value.price}</td>
+                                                                        <td style={{textAlign: "left"}}>${getValue(value.name, value.amount)}</td>
+                                                                        <td><button style={{backgroundColor: "#35b660b5", margin: "5px", padding: "5px 15px", borderRadius: "15px", color: "rgba(255, 255, 255, 0.7)"}}>Sell</button></td>
                                                                     </tr>
                                                                 );
                                                             })}
                                                         </tbody>
                                                     </table>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
