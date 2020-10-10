@@ -168,7 +168,7 @@ export default function VerticalMenu() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static" style={{backgroundColor: "#37465c"}}>
+      <AppBar position="static" style={{ backgroundColor: "#37465c" }}>
         <Toolbar>
           <IconButton
             edge="start"
@@ -178,7 +178,7 @@ export default function VerticalMenu() {
           >
             <MenuIcon />
           </IconButton>
-		  <Logo src={logo} classes={classes.logo} />
+          <Logo src={logo} classes={classes.logo} />
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />

@@ -128,7 +128,6 @@ export default class Stock extends React.Component {
         this.years = React.createRef();
         this.ytd = React.createRef();
 
-        this.searchStocks = this.searchStocks.bind(this);
         this.changeFocus = this.changeFocus.bind(this);
         this.getYTDChart = this.getYTDChart.bind(this);
         this.getOneMonthChart = this.getOneMonthChart.bind(this);
@@ -170,44 +169,6 @@ export default class Stock extends React.Component {
 
     numberWithCommas(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
-
-    searchStocks(e) {
-        let results = this.results.current;
-        results.innerHTML = "";
-        let b = 0;
-        let filter = this.searchBarEl.current.value.toUpperCase();
-        if (e.key === "Enter") {
-            window.location = `/stocks/${filter}`;
-        }
-        if (filter.length === 0) {
-            results.innerHTML = "";
-            results.style.display = "none";
-        } else {
-            for (let i = 0; i < allSymbols.length; i++) {
-                let splitSymbol = allSymbols[parseInt(i)].symbol.split("");
-                let splitFilter = filter.split("");
-                for (let a = 0; a < splitFilter.length; a++) {
-                    if (
-                        allSymbols[parseInt(i)].symbol.indexOf(filter) > -1 &&
-                        splitSymbol[parseInt(a)] === splitFilter[parseInt(a)]
-                    ) {
-                        if (a === 0) {
-                            results.style.display = "flex";
-                            let el = document.createElement("li");
-                            el.innerHTML = `<li><a href="/stocks/${allSymbols[parseInt(i)].symbol
-                                }"><h4>${allSymbols[parseInt(i)].symbol}</h4><h6>${allSymbols[parseInt(i)].name
-                                }</h6></a></li>`;
-                            results.appendChild(el);
-                            b++;
-                        }
-                    }
-                }
-                if (b === 10) {
-                    break;
-                }
-            }
-        }
     }
 
     getOneDayChart() {
