@@ -474,7 +474,7 @@ class Dashboard extends React.Component {
                 });
 
             this.getGainers();
-            document.title = "SpaceTrade - Dashboard";
+            
             this.getStocksList();
 
             setTimeout(() => {

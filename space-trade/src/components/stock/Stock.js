@@ -652,7 +652,7 @@ export default class Stock extends React.Component {
                 setTimeout(() => {
                     if (this.isInArray(symbolsOnly, symbol)) {
                         if (this._isMounted) {
-                            this.setState({ valid: false });
+                            this.setState({ valid: true });
                         }
                         this.rendering();
                     } else if (this._isMounted) {
