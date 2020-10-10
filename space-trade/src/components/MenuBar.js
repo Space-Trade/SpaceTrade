@@ -168,7 +168,7 @@ export default function VerticalMenu() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
+      <AppBar position="static" style={{backgroundColor: "#37465c"}}>
         <Toolbar>
           <IconButton
             edge="start"

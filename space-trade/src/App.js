@@ -40,7 +40,6 @@ function App() {
           <Route exact path="/login" component={LoginForm} />
           <Route exact path="/register" component={RegisterForm} />
         </Switch>
-        <Footer />
         <ChatBot/>
       </Router>
     </ApolloProvider>
