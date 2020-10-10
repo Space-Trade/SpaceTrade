@@ -1,5 +1,5 @@
 import React from 'react';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -27,9 +27,14 @@ const useStyles = makeStyles((theme) => ({
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
+	backgroundColor: "rgba(200, 230, 255, 0.04)",
+	transition: "0.6s ease",
     '&:hover': {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
+      backgroundColor: "rgba(200, 230, 255, 0.1)",
+    },
+    '&:focus': {
+	  backgroundColor: "rgba(200, 230, 255, 0.6)",
+	  outline: "none"
     },
     marginRight: theme.spacing(2),
     marginLeft: 0,
