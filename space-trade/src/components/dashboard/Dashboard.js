@@ -682,7 +682,7 @@ class Dashboard extends React.Component {
                                                                         <td>{getGain(getValue(value.name), value.price, value.amount)}%</td>
                                                                         <td>${value.price}</td>
                                                                         <td>${getValue(value.name, value.amount)}</td>
-                                                                        <td><button><h3 className="stockChart__name">Sell</h3></button></td>
+                                                                        <td><button><h3 className="stockChart__name">Sell x1</h3></button></td>
                                                                     </tr>
                                                                 );
                                                             })}
