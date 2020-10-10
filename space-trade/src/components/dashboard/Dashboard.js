@@ -587,6 +587,7 @@ class Dashboard extends React.Component {
 
         return (
             <section className="Dashboard" id="dashboard">
+                {balance}
                 <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
                     <div style={{ display: "flex", height: "auto" }}>
                         <div className="panel">

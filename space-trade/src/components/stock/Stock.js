@@ -595,7 +595,7 @@ export default class Stock extends React.Component {
                 }
             });
         fetch(
-            `https://cloud.iexapis.com/stable/ref-data/symbols?token=pk_c4db94f67a0b42a1884238b690ab06db`,
+            `https://cloud.iexapis.com/stable/ref-data/symbols?token=pk_d0e99ea2ee134a4f99d0a3ceb700336c`,
         )
             .then(res => res.json())
             .then(result => {
@@ -711,33 +711,14 @@ export default class Stock extends React.Component {
                                     <h5>Buy {symbol}</h5>
                                     <div className="stockPage__buy-container">
                                         <input
-                                            autoCorrect="off"
-                                            autoCapitalize="off"
-                                            spellCheck="false"
                                             className="stockPage__buy-input"
-                                            ref={this.buyInput}
                                             id="buy-input"
                                             type="number"
-                                            disabled
                                         />
                                         <button onClick={function () {
-                                            let value = this.buyInput.current.value;
-                                            if (
-                                                value.length > 0 &&
-                                                value > 0 &&
-                                                value * this.state.latestPrice <=
-                                                this.state.fundsWithoutCommas &&
-                                                this.state.marketStatus &&
-                                                this._isMounted
-                                            ) {
-                                                this.setState({
-                                                    buyConfirmation: true,
-                                                });
-                                            } else {
-                                                this.buyInput.current.style.border =
-                                                    "solid 1px #f45485";
-                                            }
-                                        }.bind(this)}
+                                            localStorage.setItem('balance', localStorage.getItem('balance') - 10); // localStorage.getItem('balance') - latestPrice * cantidad del input 
+                                            console.log(localStorage.getItem('balance'));
+                                        }}
                                             className="stockPage__buy-button"> BUY
                                             </button>
                                     </div>
