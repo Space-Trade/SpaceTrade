@@ -2,7 +2,8 @@ import React from "react";
 import { Line } from "react-chartjs-2";
 import PropTypes from "prop-types";
 import { makeStyles } from '@material-ui/core/styles';
-import Loader from "../elements/Loader";
+import CircularProgress from '@material-ui/core/CircularProgress';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 const useStyles = makeStyles((theme) => ({
 	stockChart: {
@@ -24,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
   
-Chart.propTypes = {
+StockCard.propTypes = {
 	loader: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
 	stockSymbol: PropTypes.string,
 	stockPrice: PropTypes.string,
@@ -41,7 +42,7 @@ var options = {
   hover: {mode: null},
   layout: {
     padding: {
-      bottom: 15,
+      bottom: 0,
     },
   },
   legend: {
@@ -71,7 +72,7 @@ var options = {
   },
 };
 
-export default function Chart({
+export default function StockCard({
   loader,
   stockSymbol,
   stockChange,
@@ -82,16 +83,11 @@ export default function Chart({
 	const classes = useStyles();
 	return(
 		<div className={classes.stockChart}>
-			{loader === "" && <Loader />}
+			{loader === "" && <CircularProgress/>}
 			{loader === false && (
-			<div className="errorMsg">
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-				<g>
-					<path fill="none" d="M0 0h24v24H0z" />
-					<path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-1-5h2v2h-2v-2zm0-8h2v6h-2V7z" />
-				</g>
-				</svg>
-				<p>Couldn't load chart try again in few minutes</p>
+			<div className="errorMsg" style={{color: "rgba(255, 255, 255, 0.5)"}}>
+				<ErrorOutlineIcon style={{ fontSize: 80}}/>
+				<p>Couldn't load :(</p>
 			</div>
 			)}
 			{loader === true && (
@@ -103,7 +99,7 @@ export default function Chart({
 			<div className="stockChart__info">
 				<h3 className="stockChart__name">{stockSymbol}</h3>
 				<div className="stockChart__price-info">
-				<h4 className="stockChart__change" style={{color: changesColor}}>
+				<h4 className="stockChart__change" style={{color: changesColor, textShadow: `0px 0px 5px ${changesColor}80`}}>
 					{stockChange}%
 				</h4>
 				<h3 className="stockChart__price">${stockPrice}</h3>
