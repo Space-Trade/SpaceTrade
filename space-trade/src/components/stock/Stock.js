@@ -715,10 +715,19 @@ export default class Stock extends React.Component {
                                             id="buy-input"
                                             type="number"
                                         />
-                                        <button onClick={function () {
+                                        <button onClick={function () { // ajaj xd
                                             var result = localStorage.getItem('balance') - document.getElementById("buy-input").value;
-                                            if (result > 0) {
+                                            if (result >= 0) {
                                                 localStorage.setItem('balance', localStorage.getItem('balance') - document.getElementById("buy-input").value); // localStorage.getItem('balance') - latestPrice * cantidad del input 
+                                                localStorage.getItem('balance')
+
+                                                let transaction = {
+                                                    "name": "GOOGL",
+                                                    "amount": 10,
+                                                    "price": 100
+                                                };
+                                                const stocks = JSON.parse(localStorage.getItem('stocks'));
+                                                stocks.push(transaction);
                                             } else {
                                                 alert("You bought " + document.getElementById("buy-input").value + " shares!");
                                             }
