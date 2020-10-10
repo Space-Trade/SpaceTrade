@@ -2,7 +2,6 @@ import React from 'react';
 import { ThemeProvider } from 'styled-components';
 import ChatBot from 'react-simple-chatbot';
 
-// all available props
 const theme = {
   background: '#f5f8fb',
   headerBgColor: '#37465c',

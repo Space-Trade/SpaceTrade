@@ -16,6 +16,8 @@ import AccountCircleRounded from '@material-ui/icons/AccountCircleRounded';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import Button from '@material-ui/core/Button';
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -194,6 +196,13 @@ export default function VerticalMenu() {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
+            <Link to="/login" style={{ color: '#FFF' }} >
+              <Button color="inherit">Login</Button>
+            </Link>
+            <Link to="/register" style={{ color: '#FFF' }} >
+              <Button color="inherit">Register</Button>
+            </Link>
+
             <IconButton aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <MailIcon />
