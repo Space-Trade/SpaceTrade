@@ -2,23 +2,11 @@ import * as React from "react";
 import styled from "styled-components";
 import logo from "../assets/logo.png";
 import { Container, Typography, TextField, Button } from "@material-ui/core";
-import * as Yup from 'yup';
-import { useMutation } from "@apollo/react-hooks";
 import Grid from '@material-ui/core/Grid';
+import { Link } from "react-router-dom";
 import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useRouteMatch,
-  useParams
-} from "react-router-dom";
-import {
-  fade,
-  ThemeProvider,
   withStyles,
-  makeStyles,
-  createMuiTheme,
+  makeStyles
 } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({

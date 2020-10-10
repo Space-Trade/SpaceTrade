@@ -2,7 +2,6 @@ import * as React from "react";
 import styled from "styled-components";
 import { Container, Typography, TextField, Button } from "@material-ui/core";
 import logo from "../assets/logo.png";
-import * as Yup from 'yup';
 import { withRouter } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import { green } from '@material-ui/core/colors';
