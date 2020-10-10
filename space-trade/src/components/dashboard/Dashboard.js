@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { relDiff, numberWithCommas } from "../helpers.js";
-import Loader from "../elements/Loader";
-import Chart from "./Chart.js";
+import CircularProgress from '@material-ui/core/CircularProgress';
+import StockCard from "./StockCard.js";
 
 const apiKeys = [
     "OYMIDLPTGY6CAMP0",
@@ -74,7 +74,7 @@ class Dashboard extends React.Component {
         this.chartSecond = React.createRef();
 
         function labelGen(length) {
-            let result = 0;
+            let result = "0";
             for (let i = 1; i < length; i++) {
                 result = result + "," + i;
             }
@@ -311,11 +311,11 @@ class Dashboard extends React.Component {
                                                 stockListChange[parseInt(i)] = "---";
                                             }
                                             if (Math.sign(stockListChange[parseInt(i)]) === -1) {
-                                                stockListChangeColors[parseInt(i)] = "rgb(244,84,133";
+                                                stockListChangeColors[parseInt(i)] = "rgb(255, 77, 77";
                                             } else if (
                                                 Math.sign(stockListChange[parseInt(i)]) === 1
                                             ) {
-                                                stockListChangeColors[parseInt(i)] = "rgb(102,249,218";
+                                                stockListChangeColors[parseInt(i)] = "rgb(51, 255, 133";
                                                 stockListChange[parseInt(i)] =
                                                     "+" + stockListChange[parseInt(i)];
                                                 if (
@@ -561,9 +561,9 @@ class Dashboard extends React.Component {
     render() {
         for (let i = 0; i < stockSymbols.length; i++) {
             if (Math.sign(stockChanges[parseInt(i)]) === -1) {
-                changesColors[parseInt(i)] = "#f45485";
+                changesColors[parseInt(i)] = "#ff4d4d";
             } else if (Math.sign(stockChanges[parseInt(i)]) === 1) {
-                changesColors[parseInt(i)] = "#66f9da";
+                changesColors[parseInt(i)] = "#33ff85";
                 stockChanges[parseInt(i)] = "+" + stockChanges[parseInt(i)];
                 if (
                     stockChanges[parseInt(i)].charAt(0) === "+" &&
@@ -636,7 +636,7 @@ class Dashboard extends React.Component {
                                             id="chartFirst"
                                             href="/"
                                             className="chartLink">
-                                            <Chart
+                                            <StockCard
                                                 loader={this.state.loader1}
                                                 data={this.data1}
                                                 stockSymbol={stockSymbols[0]}
@@ -650,7 +650,7 @@ class Dashboard extends React.Component {
                                             id="chartSecond"
                                             href="/"
                                             className="chartLink">
-                                            <Chart
+                                            <StockCard
                                                 loader={this.state.loader1}
                                                 data={this.data2}
                                                 stockSymbol={stockSymbols[1]}
@@ -839,7 +839,7 @@ class Dashboard extends React.Component {
                                         </div>
                                     </div>
                                 )}{" "}
-                                {this.state.loader3 === "" && <Loader />}
+                                {this.state.loader3 === "" && <CircularProgress style={{position: "absolute", left: "50%", top: "50%"}}/>}
                                 {this.state.loader3 === false && (
                                     <div className="errorMsg">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
