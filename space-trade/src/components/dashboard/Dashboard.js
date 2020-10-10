@@ -36,6 +36,24 @@ let portfolioStocks = [],
     portfolioColor = [],
     portfolioMoneyPaid = [];
 
+function getValue(symbol) {
+    var symbolValue = 0;
+    const percentageChange = `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=pk_d0e99ea2ee134a4f99d0a3ceb700336c`;
+    if (typeof symbol !== "undefined") {
+        fetch(percentageChange)
+            .then(res => res.json())
+            .then(result => {
+                symbolValue = result["latestPrice"];
+            });
+    }
+    return symbolValue;
+}
+
+function getGain(currentValue, oldValue) {
+    let gain = ((currentValue * 100) / oldValue) / 100;
+    return gain;
+}
+
 class Dashboard extends React.Component {
     _isMounted = false;
     constructor(props) {
@@ -474,7 +492,7 @@ class Dashboard extends React.Component {
                 });
 
             this.getGainers();
-            
+
             this.getStocksList();
 
             setTimeout(() => {
@@ -564,8 +582,13 @@ class Dashboard extends React.Component {
                     "0px 30px 20px 0px rgba(0,0,0,0.10)";
             }
         }
+        const balance = localStorage.getItem('balance');
+        const stocks = JSON.parse(localStorage.getItem('stocks'));
+
         return (
             <section className="Dashboard" id="dashboard">
+                {balance}
+                {stocks[0].name}
                 <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
                     <div style={{ display: "flex", height: "auto" }}>
                         <div className="panel">
@@ -649,13 +672,19 @@ class Dashboard extends React.Component {
                                                                 <th>QUANTITY</th>
                                                                 <th>GAIN/LOSS (%)</th>
                                                                 <th>CURRENT VALUE</th>
+                                                                <th></th>
                                                             </tr>
-                                                            <tr>
-                                                                <td>AAPL</td>
-                                                                <td>1</td>
-                                                                <td>-74.73%</td>
-                                                                <td>$116.94</td>
-                                                            </tr>
+                                                            {stocks.map((value, index) => {
+                                                                return (
+                                                                    <tr key={index}>
+                                                                        <td>{value.name}</td>
+                                                                        <td>{value.amount}</td>
+                                                                        <td>{getGain(getValue(value.name), value.price)}%</td>
+                                                                        <td>${getValue(value.name)}</td>
+                                                                        <td><button><h3 className="stockChart__name">Sell</h3></button></td>
+                                                                    </tr>
+                                                                );
+                                                            })}
                                                         </tbody>
                                                     </table>
                                                 </div>

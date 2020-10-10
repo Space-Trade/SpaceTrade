@@ -101,7 +101,10 @@ const LoginForm = () => {
                 </Link>
               </Grid>
               <Grid item>
-                <Link to="/register">
+                <Link to={{
+                  pathname: "/register",
+                  state: { hola: true }
+                }} >
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
