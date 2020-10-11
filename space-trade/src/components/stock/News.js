@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Loader from "../elements/Loader";
+import CircularProgress from '@material-ui/core/CircularProgress';
+import {keyList} from "../../data/apiKeys"
 
 let newsDate = [];
 let newsHeadline = [];
@@ -20,7 +21,7 @@ class News extends React.Component {
 
   getLatestNews() {
     fetch(
-      `https://cloud.iexapis.com/stable/stock/${this.props.symbol}/news?token=pk_c4db94f67a0b42a1884238b690ab06db`,
+      `https://cloud.iexapis.com/stable/stock/${this.props.symbol}/news?token=${keyList[4]}`,
     )
       .then(res => res.json())
       .then(result => {
@@ -98,7 +99,7 @@ class News extends React.Component {
             <h3>Sorry, we couldn't find any related news.</h3>
           </div>
         )}
-        {this.state.loading && <Loader />}
+        {this.state.loading && <CircularProgress style={{position: "absolute", top: "50%", left: "50%"}}/>}
       </div>
     );
   }
