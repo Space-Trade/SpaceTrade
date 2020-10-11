@@ -629,7 +629,7 @@ export default class Stock extends React.Component {
 
     render() {
         return (
-            <section className="stock">
+            <main className="stock">
                 {this.state.buyConfirmation === true && <div className="black-bg" />}
                 {this.state.buyConfirmation === true && (
                     <div className="buyConfirmation">
@@ -667,7 +667,6 @@ export default class Stock extends React.Component {
                 )}
                 {this.state.valid === "" && <CircularProgress style={{position: "absolute", top: "50%", left: "50%"}}/>}
                 {this.state.valid && (
-                    <div style={{ display: "flex", height: "100%" }}>
                         <div className="stockPage">
                             <div className="stockPage__top">
                                 <FullChart
@@ -745,9 +744,8 @@ export default class Stock extends React.Component {
                                 </div>
                             </div>
                         </div>
-                    </div>
                 )}
-            </section>
+            </main>
         );
     }
 }

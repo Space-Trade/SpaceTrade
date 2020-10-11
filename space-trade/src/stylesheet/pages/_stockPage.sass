@@ -24,51 +24,15 @@ input[type=number]
     -webkit-transform: translate(-50%, -50%) scale(1)
     transform: translate(-50%, -50%) scale(1)
 
-.light
-    .stockPage
-        background-color: $light-panel-color
-        &__keyStats h3
-            color: #3a1414
-        &__timers h6
-            background-color: $light-elements-color !important
-            color: #3a1414
-            &:hover
-                background-color: $light-inactive-color !important
-        .active
-            background-color: $light-inactive-color!important
-        &__trade-top h2, &__trade h5
-            color: #3a1414
-        &__buy-input
-            background-color: $light-elements-color !important
-            border: 1px $light-elements-color solid !important
-            color: #3a1414 !important
-    .article
-        background-color: $light-elements-color!important
-        &__content
-            color: #3a1414
-        &__top
-            h6
-                color: $light-inactive-color
-    .Key-info__info
-        h4
-            color: #3a1414!important
-        h3
-            color: $main-color!important
-    .buyConfirmation
-        background-color: white!important
-        h3
-            color: #3a1414 !important
-      
-
-
 .stock
     width: 100%
-    height: 100%
     overflow: hidden
+    height: 90%
 .stockPage
-    width: 97%
-    padding: 3%
-    padding-top: 2%
+    width: 100%
+    height: 100%
+    padding: 10px
+    padding-top: 25px
     display: flex
     flex-direction: column 
     @media only screen and (max-width: 600px)
@@ -97,7 +61,7 @@ input[type=number]
         width: 100%
     &__timers
         position: absolute
-        top: -20px
+        top: 0px
         right: 20px
         color: white
         transition: all .5s
@@ -199,22 +163,31 @@ input[type=number]
 
 .stockPage__keyStats
     width: 100%
-    height: 55%
-    display: flex
+    height: 40%
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
     @media only screen and (max-width: 900px)
         height: 40%
     .stockPage__headings
         display: flex
         justify-content: space-between
+
         h3:nth-child(2)
             margin-right: 200px
-    .Key-info
+
+    .info
         width: 50%
+        margin-top: 50px;
+        @media only screen and (max-width: 900px)
+            width: 100%
+
+    .Key-info
+        width: 100%
         height: 100%
         display: flex
         flex-direction: column
-        @media only screen and (max-width: 750px)
-            width: 100%
         @media only screen and (max-width: 900px)
             h3
                 margin-bottom: 0
@@ -253,23 +226,13 @@ input[type=number]
             margin-right: 10px
             fill: $main-color
     .news
+        margin-top: 50px;
         width: 50%
         display: flex
         flex-direction: column
-        height: 100%    
-        &__articles
-            margin-top: -15px
-            position: relative
-        &__articles a:last-child
-            @media only screen and (max-width: 900px)
-                display: none
-            @media only screen and (max-height: 650px)
-                display: none
-        @media only screen and (max-width: 750px)
-            display: none
-        @media only screen and (max-height: 480px)
-            a:nth-child(2)
-                display: none
+        // &__articles a:last-child
+        @media only screen and (max-width: 900px)
+            width: 100%
         &__nothing
             display: flex
             justify-content: center
