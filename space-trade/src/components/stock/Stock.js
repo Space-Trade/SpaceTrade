@@ -73,6 +73,8 @@ var options = {
     },
 };
 
+const API_KEY = keyList[0];
+
 const apiKeys = [
     "SAOS0Y8B63XM4DPK",
     "4LPH6E70R1XQR2L5",
@@ -137,15 +139,15 @@ export default class Stock extends React.Component {
         this.data1 = canvas => {
             const ctx = canvas.getContext("2d");
             const gradient = ctx.createLinearGradient(0, 0, 600, 10);
-            gradient.addColorStop(0, "rgba(0, 255, 231, 0.5)");
-            gradient.addColorStop(1, "rgba(0, 255, 231, 1)");
+            gradient.addColorStop(0, "rgb(108, 148, 213)");
+            gradient.addColorStop(1, "rgb(91, 207, 220)");
             let gradientFill = ctx.createLinearGradient(0, 0, 0, 100);
-            gradientFill.addColorStop(0, "rgba(124, 131, 255,.3)");
-            gradientFill.addColorStop(0.2, "rgba(124, 244, 255,.15)");
-            gradientFill.addColorStop(1, "rgba(255, 255, 255, 0)");
+            gradientFill.addColorStop(0.1, "rgba(108, 148, 213, 0.2)");
+			gradientFill.addColorStop(0.9, "rgb(91, 207, 220, 0)")
+            // ctx.shadowColor = "rgba(56, 162, 173, 0.7)";
             ctx.shadowBlur = 5;
             ctx.shadowOffsetX = 0;
-            ctx.shadowOffsetY = 10;
+			ctx.shadowOffsetY = 0;
             return {
                 labels,
                 datasets: [
@@ -256,7 +258,7 @@ export default class Stock extends React.Component {
         labels = [];
         chartData1 = [];
         if (ytdChart.length === 0) {
-            const stockApi = `https://cloud.iexapis.com/beta/stock/${symbol}/batch?token=${keyList[2]}&types=chart,quote&range=ytd`;
+            const stockApi = `https://cloud.iexapis.com/beta/stock/${symbol}/batch?token=${API_KEY}&types=chart,quote&range=ytd`;
             fetch(stockApi)
                 .then(res => res.json())
                 .then(result => {
@@ -293,7 +295,7 @@ export default class Stock extends React.Component {
         labels = [];
         chartData1 = [];
         if (oneYear.length === 0) {
-            const stockApi = `https://cloud.iexapis.com/beta/stock/${symbol}/batch?token=${keyList[2]}&types=chart,quote&range=1y`;
+            const stockApi = `https://cloud.iexapis.com/beta/stock/${symbol}/batch?token=${API_KEY}&types=chart,quote&range=1y`;
             fetch(stockApi)
                 .then(res => res.json())
                 .then(result => {
@@ -329,7 +331,7 @@ export default class Stock extends React.Component {
         labels = [];
         chartData1 = [];
         if (twoYears.length === 0) {
-            const stockApi = `https://cloud.iexapis.com/beta/stock/${symbol}/batch?token=${keyList[2]}&types=chart,quote&range=2y`;
+            const stockApi = `https://cloud.iexapis.com/beta/stock/${symbol}/batch?token=${API_KEY}&types=chart,quote&range=2y`;
             fetch(stockApi)
                 .then(res => res.json())
                 .then(result => {
@@ -365,7 +367,7 @@ export default class Stock extends React.Component {
         labels = [];
         chartData1 = [];
         if (oneMonth.length === 0) {
-            const stockApi = `https://cloud.iexapis.com/beta/stock/${symbol}/batch?token=${keyList[2]}&types=chart,quote&range=1m`;
+            const stockApi = `https://cloud.iexapis.com/beta/stock/${symbol}/batch?token=${API_KEY}&types=chart,quote&range=1m`;
             fetch(stockApi)
                 .then(res => res.json())
                 .then(result => {
@@ -460,7 +462,7 @@ export default class Stock extends React.Component {
 
     rendering() {
         fetch(
-            `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=${keyList[2]}`,
+            `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=${API_KEY}`,
         )
             .then(res => res.json())
             .then(result => {
@@ -537,7 +539,7 @@ export default class Stock extends React.Component {
             );
         document.title = `SpaceTrade - ${symbol}`;
         fetch(
-            `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=${keyList[2]}`,
+            `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=${API_KEY}`,
         )
             .then(res => res.json())
             .then(result => {
@@ -551,7 +553,7 @@ export default class Stock extends React.Component {
                 if (this.state.marketStatus) {
                     setInterval(() => {
                         fetch(
-                            `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=${keyList[2]}`,
+                            `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=${API_KEY}`,
                         )
                             .then(res => res.json())
                             .then(result => {
@@ -594,7 +596,7 @@ export default class Stock extends React.Component {
                 }
             });
         fetch(
-            `https://cloud.iexapis.com/stable/ref-data/symbols?token=${keyList[2]}`,
+            `https://cloud.iexapis.com/stable/ref-data/symbols?token=${API_KEY}`,
         )
             .then(res => res.json())
             .then(result => {

@@ -131,77 +131,77 @@ class Dashboard extends React.Component {
         };
 		////////////////////////////////////////////////////////////////////////////////////
     }
-	getAccountInfo() {
-		let user = firebase.auth().currentUser.uid;
-		let i = 0;
+	// getAccountInfo() {
+	// 	let user = firebase.auth().currentUser.uid;
+	// 	let i = 0;
 	
-		portfolioStocks = [];
-		portfolioValue = [];
-		portfolioShares = [];
-		portfolioMoneyPaid = [];
-		portfolioDifference = [];
-		portfolioColor = [];
-		firebase
-		  .firestore()
-		  .collection("users")
-		  .doc(user)
-		  .collection("stocks")
-		  .get()
-		  .then(snapshot => {
-			if (snapshot.docs.length !== 0 && portfolioDifference.length === 0) {
-			  snapshot.forEach(doc => {
-				if (portfolioStocks.length < 4) {
-				  portfolioStocks.push(doc.data().symbol);
-				  portfolioShares.push(doc.data().shares);
-				  portfolioMoneyPaid.push(parseFloat(doc.data().moneyPaid));
-				  this.getLatestPrice(portfolioStocks[parseInt(i)], i);
-				  i++;
-				}
-			  });
-			} else if (this._isMounted && portfolioStocks.length === 0) {
-			  this.setState({
-				portfolioLoader: "nothing",
-			  });
-			}
-		  })
-		  .then(() => {
-			if (this.portfolio.current && portfolioStocks.length > 0) {
-			  this.portfolio.current.style.display = "block";
-			}
-		  })
-		  .then(() => {
-			setTimeout(() => {
-			  let val = portfolioValue.reduce((a, b) => Number(a) + Number(b), 0);
-			  if (this._isMounted) {
-				this.setState({
-				  accountValue:
-					"$" +
-					numberWithCommas(
-					  Number(val) + Number(this.state.fundsWithoutCommas),
-					),
-				});
-			  }
-			}, 1300);
-		  })
-		  .then(() => {
-			if (portfolioStocks.length > 0) {
-			  setTimeout(() => {
-				if (this._isMounted) {
-				  this.setState({
-					portfolioLoader: true,
-				  });
-				}
-			  }, 1200);
-			}
-		  })
-		  .catch(error => {
-			if (this._isMounted) {
-			  this.setState({
-				portfolioLoader: false,
-			  });
-			}
-		  });
-	  }
+	// 	portfolioStocks = [];
+	// 	portfolioValue = [];
+	// 	portfolioShares = [];
+	// 	portfolioMoneyPaid = [];
+	// 	portfolioDifference = [];
+	// 	portfolioColor = [];
+	// 	firebase
+	// 	  .firestore()
+	// 	  .collection("users")
+	// 	  .doc(user)
+	// 	  .collection("stocks")
+	// 	  .get()
+	// 	  .then(snapshot => {
+	// 		if (snapshot.docs.length !== 0 && portfolioDifference.length === 0) {
+	// 		  snapshot.forEach(doc => {
+	// 			if (portfolioStocks.length < 4) {
+	// 			  portfolioStocks.push(doc.data().symbol);
+	// 			  portfolioShares.push(doc.data().shares);
+	// 			  portfolioMoneyPaid.push(parseFloat(doc.data().moneyPaid));
+	// 			  this.getLatestPrice(portfolioStocks[parseInt(i)], i);
+	// 			  i++;
+	// 			}
+	// 		  });
+	// 		} else if (this._isMounted && portfolioStocks.length === 0) {
+	// 		  this.setState({
+	// 			portfolioLoader: "nothing",
+	// 		  });
+	// 		}
+	// 	  })
+	// 	  .then(() => {
+	// 		if (this.portfolio.current && portfolioStocks.length > 0) {
+	// 		  this.portfolio.current.style.display = "block";
+	// 		}
+	// 	  })
+	// 	  .then(() => {
+	// 		setTimeout(() => {
+	// 		  let val = portfolioValue.reduce((a, b) => Number(a) + Number(b), 0);
+	// 		  if (this._isMounted) {
+	// 			this.setState({
+	// 			  accountValue:
+	// 				"$" +
+	// 				numberWithCommas(
+	// 				  Number(val) + Number(this.state.fundsWithoutCommas),
+	// 				),
+	// 			});
+	// 		  }
+	// 		}, 1300);
+	// 	  })
+	// 	  .then(() => {
+	// 		if (portfolioStocks.length > 0) {
+	// 		  setTimeout(() => {
+	// 			if (this._isMounted) {
+	// 			  this.setState({
+	// 				portfolioLoader: true,
+	// 			  });
+	// 			}
+	// 		  }, 1200);
+	// 		}
+	// 	  })
+	// 	  .catch(error => {
+	// 		if (this._isMounted) {
+	// 		  this.setState({
+	// 			portfolioLoader: false,
+	// 		  });
+	// 		}
+	// 	  });
+	//   }
     getChart(dataChart, symbol, callback) {
         let b = 0;
         const stockApi = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=1min&apikey=${apiKeys[0]}`;
