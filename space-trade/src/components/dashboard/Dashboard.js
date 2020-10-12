@@ -58,7 +58,7 @@ function getGain(currentValue, oldValue, amount) {
 }
 
 class Dashboard extends React.Component {
-    _isMounted = false;
+    didLoad = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -305,7 +305,7 @@ class Dashboard extends React.Component {
 				}
 			}
 		}
-		if (this._isMounted) {
+		if (this.didLoad) {
 			this.setState({
 				loader3: true,
 			});
@@ -380,13 +380,13 @@ class Dashboard extends React.Component {
 		// 						typeof stockPrices[0] !== "undefined" &&
 		// 						chartData1.length >= 2 &&
 		// 						firstChart &&
-		// 						this._isMounted
+		// 						this.didLoad
 		// 					) {
 		// 						this.setState({
 		// 							loader1: true,
 		// 						});
 		// 						firstChart.href = "/stocks/" + stockSymbols[0];
-		// 					} else if (this._isMounted) {
+		// 					} else if (this.didLoad) {
 		// 						this.setState({
 		// 							loader1: false,
 		// 						});
@@ -414,13 +414,13 @@ class Dashboard extends React.Component {
 							typeof stockPrices[0] !== "undefined" &&
 							chartData1.length >= 2 &&
 							firstChart &&
-							this._isMounted
+							this.didLoad
 						) {
 							this.setState({
 								loader1: true,
 							});
 							firstChart.href = "/stocks/" + stockSymbols[0];
-						} else if (this._isMounted) {
+						} else if (this.didLoad) {
 							this.setState({
 								loader1: false,
 							});
@@ -446,13 +446,13 @@ class Dashboard extends React.Component {
 							typeof stockChanges[1] !== "undefined" &&
 							typeof stockPrices[1] !== "undefined" &&
 							chartData2.length >= 2 &&
-							this._isMounted
+							this.didLoad
 						) {
 							this.setState({
 								loader2: true,
 							});
 							secondChart.href = "/stocks/" + stockSymbols[1];
-						} else if (this._isMounted) {
+						} else if (this.didLoad) {
 							this.setState({
 								loader2: false,
 							});
@@ -462,31 +462,26 @@ class Dashboard extends React.Component {
 				}, 100);
 			},
 		);
-    }
+	}
+	getMarketStatus = async () => {
+		const marketOpenUrl = "https://financialmodelingprep.com/api/v3/is-the-market-open";
+		const marketOpenResponse = await fetch(marketOpenUrl);
+		const marketOpenObj = await marketOpenResponse.json();
+		return marketOpenObj.isTheStockMarketOpen
+	}
 
     componentDidMount() {
-        this._isMounted = true;
 
-        if (this._isMounted) {
-            fetch("https://financialmodelingprep.com/api/v3/is-the-market-open")
-                .then(res => res.json())
-                .then(result => {
-                    if (this._isMounted) {
-                        this.setState({
-                            marketStatus: result.isTheStockMarketOpen,
-                        });
-                    }
-                });
-
-            this.getGainers();
-
-            this.getStocksList();
-
-        }
+		this.didLoad = true;
+		this.setState({
+			marketStatus: this.getMarketStatus()
+		});
+        this.getGainers();
+        this.getStocksList();
     }
 
     componentWillUnmount() {
-        this._isMounted = false;
+        this.didLoad = false;
     }
 
     render() {
