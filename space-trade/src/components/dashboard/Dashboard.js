@@ -37,16 +37,17 @@ let portfolioStocks = [],
     portfolioColor = [],
     portfolioMoneyPaid = [];
 
-function getValue(symbol, amount) {
+const getValue = async (symbol, amount) => {
     var symbolValue = 90;
     const percentageChange = `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=${keyList[1]}`;
     if (typeof symbol !== "undefined") {
-        fetch(percentageChange)
-            .then(res => res.json())
-            .then(res => {
-				symbolValue = res.latestPrice;
-				console.log(res , symbolValue)
-            });
+		const responseRetrived = await fetch(percentageChange);
+		const responseObj = await responseRetrived.json();
+		console.log(responseObj)
+            // .then(res => {
+			// 	symbolValue = res.latestPrice;
+			// 	console.log(res , symbolValue)
+            // });
     }
     return symbolValue ;
 }
@@ -81,24 +82,28 @@ class Dashboard extends React.Component {
                 result = result + "," + i;
             }
             return result.split(",");
-        }
-
-        this.data1 = canvas => {
+		}
+		const setChartStyle = (canvas) => {
             const ctx = canvas.getContext("2d");
             const gradient = ctx.createLinearGradient(0, 0, 600, 10);
-            gradient.addColorStop(0, "#7c83ff");
-            gradient.addColorStop(1, "#7cf4ff");
+            gradient.addColorStop(0, "rgb(108, 148, 213)");
+            gradient.addColorStop(1, "rgb(91, 207, 220)");
             let gradientFill = ctx.createLinearGradient(0, 0, 0, 100);
-            gradientFill.addColorStop(0.1, "rgba(124, 131, 255,.3)");
-            if (this.state.theme === "dark") {
-                gradientFill.addColorStop(0.8, "rgba(55, 58, 70, 0)");
-            } else if (this.state.theme === "light") {
-                gradientFill.addColorStop(0.8, "rgba(255, 255, 255, 0)");
-            }
-            ctx.shadowColor = "rgba(124, 131, 255,.3)";
+            gradientFill.addColorStop(0.1, "rgba(108, 148, 213, 0.2)");
+			gradientFill.addColorStop(0.9, "rgb(91, 207, 220, 0)")
+            ctx.shadowColor = "rgba(56, 162, 173, 0.7)";
             ctx.shadowBlur = 5;
             ctx.shadowOffsetX = 0;
-            ctx.shadowOffsetY = 4;
+			ctx.shadowOffsetY = 0;
+			return {
+				gradient: gradient,
+				gradientFill: gradientFill
+			}
+		}
+
+        this.data1 = canvas => {
+			const chartStyle = setChartStyle(canvas);
+			const {gradient, gradientFill} = chartStyle;
             return {
                 labels: labelGen(chartData1.length),
                 datasets: [
@@ -118,21 +123,8 @@ class Dashboard extends React.Component {
             };
         };
         this.data2 = canvas => {
-            const ctx = canvas.getContext("2d");
-            const gradient = ctx.createLinearGradient(0, 0, 600, 10);
-            gradient.addColorStop(0, "#7c83ff");
-            gradient.addColorStop(1, "#7cf4ff");
-            let gradientFill = ctx.createLinearGradient(0, 0, 0, 100);
-            gradientFill.addColorStop(0.1, "rgba(124, 131, 255,.3)");
-            if (this.state.theme === "dark") {
-                gradientFill.addColorStop(0.8, "rgba(55, 58, 70, 0)");
-            } else if (this.state.theme === "light") {
-                gradientFill.addColorStop(0.8, "rgba(255, 255, 255, 0)");
-            }
-            ctx.shadowColor = "rgba(124, 131, 255,.3)";
-            ctx.shadowBlur = 5;
-            ctx.shadowOffsetX = 0;
-            ctx.shadowOffsetY = 4;
+			const chartStyle = setChartStyle(canvas);
+			const {gradient, gradientFill} = chartStyle;
             return {
                 labels: labelGen(chartData2.length),
                 datasets: [
@@ -159,6 +151,7 @@ class Dashboard extends React.Component {
         fetch(stockApi)
             .then(res => res.json())
             .then(result => {
+				console.log(result);
                 if (
                     typeof result["Note"] === "undefined" &&
                     Object.keys(result["Time Series (1min)"]).length > 1
@@ -343,11 +336,11 @@ class Dashboard extends React.Component {
                                                         loader3: true,
                                                     });
                                                 }
-                                            }, 900);
+                                            }, 10000);
                                         });
                                 }
                             }
-                        }, 1000);
+                        }, 15000);
                     });
             });
     }
@@ -391,96 +384,121 @@ class Dashboard extends React.Component {
         return arr.indexOf(val) > -1;
     }
 
-    getGainers() {
+    getGainers = async ()=>{
         chartData1 = [];
         chartData2 = [];
 
-        const gainers = `https://cloud.iexapis.com/stable/stock/market/list/gainers?token=${keyList[1]}`;
-        fetch(gainers)
-            .then(res => res.json())
-            .then(result => {
-                for (let i = 0; i < 4; i++) {
-                    if (typeof result[parseInt(i)] !== "undefined") {
-                        stockSymbols.push(result[parseInt(i)].symbol);
-                    }
-                }
-                this.getStockInfo(
-                    stockSymbols[0],
-                    chartData1,
-                    stockChanges,
-                    stockPrices,
-                    0,
-                    () => {
-                        let firstChart = this.chartFirst.current;
-                        if (firstChart) {
-                            setTimeout(() => {
-                                if (
-                                    typeof stockChanges[0] !== "undefined" &&
-                                    typeof stockPrices[0] !== "undefined" &&
-                                    chartData1.length >= 2 &&
-                                    firstChart &&
-                                    this._isMounted
-                                ) {
-                                    this.setState({
-                                        loader1: true,
-                                    });
-                                    firstChart.href = "/stocks/" + stockSymbols[0];
-                                } else if (this._isMounted) {
-                                    this.setState({
-                                        loader1: false,
-                                    });
-                                    if (firstChart) {
-                                        firstChart.href = "#";
-                                    }
-                                }
-                            }, 800);
-                        }
-                    },
-                );
-                this.getStockInfo(
-                    stockSymbols[1],
-                    chartData2,
-                    stockChanges,
-                    stockPrices,
-                    1,
-                    () => {
-                        let secondChart = this.chartSecond.current;
-                        setTimeout(() => {
-                            if (secondChart) {
-                                if (
-                                    typeof stockChanges[1] !== "undefined" &&
-                                    typeof stockPrices[1] !== "undefined" &&
-                                    chartData2.length >= 2 &&
-                                    this._isMounted
-                                ) {
-                                    this.setState({
-                                        loader2: true,
-                                    });
-                                    secondChart.href = "/stocks/" + stockSymbols[1];
-                                } else if (this._isMounted) {
-                                    this.setState({
-                                        loader2: false,
-                                    });
-                                    secondChart.href = "#";
-                                }
-                            }
-                        }, 800);
-                    },
-                );
-            });
+		const gainers = `https://cloud.iexapis.com/stable/stock/market/list/gainers?token=${keyList[1]}`;
+		const responseRetrived = await fetch(gainers);
+		const responseObj = await responseRetrived.json();
+		for (let i = 0; i < 10; i++) {
+			if (responseObj[i]) {
+				console.log(responseObj[i])
+				stockSymbols.push(responseObj[i].symbol);
+			}
+		}
+		// for (let i = 0; i < 2; i++){
+		// 	this.getStockInfo(
+		// 		stockSymbols[0],
+		// 		chartData1,
+		// 		stockChanges,
+		// 		stockPrices,
+		// 		0,
+		// 		() => {
+		// 			let firstChart = this.chartFirst.current;
+		// 			if (firstChart) {
+		// 				setTimeout(() => {
+		// 					if (
+		// 						typeof stockChanges[0] !== "undefined" &&
+		// 						typeof stockPrices[0] !== "undefined" &&
+		// 						chartData1.length >= 2 &&
+		// 						firstChart &&
+		// 						this._isMounted
+		// 					) {
+		// 						this.setState({
+		// 							loader1: true,
+		// 						});
+		// 						firstChart.href = "/stocks/" + stockSymbols[0];
+		// 					} else if (this._isMounted) {
+		// 						this.setState({
+		// 							loader1: false,
+		// 						});
+		// 						if (firstChart) {
+		// 							firstChart.href = "#";
+		// 						}
+		// 					}
+		// 				}, 8000);
+		// 			}
+		// 		}
+		// 	)
+		// }
+		this.getStockInfo(
+			stockSymbols[0],
+			chartData1,
+			stockChanges,
+			stockPrices,
+			0,
+			() => {
+				let firstChart = this.chartFirst.current;
+				if (firstChart) {
+					setTimeout(() => {
+						if (
+							typeof stockChanges[0] !== "undefined" &&
+							typeof stockPrices[0] !== "undefined" &&
+							chartData1.length >= 2 &&
+							firstChart &&
+							this._isMounted
+						) {
+							this.setState({
+								loader1: true,
+							});
+							firstChart.href = "/stocks/" + stockSymbols[0];
+						} else if (this._isMounted) {
+							this.setState({
+								loader1: false,
+							});
+							if (firstChart) {
+								firstChart.href = "#";
+							}
+						}
+					}, 8000);
+				}
+			}
+		);
+		this.getStockInfo(
+			stockSymbols[1],
+			chartData2,
+			stockChanges,
+			stockPrices,
+			1,
+			() => {
+				let secondChart = this.chartSecond.current;
+				setTimeout(() => {
+					if (secondChart) {
+						if (
+							typeof stockChanges[1] !== "undefined" &&
+							typeof stockPrices[1] !== "undefined" &&
+							chartData2.length >= 2 &&
+							this._isMounted
+						) {
+							this.setState({
+								loader2: true,
+							});
+							secondChart.href = "/stocks/" + stockSymbols[1];
+						} else if (this._isMounted) {
+							this.setState({
+								loader2: false,
+							});
+							secondChart.href = "#";
+						}
+					}
+				}, 2000);
+			},
+		);
     }
 
     componentDidMount() {
         this._isMounted = true;
-
-        setInterval(() => {
-            let theme = localStorage.getItem("theme");
-            if (theme !== null && this._isMounted) {
-                this.setState({ theme });
-            } else if (this._isMounted) {
-                this.setState({ theme: "dark" });
-            }
-        }, 500);
 
         if (this._isMounted) {
             fetch("https://financialmodelingprep.com/api/v3/is-the-market-open")
@@ -677,18 +695,6 @@ class Dashboard extends React.Component {
                                                             </tr>
 														</thead>
                                                         <tbody>
-															{stocks.map((value, index) => {
-                                                                return (
-                                                                    <tr key={index}>
-                                                                        <td style={{textAlign: "left"}}>{value.name}</td>
-                                                                        <td style={{textAlign: "right"}}>{value.amount}</td>
-                                                                        <td style={{textAlign: "right", paddingRight: "15px"}}>{getGain(getValue(value.name), value.price, value.amount)}%</td>
-                                                                        <td style={{textAlign: "left"}}>${value.price}</td>
-                                                                        <td style={{textAlign: "left"}}>${getValue(value.name, value.amount)}</td>
-                                                                        <td><button style={{backgroundColor: "#35b660b5", margin: "5px", padding: "5px 15px", borderRadius: "15px", color: "rgba(255, 255, 255, 0.7)"}}>Sell</button></td>
-                                                                    </tr>
-                                                                );
-                                                            })}
                                                         </tbody>
                                                     </table>
                                             </div>
