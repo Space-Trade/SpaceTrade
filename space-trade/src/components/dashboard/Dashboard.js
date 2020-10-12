@@ -4,6 +4,7 @@ import { relDiff, numberWithCommas } from "../helpers.js";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import StockCard from "./StockCard.js";
 import {keyList} from "../../data/apiKeys";
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 
 const apiKeys = [
     "OYMIDLPTGY6CAMP0",
@@ -130,7 +131,77 @@ class Dashboard extends React.Component {
         };
 		////////////////////////////////////////////////////////////////////////////////////
     }
-
+	getAccountInfo() {
+		let user = firebase.auth().currentUser.uid;
+		let i = 0;
+	
+		portfolioStocks = [];
+		portfolioValue = [];
+		portfolioShares = [];
+		portfolioMoneyPaid = [];
+		portfolioDifference = [];
+		portfolioColor = [];
+		firebase
+		  .firestore()
+		  .collection("users")
+		  .doc(user)
+		  .collection("stocks")
+		  .get()
+		  .then(snapshot => {
+			if (snapshot.docs.length !== 0 && portfolioDifference.length === 0) {
+			  snapshot.forEach(doc => {
+				if (portfolioStocks.length < 4) {
+				  portfolioStocks.push(doc.data().symbol);
+				  portfolioShares.push(doc.data().shares);
+				  portfolioMoneyPaid.push(parseFloat(doc.data().moneyPaid));
+				  this.getLatestPrice(portfolioStocks[parseInt(i)], i);
+				  i++;
+				}
+			  });
+			} else if (this._isMounted && portfolioStocks.length === 0) {
+			  this.setState({
+				portfolioLoader: "nothing",
+			  });
+			}
+		  })
+		  .then(() => {
+			if (this.portfolio.current && portfolioStocks.length > 0) {
+			  this.portfolio.current.style.display = "block";
+			}
+		  })
+		  .then(() => {
+			setTimeout(() => {
+			  let val = portfolioValue.reduce((a, b) => Number(a) + Number(b), 0);
+			  if (this._isMounted) {
+				this.setState({
+				  accountValue:
+					"$" +
+					numberWithCommas(
+					  Number(val) + Number(this.state.fundsWithoutCommas),
+					),
+				});
+			  }
+			}, 1300);
+		  })
+		  .then(() => {
+			if (portfolioStocks.length > 0) {
+			  setTimeout(() => {
+				if (this._isMounted) {
+				  this.setState({
+					portfolioLoader: true,
+				  });
+				}
+			  }, 1200);
+			}
+		  })
+		  .catch(error => {
+			if (this._isMounted) {
+			  this.setState({
+				portfolioLoader: false,
+			  });
+			}
+		  });
+	  }
     getChart(dataChart, symbol, callback) {
         let b = 0;
         const stockApi = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=1min&apikey=${apiKeys[0]}`;
@@ -211,23 +282,22 @@ class Dashboard extends React.Component {
                 }
             });
     }
-    getStockInfo(symbol, dataChart, changeStash, priceStash, num, callback) {
-        const percentageChange = `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=${keyList[1]}`;
-        if (typeof symbol !== "undefined") {
-            fetch(percentageChange)
-                .then(res => res.json())
-                .then(result => {
-                    if (result.latestPrice !== null) {
-                        priceStash[parseInt(num)] = result.latestPrice.toFixed(2);
-                    } else if (result.iexRealtimePrice !== null) {
-                        priceStash[parseInt(num)] = result.iexRealtimePrice.toFixed(2);
-                    }
-                    if (result.changePercent !== null) {
-                        changeStash[parseInt(num)] = parseFloat(
-                            result.changePercent,
-                        ).toFixed(2);
-                    }
-                });
+    getStockInfo = async (symbol, dataChart, changeStash, priceStash, num, callback) => {
+		const percChangeUrl = `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=${keyList[1]}`;
+		
+        if (symbol) {
+			const percChangeResponse = await fetch(percChangeUrl);
+			const percChangeObj = await percChangeResponse.json();
+            if (percChangeObj.latestPrice !== null) {
+				priceStash[parseInt(num)] = percChangeObj.latestPrice.toFixed(2);
+			} else if (percChangeObj.iexRealtimePrice !== null) {
+				priceStash[parseInt(num)] = percChangeObj.iexRealtimePrice.toFixed(2);
+			}
+			if (percChangeObj.changePercent !== null) {
+				changeStash[parseInt(num)] = parseFloat(
+					percChangeObj.changePercent,
+				).toFixed(2);
+			}
             this.getChart(dataChart, symbol, callback);
         }
     }
@@ -408,27 +478,25 @@ class Dashboard extends React.Component {
 			() => {
 				let firstChart = this.chartFirst.current;
 				if (firstChart) {
-					setTimeout(() => {
-						if (
-							typeof stockChanges[0] !== "undefined" &&
-							typeof stockPrices[0] !== "undefined" &&
-							chartData1.length >= 2 &&
-							firstChart &&
-							this.didLoad
-						) {
-							this.setState({
-								loader1: true,
-							});
-							firstChart.href = "/stocks/" + stockSymbols[0];
-						} else if (this.didLoad) {
-							this.setState({
-								loader1: false,
-							});
-							if (firstChart) {
-								firstChart.href = "#";
-							}
+					if (
+						typeof stockChanges[0] !== "undefined" &&
+						typeof stockPrices[0] !== "undefined" &&
+						chartData1.length >= 2 &&
+						firstChart &&
+						this.didLoad
+					) {
+						this.setState({
+							loader1: true,
+						});
+						firstChart.href = "/stocks/" + stockSymbols[0];
+					} else if (this.didLoad) {
+						this.setState({
+							loader1: false,
+						});
+						if (firstChart) {
+							firstChart.href = "#";
 						}
-					}, 100);
+					}
 				}
 			}
 		);
@@ -440,26 +508,24 @@ class Dashboard extends React.Component {
 			1,
 			() => {
 				let secondChart = this.chartSecond.current;
-				setTimeout(() => {
-					if (secondChart) {
-						if (
-							typeof stockChanges[1] !== "undefined" &&
-							typeof stockPrices[1] !== "undefined" &&
-							chartData2.length >= 2 &&
-							this.didLoad
-						) {
-							this.setState({
-								loader2: true,
-							});
-							secondChart.href = "/stocks/" + stockSymbols[1];
-						} else if (this.didLoad) {
-							this.setState({
-								loader2: false,
-							});
-							secondChart.href = "#";
-						}
+				if (secondChart) {
+					if (
+						typeof stockChanges[1] !== "undefined" &&
+						typeof stockPrices[1] !== "undefined" &&
+						chartData2.length >= 2 &&
+						this.didLoad
+					) {
+						this.setState({
+							loader2: true,
+						});
+						secondChart.href = "/stocks/" + stockSymbols[1];
+					} else if (this.didLoad) {
+						this.setState({
+							loader2: false,
+						});
+						secondChart.href = "#";
 					}
-				}, 100);
+				}
 			},
 		);
 	}
@@ -509,8 +575,7 @@ class Dashboard extends React.Component {
             }
         }
         const balance = localStorage.getItem('balance');
-        const stocks = JSON.parse(localStorage.getItem('stocks'));
-
+        // const stocks = JSON.parse(localStorage.getItem('stocks'));
         return (
             <section className="Dashboard" id="dashboard">
                 {localStorage.getItem('balance')}
@@ -601,6 +666,21 @@ class Dashboard extends React.Component {
                                                             </tr>
 														</thead>
                                                         <tbody>
+														{
+															portfolioStocks.map((value, index) => {
+                                                                return (
+                                                                    <tr key={index}>
+                                                                        <td style={{textAlign: "left"}}>{value.name}</td>
+                                                                        <td style={{textAlign: "right"}}>{value.amount}</td>
+                                                                        <td style={{textAlign: "right", paddingRight: "15px"}}>{getGain(getValue(value.name), value.price, value.amount)}%</td>
+                                                                        <td style={{textAlign: "left"}}>${value.price}</td>
+                                                                        <td style={{textAlign: "left"}}>${getValue(value.name, value.amount)}</td>
+                                                                        <td><button style={{backgroundColor: "#35b660b5", margin: "5px", padding: "5px 15px", borderRadius: "15px", color: "rgba(255, 255, 255, 0.7)"}}>Sell</button></td>
+																		{value}
+                                                                    </tr>
+																);
+															})
+														}
                                                         </tbody>
                                                     </table>
                                             </div>
@@ -756,15 +836,10 @@ class Dashboard extends React.Component {
                                 )}{" "}
                                 {this.state.loader3 === "" && <CircularProgress style={{position: "absolute", left: "50%", top: "50%"}}/>}
                                 {this.state.loader3 === false && (
-                                    <div className="errorMsg">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                            <g>
-                                                <path fill="none" d="M0 0h24v24H0z" />
-                                                <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-1-5h2v2h-2v-2zm0-8h2v6h-2V7z" />
-                                            </g>
-                                        </svg>
-                                        <p>Couldn't load list try again in few minutes</p>
-                                    </div>
+									<div className="errorMsg" style={{color: "rgba(255, 255, 255, 0.5)"}}>
+										<ErrorOutlineIcon style={{ fontSize: 80}}/>
+										<p>Couldn't load :(</p>
+									</div>
                                 )}
                             </div>
                         </div>
