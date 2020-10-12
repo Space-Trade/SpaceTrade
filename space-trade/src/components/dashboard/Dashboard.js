@@ -276,11 +276,10 @@ class Dashboard extends React.Component {
 			if (stockListTickers[i]) {
 				const percChangeResponse = await fetch(percChangeUrl);
 				const percChangeObj = await percChangeResponse.json();
+				console.log(percChangeObj.changePercent)
 
 				if (percChangeObj.changePercent !== null) {
-					stockListChange[i] = parseFloat(
-						percChangeObj.changePercent,
-					).toFixed(2);
+					stockListChange[i] = parseFloat(percChangeObj.changePercent).toFixed(2);
 				} else {
 					stockListChange[i] = "---";
 				}
@@ -305,6 +304,11 @@ class Dashboard extends React.Component {
 					stockListChange[i] = stockListChange[i] + "%";
 				}
 			}
+		}
+		if (this._isMounted) {
+			this.setState({
+				loader3: true,
+			});
 		}
     }
 
