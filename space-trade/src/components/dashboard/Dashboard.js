@@ -76,7 +76,8 @@ class Dashboard extends React.Component {
         this.chartFirst = React.createRef();
         this.chartSecond = React.createRef();
 
-        function labelGen(length) {
+		////////////////////////////////////////////////////////////////////////////////////
+        const labelGen = (length)=>{
             let result = "0";
             for (let i = 1; i < length; i++) {
                 result = result + "," + i;
@@ -100,49 +101,34 @@ class Dashboard extends React.Component {
 				gradientFill: gradientFill
 			}
 		}
-
+		const builChartData = (chartData, gradient, gradientFill) => {
+			return {
+				labels: labelGen(chartData.length),
+				datasets: [
+					{
+						lineTension: 0.3,
+						label: "",
+						pointBorderWidth: 0,
+						pointHoverRadius: 0,
+						borderColor: gradient,
+						backgroundColor: gradientFill,
+						pointBackgroundColor: gradient,
+						fill: true,
+						borderWidth: 2,
+						data: chartData,
+					},
+				],
+			};
+		}
         this.data1 = canvas => {
-			const chartStyle = setChartStyle(canvas);
-			const {gradient, gradientFill} = chartStyle;
-            return {
-                labels: labelGen(chartData1.length),
-                datasets: [
-                    {
-                        lineTension: 0.3,
-                        label: "",
-                        pointBorderWidth: 0,
-                        pointHoverRadius: 0,
-                        borderColor: gradient,
-                        backgroundColor: gradientFill,
-                        pointBackgroundColor: gradient,
-                        fill: true,
-                        borderWidth: 2,
-                        data: chartData1,
-                    },
-                ],
-            };
+			const {gradient, gradientFill} = setChartStyle(canvas);
+			return builChartData(chartData1, gradient, gradientFill)
         };
         this.data2 = canvas => {
-			const chartStyle = setChartStyle(canvas);
-			const {gradient, gradientFill} = chartStyle;
-            return {
-                labels: labelGen(chartData2.length),
-                datasets: [
-                    {
-                        lineTension: 0.3,
-                        label: "",
-                        pointBorderWidth: 0,
-                        pointHoverRadius: 0,
-                        borderColor: gradient,
-                        backgroundColor: gradientFill,
-                        pointBackgroundColor: gradient,
-                        fill: true,
-                        borderWidth: 2,
-                        data: chartData2,
-                    },
-                ],
-            };
+			const {gradient, gradientFill} = setChartStyle(canvas);
+            return builChartData(chartData2, gradient, gradientFill)
         };
+		////////////////////////////////////////////////////////////////////////////////////
     }
 
     getChart(dataChart, symbol, callback) {
@@ -515,62 +501,6 @@ class Dashboard extends React.Component {
 
             this.getStocksList();
 
-            setTimeout(() => {
-                if (this.chartSecond.current && this.chartFirst.current) {
-                    if (
-                        typeof stockChanges[1] !== "undefined" &&
-                        typeof stockPrices[1] !== "undefined" &&
-                        chartData2.length >= 2 &&
-                        this._isMounted
-                    ) {
-                        this.setState({
-                            loader2: true,
-                        });
-                        this.chartSecond.current.href = "/stocks/" + stockSymbols[1];
-                    } else if (this._isMounted) {
-                        this.setState({
-                            loader2: false,
-                        });
-                        this.chartSecond.current.href = "#";
-                    }
-                    if (
-                        typeof stockChanges[0] !== "undefined" &&
-                        typeof stockPrices[0] !== "undefined" &&
-                        chartData1.length >= 2 &&
-                        this._isMounted
-                    ) {
-                        this.setState({
-                            loader1: true,
-                        });
-                        this.chartFirst.current.href = "/stocks/" + stockSymbols[0];
-                    } else if (this._isMounted) {
-                        this.setState({
-                            loader1: false,
-                        });
-                        this.chartFirst.current.href = "#";
-                    }
-                    if (stockListChange < 3 && this._isMounted) {
-                        this.setState({
-                            loader3: false,
-                        });
-                    }
-                    if (this.state.loader3 !== true && this._isMounted) {
-                        this.setState({
-                            loader3: false,
-                        });
-                    }
-                    if (this.state.loader1 === "" && this._isMounted) {
-                        this.setState({
-                            loader1: false,
-                        });
-                    }
-                    if (this.state.loader2 === "" && this._isMounted) {
-                        this.setState({
-                            loader2: false,
-                        });
-                    }
-                }
-            }, 5000);
         }
     }
 
