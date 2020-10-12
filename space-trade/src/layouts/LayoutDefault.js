@@ -8,7 +8,9 @@ const LayoutDefault = ({ children }) => (
     <main className="site-content">
       {children}
     </main>
-    <Footer />
+    <div className="container-sm">
+      <Footer />
+    </div>
   </>
 );
 
