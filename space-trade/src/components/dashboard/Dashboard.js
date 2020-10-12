@@ -231,104 +231,81 @@ class Dashboard extends React.Component {
             this.getChart(dataChart, symbol, callback);
         }
     }
-    getStocksList() {
-        const stocks = `https://cloud.iexapis.com/stable/stock/market/list/mostactive?token=${keyList[1]}`;
-        fetch(stocks)
-            .then(res => res.json())
-            .then(result => {
-                const gainers = `https://cloud.iexapis.com/stable/stock/market/list/gainers?token=${keyList[1]}`;
-                let counter = 0;
-                fetch(gainers)
-                    .then(res => res.json())
-                    .then(result => {
-                        for (let i = 0; i < result.length; i++) {
-                            if (result[parseInt(i)].latestPrice !== null) {
-                                tempStocksSymbols.push(result[parseInt(i)].symbol);
-                                tempStockName.push(result[parseInt(i)].companyName);
-                                tempStockPrice.push(
-                                    `$${result[parseInt(i)].latestPrice.toFixed(2)}`,
-                                );
-                            }
-                        }
-                    })
-                    .then(() => {
-                        for (let i = 0; i < 9; i++) {
-                            if (typeof result[parseInt(i)] !== "undefined") {
-                                if (
-                                    this.isInArray(
-                                        stockSymbols,
-                                        result[parseInt(i)].symbol.toString(),
-                                    )
-                                ) {
-                                    stockList[parseInt(i)] = tempStockName[parseInt(counter)];
-                                    stockListPrices[parseInt(i)] =
-                                        tempStockPrice[parseInt(counter)];
-                                    stockListTickers[parseInt(i)] =
-                                        tempStocksSymbols[parseInt(counter)];
-                                    counter++;
-                                } else {
-                                    stockList[parseInt(i)] = result[parseInt(i)].companyName;
-                                    stockListPrices[parseInt(i)] = `$${result[
-                                        parseInt(i)
-                                    ].latestPrice.toFixed(2)}`;
-                                    stockListTickers[parseInt(i)] = result[parseInt(i)].symbol;
-                                }
-                            }
-                        }
-                    })
-                    .then(() => {
-                        setTimeout(() => {
-                            for (let i = 0; i < 9; i++) {
-                                const percentageChange = `https://cloud.iexapis.com/stable/stock/${stockListTickers[parseInt(i)]}/quote?displayPercent=true&token=${keyList[1]}`;
-                                if (typeof stockListTickers[parseInt(i)] !== "undefined") {
-                                    fetch(percentageChange)
-                                        .then(res => res.json())
-                                        .then(result => {
-                                            if (result.changePercent !== null) {
-                                                stockListChange[parseInt(i)] = parseFloat(
-                                                    result.changePercent,
-                                                ).toFixed(2);
-                                            } else {
-                                                stockListChange[parseInt(i)] = "---";
-                                            }
-                                            if (Math.sign(stockListChange[parseInt(i)]) === -1) {
-                                                stockListChangeColors[parseInt(i)] = "rgb(255, 77, 77";
-                                            } else if (
-                                                Math.sign(stockListChange[parseInt(i)]) === 1
-                                            ) {
-                                                stockListChangeColors[parseInt(i)] = "rgb(51, 255, 133";
-                                                stockListChange[parseInt(i)] =
-                                                    "+" + stockListChange[parseInt(i)];
-                                                if (
-                                                    stockListChange[parseInt(i)].charAt(0) === "+" &&
-                                                    stockListChange[parseInt(i)].charAt(1) === "+"
-                                                ) {
-                                                    stockListChange[parseInt(i)] = stockListChange[
-                                                        parseInt(i)
-                                                    ].substr(1);
-                                                }
-                                            } else {
-                                                stockListChangeColors[parseInt(i)] = "rgb(153,158,175";
-                                            }
-                                            if (stockListChange[parseInt(i)] !== "---") {
-                                                stockListChange[parseInt(i)] =
-                                                    stockListChange[parseInt(i)] + "%";
-                                            }
-                                        })
-                                        .then(() => {
-                                            setTimeout(() => {
-                                                if (this._isMounted) {
-                                                    this.setState({
-                                                        loader3: true,
-                                                    });
-                                                }
-                                            }, 10000);
-                                        });
-                                }
-                            }
-                        }, 15000);
-                    });
-            });
+    getStocksList = async () => {
+		const mostActivesUrl = `https://cloud.iexapis.com/stable/stock/market/list/mostactive?token=${keyList[1]}`;
+		const gainersUrl = `https://cloud.iexapis.com/stable/stock/market/list/gainers?token=${keyList[1]}`;
+		const mostActiveResponse = await fetch(mostActivesUrl);
+		const mostActiveObjArr = await mostActiveResponse.json();
+		const gainersResponse = await fetch(gainersUrl);
+		const gainersObjArr = await gainersResponse.json();
+		let counter = 0;
+		
+		for (let i = 0; i < gainersObjArr.length; i++) {
+			if (gainersObjArr[i].latestPrice !== null) {
+				tempStocksSymbols.push(gainersObjArr[i].symbol);
+				tempStockName.push(gainersObjArr[i].companyName);
+				tempStockPrice.push(
+					`$${gainersObjArr[i].latestPrice.toFixed(2)}`,
+				);
+			}
+		}
+		for (let i = 0; i < 9; i++) {
+			if (mostActiveObjArr[i]) {
+				if (
+					this.isInArray(
+						stockSymbols,
+						mostActiveObjArr[i].symbol.toString(),
+					)
+				) {
+					stockList[i] = tempStockName[counter];
+					stockListPrices[i] =
+						tempStockPrice[counter];
+					stockListTickers[i] =
+						tempStocksSymbols[counter];
+					counter++;
+				} else {
+					stockList[i] = mostActiveObjArr[i].companyName;
+					stockListPrices[i] = `$${mostActiveObjArr[i].latestPrice.toFixed(2)}`;
+					stockListTickers[i] = mostActiveObjArr[i].symbol;
+				}
+			}
+		}
+		for (let i = 0; i < 9; i++) {
+			const percChangeUrl = `https://cloud.iexapis.com/stable/stock/${stockListTickers[i]}/quote?displayPercent=true&token=${keyList[1]}`;
+
+			if (stockListTickers[i]) {
+				const percChangeResponse = await fetch(percChangeUrl);
+				const percChangeObj = await percChangeResponse.json();
+
+				if (percChangeObj.changePercent !== null) {
+					stockListChange[i] = parseFloat(
+						percChangeObj.changePercent,
+					).toFixed(2);
+				} else {
+					stockListChange[i] = "---";
+				}
+				if (Math.sign(stockListChange[i]) === -1) {
+					stockListChangeColors[i] = "rgb(255, 77, 77";
+				} else if (
+					Math.sign(stockListChange[i]) === 1
+				) {
+					stockListChangeColors[i] = "rgb(51, 255, 133";
+					stockListChange[i] =
+						"+" + stockListChange[i];
+					if (
+						stockListChange[i].charAt(0) === "+" &&
+						stockListChange[i].charAt(1) === "+"
+					) {
+						stockListChange[i] = stockListChange[i].substr(1);
+					}
+				} else {
+					stockListChangeColors[i] = "rgb(153,158,175";
+				}
+				if (stockListChange[i] !== "---") {
+					stockListChange[i] = stockListChange[i] + "%";
+				}
+			}
+		}
     }
 
     getLatestPrice(symbol, i) {
@@ -447,7 +424,7 @@ class Dashboard extends React.Component {
 								firstChart.href = "#";
 							}
 						}
-					}, 8000);
+					}, 100);
 				}
 			}
 		);
@@ -478,7 +455,7 @@ class Dashboard extends React.Component {
 							secondChart.href = "#";
 						}
 					}
-				}, 2000);
+				}, 100);
 			},
 		);
     }
