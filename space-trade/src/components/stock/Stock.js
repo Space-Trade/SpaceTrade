@@ -73,7 +73,7 @@ var options = {
     },
 };
 
-const API_KEY = keyList[0];
+const API_KEY = keyList[7];
 
 const apiKeys = [
     "SAOS0Y8B63XM4DPK",
@@ -631,7 +631,7 @@ export default class Stock extends React.Component {
 
     render() {
         return (
-            <main className="stock">
+            <main className="stock" style={{marginLeft: "80px", marginTop: "75px"}}>
                 {this.state.buyConfirmation === true && <div className="black-bg" />}
                 {this.state.buyConfirmation === true && (
                     <div className="buyConfirmation">

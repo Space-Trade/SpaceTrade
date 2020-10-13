@@ -6,7 +6,6 @@ import Footer from "./components/Footer";
 import LoginForm from "./components/LoginForm";
 import RegisterForm from "./components/RegisterForm";
 import Welcome from "./components/Welcome";
-import MenuBar from "./components/MenuBar"
 //import Home from "./components/Home"
 import Dashboard from "./components/dashboard/Dashboard"
 import Stock from "./components/stock/Stock"
@@ -20,6 +19,7 @@ import React, { useRef, useEffect } from 'react';
 import AppRoute from './utils/AppRoute';
 import ScrollReveal from './utils/ScrollReveal';
 import ReactGA from 'react-ga';
+import VerticalMenu from "./components/VerticalMenu/VerticalMenu"
 
 // Layouts
 import LayoutDefault from './layouts/LayoutDefault';
@@ -72,12 +72,12 @@ const App = () => {
             <AppRoute exact path="/" component={Home} layout={LayoutDefault} />
 
             <Route path="/dashboard">
-              <MenuBar />
+			  <VerticalMenu/>
               <Dashboard />
             </Route>
             
             <Route path="/stocks/:stockId">
-              <MenuBar />
+			  <VerticalMenu/>
               <Stock/>
             </Route>
             

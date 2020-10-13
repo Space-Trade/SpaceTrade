@@ -577,7 +577,7 @@ class Dashboard extends React.Component {
         const balance = localStorage.getItem('balance');
         // const stocks = JSON.parse(localStorage.getItem('stocks'));
         return (
-            <section className="Dashboard" id="dashboard">
+            <main className="Dashboard" id="dashboard" style={{marginLeft: "57px"}}>
                 {localStorage.getItem('balance')}
                 <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
                     <div style={{ display: "flex", height: "auto" }}>
@@ -845,7 +845,7 @@ class Dashboard extends React.Component {
                         </div>
                     </div>
                 </div>
-            </section>
+            </main>
         );
     }
 }
