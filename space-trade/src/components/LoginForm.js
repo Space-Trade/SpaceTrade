@@ -95,11 +95,11 @@ const LoginForm = () => {
               </Link>
             </Button>
             <Grid container>
-              <Grid item xs>
-                <Link to="/register">
+              <Link to="/register">
+                <Grid item xs>
                   Forgot password?
-                </Link>
               </Grid>
+              </Link>
               <Grid item>
                 <Link to={{
                   pathname: "/register",
