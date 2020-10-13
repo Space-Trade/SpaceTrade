@@ -72,15 +72,15 @@ const App = () => {
             <AppRoute exact path="/" component={Home} layout={LayoutDefault} />
 
             <Route path="/dashboard">
-			  <VerticalMenu/>
+              <VerticalMenu />
               <Dashboard />
             </Route>
-            
+
             <Route path="/stocks/:stockId">
-			  <VerticalMenu/>
-              <Stock/>
+              <VerticalMenu />
+              <Stock />
             </Route>
-            
+
             <Route exact path="/login" component={LoginForm} />
             <Route exact path="/register" component={RegisterForm} />
 
