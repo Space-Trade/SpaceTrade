@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import { Container, Typography, TextField, Button } from "@material-ui/core";
-import logo from "../assets/logo.png";
+import logo from "../assets/logoWhite.png";
 import { withRouter } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import { green } from '@material-ui/core/colors';
@@ -21,35 +21,79 @@ const theme = createMuiTheme({
 });
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  margin: {
-    margin: theme.spacing(1),
-  },
+	root: {
+		display: 'flex',
+		flexWrap: 'wrap',
+	},
+	margin: {
+		marginBottom: "25px"
+	},
+	container: {
+		height: "100%",
+		display: "flex",
+		flexDirection: "column",
+		justifyContent: "space-evenly",
+		alignItems: "center",
+	},
+	logo: {
+		width: "50%",
+
+	},
+	form: {
+		width: "100%",
+		"& h2": {
+			fontSize: "30px",
+			marginBottom: "20px"
+		}
+	},
+	button: {
+		width: "100%",
+		backgroundColor: "rgba(236, 237,237, 0.9)",
+		boxShadow: "0px 5px 10px rgba(0, 0, 0, 0.2)",
+		color: "#2a3749",
+		transition: "0.2 ease",
+		"&:hover": {
+			backgroundColor: "rgba(236, 237,237, 1)",
+			boxShadow: "0px 0px 10px rgba(236, 237,237, 0.3)",
+		}
+	},
+	link: {
+		fontSize: "15px",
+		marginTop: "5px",
+		"&:hover": {
+			textDecoration: "underline"
+		}
+
+	}
 }));
 
 const CssTextField = withStyles({
-  root: {
-    '& label.Mui-focused': {
-      color: '#3f51b5',
-    },
-    '& .MuiInput-underline:after': {
-      borderBottomColor: '#3f51b5',
-    },
-    '& .MuiOutlinedInput-root': {
-      '& fieldset': {
-        borderColor: '#3f51b5',
-      },
-      '&:hover fieldset': {
-        borderColor: '#3f51b5',
-      },
-      '&.Mui-focused fieldset': {
-        borderColor: '#3f51b5',
-      },
-    },
-  },
+	root: {
+		'& label': {
+		color: 'rgba(236, 237,237, 0.7)',
+		},
+		'& label.Mui-focused': {
+		color: 'rgba(236, 237,237, 1)',
+		textShadow: "0px 0px 3px rgba(0, 0, 0, 0.3)"
+		},
+		'& .MuiInput-underline:after': {
+		borderBottomColor: 'green',
+		},
+		'& .MuiOutlinedInput-root': {
+			color: "rgba(236, 237,237, 0.9)",
+		'& fieldset': {
+			backgroundColor: "rgba(236, 237,237, 0.2)",
+			borderColor: 'rgba(236, 237,237, 1)',
+		},
+		'&:hover fieldset': {
+			borderColor: 'rgba(236, 237,237, 1)',
+			backgroundColor: "rgba(236, 237,237, 0.07)",
+		},
+		'&.Mui-focused fieldset': {
+			borderColor: 'rgba(236, 237,237, 1)',
+		},
+		},
+	},
 })(TextField);
 
 const LoginForm = () => {
@@ -58,59 +102,49 @@ const LoginForm = () => {
 
   if ({ show }) {
     return (
-      <Container maxWidth="sm">
+      <Container maxWidth="sm" className={classes.container}>
         <div style={{ textAlign: "center" }}>
-          <br />
-          <Logo src={logo} />
-          <br />
-          <br />
-          <Typography variant="h4">
-            Login
-        </Typography>
+       		<Logo src={logo} className={classes.logo}/>
         </div>
-        <br />
-        <div>
-          <FormContainer>
-            <CssTextField
-              className={classes.margin}
-              variant="outlined"
-              id="email"
-              label="Email"
-            />
-            <br />
-            <CssTextField
-              className={classes.margin}
-              variant="outlined"
-              id="password"
-              label="Password"
-              type="password"
-            />
-            <br />
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-            ><Link to="/dashboard">
-                LOGIN
-              </Link>
-            </Button>
-            <Grid container>
-              <Link to="/register">
-                <Grid item xs>
-                  Forgot password?
-              </Grid>
-              </Link>
-              <Grid item>
-                <Link to={{
-                  pathname: "/register",
-                  state: { hola: true }
-                }} >
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
-          </FormContainer>
-        </div>
+        <main className={classes.form}>
+			<Typography variant="h2">
+				Login
+			</Typography>
+			<FormContainer>
+				<CssTextField
+					className={classes.margin}
+					variant="outlined"
+					id="email"
+					label="Email"
+				/>
+				<CssTextField
+					className={classes.margin}
+					variant="outlined"
+					id="password"
+					label="Password"
+					type="password"
+				/>
+				<Link to="/dashboard">
+					<Button	variant="contained" type="submit" className={classes.button}>LOGIN</Button>
+				</Link>
+				<Grid container style={{justifyContent: "space-between"}}>
+					<Link to="/register">
+						<Grid item xs className={classes.link}>
+							Forgot password?
+						</Grid>
+					</Link>
+					<Link to={{
+						pathname: "/register",
+						state: { hola: true }
+						}} >
+						<Grid item className={classes.link}>
+						
+						Don't have an account? Sign Up
+						</Grid>
+					</Link>
+				</Grid>
+			</FormContainer>
+		</main>
         <br />
       </Container>
     );

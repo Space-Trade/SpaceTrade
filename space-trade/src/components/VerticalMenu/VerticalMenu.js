@@ -6,7 +6,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -29,6 +28,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import AssessmentRoundedIcon from '@material-ui/icons/AssessmentRounded';
 import BusinessCenterRoundedIcon from '@material-ui/icons/BusinessCenterRounded';
 import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
+import HelpOutlineRoundedIcon from '@material-ui/icons/HelpOutlineRounded';
 import {
 	Link
 } from "react-router-dom";
@@ -382,29 +382,39 @@ export default function VerticalMenu() {
 				</div>
 				<Divider className={classes.divider} />
 				<List>
-					<ListItem button component="a" href="dashboard" key="Dashboard" className={classes.itemList}>
-						<ListItemIcon className={classes.iconColor}><AssessmentRoundedIcon /></ListItemIcon>
-						<ListItemText primary="Dashboard" className={classes.iconColor} />
-					</ListItem>
+					<Link to="/dashboard">
+						<ListItem button key="Dashboard" className={classes.itemList}>
+							<ListItemIcon className={classes.iconColor}><AssessmentRoundedIcon /></ListItemIcon>
+							<ListItemText primary="Dashboard" className={classes.iconColor} />
+						</ListItem>
+					</Link>
 					<Link to="/portfolio">
-						<ListItem button component="a" key="Portfolio" className={classes.itemList}>
+						<ListItem button key="Portfolio" className={classes.itemList}>
 							<ListItemIcon className={classes.iconColor}><BusinessCenterRoundedIcon /></ListItemIcon>
 							<ListItemText primary="Portfolio" className={classes.iconColor} />
 						</ListItem>
 					</Link>
 
 					<Link to="/stocks/TSLA">
-						<ListItem button component="a" key="stock" className={classes.itemList}>
+						<ListItem button key="stock" className={classes.itemList}>
 							<ListItemIcon className={classes.iconColor}><InboxIcon /></ListItemIcon>
 							<ListItemText primary="stock TSLA" className={classes.iconColor} />
 						</ListItem>
 					</Link>
 				</List>
-				<List style={{ position: "absolute", bottom: "0" }}>
-					<ListItem button component="a" href="/" key="LogOut">
-						<ListItemIcon className={classes.iconColor} style={{ transform: "rotate(180deg) translate(26px, 0)" }}><ExitToAppRoundedIcon /></ListItemIcon>
-						<ListItemText primary="LogOut" className={classes.iconColor} />
-					</ListItem>
+				<List style={{ position: "absolute", bottom: "0", width: "100%"}}>
+					<Link to="/help">
+						<ListItem button key="Help">
+							<ListItemIcon className={classes.iconColor}><HelpOutlineRoundedIcon /></ListItemIcon>
+							<ListItemText primary="Help" className={classes.iconColor} />
+						</ListItem>
+					</Link>
+					<Link to="/">
+						<ListItem button key="LogOut">
+							<ListItemIcon className={classes.iconColor}><ExitToAppRoundedIcon style={{ transform: "rotate(180deg)" }}/></ListItemIcon>
+							<ListItemText primary="LogOut" className={classes.iconColor} />
+						</ListItem>
+					</Link>
 				</List>
 			</Drawer>
 		</nav>

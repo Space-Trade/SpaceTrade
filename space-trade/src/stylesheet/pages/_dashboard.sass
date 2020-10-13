@@ -156,7 +156,7 @@ a
 
 .panel
     background-color: $panel-color
-    width: 95%
+    width: 100%
     height: 100%
     padding: 3%
     padding-top: 2%
@@ -165,16 +165,30 @@ a
       width: 100% 
     .panel__topCharts
       height: 90%
+      display: flex
       width: 100%
-      min-height: 200px
-      @media only screen and (max-width: 1200px) 
-        justify-content: space-between
+      flex-direction: row
+      align-items: center
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      overflow: auto hidden
+      ::-webkit-scrollbar 
+        height: 5px
+
+        /* Track */
+        ::-webkit-scrollbar-track 
+        background: #f1f1f1
+
+        ::-webkit-scrollbar-thumb 
+        background: #324f7b
+
+        ::-webkit-scrollbar-thumb:hover 
+        background: #4e53b2
     .panel__top
       display: flex
       flex-wrap: wrap
       width: 100%
       height: 100%
-      max-height: 380px
       @media only screen and (max-width: 1200px) 
         width: 100%
       .panel__title
@@ -225,19 +239,9 @@ a
       fill: $inactive-color
       width: 20%
 .chartLink
-  margin-right: 4.5%
-  width: 33%
+  margin: 25px
+  width: 500px
   height: 260px
-  @media only screen and (max-width: 1050px) 
-    width: 50%
-    &:nth-child(2)
-      margin-right: 0
-  @media only screen and (max-width: 700px) 
-    &:nth-child(2)
-      display: none
-    &:nth-child(1)
-      width: 100%
-      margin: 0
 
 .panel__portfolio-section
   .panel__portfolio-title
@@ -246,8 +250,6 @@ a
     margin-right: 10px
     min-width: 20px
   width: 100%
-  height: 300px
-  min-width: 250px
   @media only screen and (max-width: 1050px) 
     display: none
   .panel__portfolio
