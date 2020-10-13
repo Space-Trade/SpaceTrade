@@ -14,7 +14,8 @@ const apiKeys = [
 ];
 
 let chartData1 = [],
-    chartData2 = [];
+    chartData2 = [],
+    chartData3 = [];
 
 let stockSymbols = [],
     stockPrices = [],
@@ -40,20 +41,18 @@ let portfolioStocks = [],
 
 const getValue = async (symbol, amount) => {
     var symbolValue = 90;
-    const percentageChange = `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=${keyList[1]}`;
-    if (typeof symbol !== "undefined") {
-		const responseRetrived = await fetch(percentageChange);
+    const percChangeUrl = `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=${keyList[1]}`;
+    if (symbol) {
+		const responseRetrived = await fetch(percChangeUrl);
 		const responseObj = await responseRetrived.json();
-		console.log(responseObj)
-            // .then(res => {
-			// 	symbolValue = res.latestPrice;
-			// 	console.log(res , symbolValue)
-            // });
+		console.log("responseObj", responseObj.latestPrice)
+        symbolValue = responseObj.latestPrice
+    	return symbolValue ;
     }
-    return symbolValue ;
 }
 
-function getGain(currentValue, oldValue, amount) {
+const getGain = async (currentValue, oldValue, amount) => {
+	console.log(`((${currentValue} * ${amount}) / (${oldValue}))`)
     let gain = ((currentValue * amount) / (oldValue));
     return gain;
 }
@@ -65,17 +64,18 @@ class Dashboard extends React.Component {
         this.state = {
             loader1: "",
             loader2: "",
-            loader3: "",
-            portfolioLoader: "",
+			loader3: "",
+			activeStocks: "",
+            portfolioDidLoad: "",
             fundsWithoutCommas: "",
             accountValue: "",
-            marketStatus: "",
-            theme: "",
+            marketStatus: ""
         };
         this.componentDidMount = this.componentDidMount.bind(this);
         this.portfolio = React.createRef();
         this.chartFirst = React.createRef();
         this.chartSecond = React.createRef();
+        this.chartThird = React.createRef();
 
 		////////////////////////////////////////////////////////////////////////////////////
         const labelGen = (length)=>{
@@ -102,7 +102,7 @@ class Dashboard extends React.Component {
 				gradientFill: gradientFill
 			}
 		}
-		const builChartData = (chartData, gradient, gradientFill) => {
+		const buildChartData = (chartData, gradient, gradientFill) => {
 			return {
 				labels: labelGen(chartData.length),
 				datasets: [
@@ -123,11 +123,15 @@ class Dashboard extends React.Component {
 		}
         this.data1 = canvas => {
 			const {gradient, gradientFill} = setChartStyle(canvas);
-			return builChartData(chartData1, gradient, gradientFill)
+			return buildChartData(chartData1, gradient, gradientFill)
         };
         this.data2 = canvas => {
 			const {gradient, gradientFill} = setChartStyle(canvas);
-            return builChartData(chartData2, gradient, gradientFill)
+            return buildChartData(chartData2, gradient, gradientFill)
+        };
+        this.data3 = canvas => {
+			const {gradient, gradientFill} = setChartStyle(canvas);
+            return buildChartData(chartData3, gradient, gradientFill)
         };
 		////////////////////////////////////////////////////////////////////////////////////
     }
@@ -160,7 +164,7 @@ class Dashboard extends React.Component {
 	// 		  });
 	// 		} else if (this._isMounted && portfolioStocks.length === 0) {
 	// 		  this.setState({
-	// 			portfolioLoader: "nothing",
+	// 			portfolioDidLoad: "nothing",
 	// 		  });
 	// 		}
 	// 	  })
@@ -188,7 +192,7 @@ class Dashboard extends React.Component {
 	// 		  setTimeout(() => {
 	// 			if (this._isMounted) {
 	// 			  this.setState({
-	// 				portfolioLoader: true,
+	// 				portfolioDidLoad: true,
 	// 			  });
 	// 			}
 	// 		  }, 1200);
@@ -197,7 +201,7 @@ class Dashboard extends React.Component {
 	// 	  .catch(error => {
 	// 		if (this._isMounted) {
 	// 		  this.setState({
-	// 			portfolioLoader: false,
+	// 			portfolioDidLoad: false,
 	// 		  });
 	// 		}
 	// 	  });
@@ -377,7 +381,7 @@ class Dashboard extends React.Component {
 		}
 		if (this.didLoad) {
 			this.setState({
-				loader3: true,
+				activeStocks: true,
 			});
 		}
     }
@@ -424,51 +428,18 @@ class Dashboard extends React.Component {
     getGainers = async ()=>{
         chartData1 = [];
         chartData2 = [];
+        chartData3 = [];
 
 		const gainers = `https://cloud.iexapis.com/stable/stock/market/list/gainers?token=${keyList[1]}`;
 		const responseRetrived = await fetch(gainers);
 		const responseObj = await responseRetrived.json();
-		for (let i = 0; i < 10; i++) {
+		for (let i = 0; i < 3; i++) {
 			if (responseObj[i]) {
-				console.log(responseObj[i])
+				console.log("responseObj[i]", responseObj[i])
 				stockSymbols.push(responseObj[i].symbol);
 			}
 		}
-		// for (let i = 0; i < 2; i++){
-		// 	this.getStockInfo(
-		// 		stockSymbols[0],
-		// 		chartData1,
-		// 		stockChanges,
-		// 		stockPrices,
-		// 		0,
-		// 		() => {
-		// 			let firstChart = this.chartFirst.current;
-		// 			if (firstChart) {
-		// 				setTimeout(() => {
-		// 					if (
-		// 						typeof stockChanges[0] !== "undefined" &&
-		// 						typeof stockPrices[0] !== "undefined" &&
-		// 						chartData1.length >= 2 &&
-		// 						firstChart &&
-		// 						this.didLoad
-		// 					) {
-		// 						this.setState({
-		// 							loader1: true,
-		// 						});
-		// 						firstChart.href = "/stocks/" + stockSymbols[0];
-		// 					} else if (this.didLoad) {
-		// 						this.setState({
-		// 							loader1: false,
-		// 						});
-		// 						if (firstChart) {
-		// 							firstChart.href = "#";
-		// 						}
-		// 					}
-		// 				}, 8000);
-		// 			}
-		// 		}
-		// 	)
-		// }
+		// PARA MOSTRAR INFO EN CHART 1
 		this.getStockInfo(
 			stockSymbols[0],
 			chartData1,
@@ -500,6 +471,7 @@ class Dashboard extends React.Component {
 				}
 			}
 		);
+		// PARA MOSTRAR INFO EN CHART 2
 		this.getStockInfo(
 			stockSymbols[1],
 			chartData2,
@@ -513,6 +485,7 @@ class Dashboard extends React.Component {
 						typeof stockChanges[1] !== "undefined" &&
 						typeof stockPrices[1] !== "undefined" &&
 						chartData2.length >= 2 &&
+						secondChart &&
 						this.didLoad
 					) {
 						this.setState({
@@ -528,12 +501,57 @@ class Dashboard extends React.Component {
 				}
 			},
 		);
+		// PARA MOSTRAR INFO EN CHART 3
+		this.getStockInfo(
+			stockSymbols[2],
+			chartData3,
+			stockChanges,
+			stockPrices,
+			2,
+			() => {
+				let thirdChart = this.chartThird.current;
+				if (thirdChart) {
+					if (
+						typeof stockChanges[2] !== "undefined" &&
+						typeof stockPrices[2] !== "undefined" &&
+						chartData3.length >= 2 &&
+						thirdChart &&
+						this.didLoad
+					) {
+						this.setState({
+							loader3: true,
+						});
+						thirdChart.href = "/stocks/" + stockSymbols[2];
+					} else if (this.didLoad) {
+						this.setState({
+							loader3: false,
+						});
+						thirdChart.href = "#";
+					}
+				}
+			},
+		);
 	}
 	getMarketStatus = async () => {
 		const marketOpenUrl = "https://financialmodelingprep.com/api/v3/is-the-market-open";
 		const marketOpenResponse = await fetch(marketOpenUrl);
 		const marketOpenObj = await marketOpenResponse.json();
 		return marketOpenObj.isTheStockMarketOpen
+	}
+
+	getPorfolioStoks = async () => {
+		portfolioStocks = JSON.parse(localStorage.getItem('stocks'));
+		if(portfolioStocks.length){
+			this.setState({
+				portfolioLoader: true
+			})
+		}
+		else {
+			this.setState({
+				portfolioLoader: "empty"
+			})
+		}
+
 	}
 
     componentDidMount() {
@@ -543,7 +561,9 @@ class Dashboard extends React.Component {
 			marketStatus: this.getMarketStatus()
 		});
         this.getGainers();
-        this.getStocksList();
+		this.getStocksList();
+		this.getPorfolioStoks();
+		
     }
 
     componentWillUnmount() {
@@ -575,7 +595,6 @@ class Dashboard extends React.Component {
             }
         }
         const balance = localStorage.getItem('balance');
-        // const stocks = JSON.parse(localStorage.getItem('stocks'));
         return (
             <main className="Dashboard" id="dashboard" style={{marginLeft: "57px"}}>
                 {localStorage.getItem('balance')}
@@ -649,40 +668,64 @@ class Dashboard extends React.Component {
                                                 changesColor={changesColors[1]}
                                             />
                                         </a>
+                                        <a
+                                            ref={this.chartThird}
+                                            id="chartThird"
+                                            href="/"
+                                            className="chartLink">
+                                            <StockCard
+                                                loader={this.state.loader1}
+                                                data={this.data3}
+                                                stockSymbol={stockSymbols[2]}
+                                                stockPrice={stockPrices[2]}
+                                                stockChange={stockChanges[2]}
+                                                changesColor={changesColors[2]}
+                                            />
+                                        </a>
                                         <div className="panel__portfolio-section">
                                             <div
                                                 className="panel__portfolio"
                                                 ref={this.portfolio}
                                                 id="portfolio">
-                                                    <table className="panel__portfolio-list" style={{borderSpacing: "15px"}}>
-														<thead>
-                                                            <tr>
-                                                                <th style={{textAlign: "left", paddingLeft: "10px"}}>SYMBOL</th>
-                                                                <th style={{textAlign: "right"}}>QUANTITY</th>
-                                                                <th style={{textAlign: "right", paddingRight: "15px"}}>GAIN/LOSS (%)</th>
-                                                                <th style={{textAlign: "left"}}>BOUGHT PRICE</th>
-                                                                <th style={{textAlign: "left"}}>CURRENT PRICE</th>
-                                                                <th></th>
-                                                            </tr>
-														</thead>
-                                                        <tbody>
-														{
-															portfolioStocks.map((value, index) => {
-                                                                return (
-                                                                    <tr key={index}>
-                                                                        <td style={{textAlign: "left"}}>{value.name}</td>
-                                                                        <td style={{textAlign: "right"}}>{value.amount}</td>
-                                                                        <td style={{textAlign: "right", paddingRight: "15px"}}>{getGain(getValue(value.name), value.price, value.amount)}%</td>
-                                                                        <td style={{textAlign: "left"}}>${value.price}</td>
-                                                                        <td style={{textAlign: "left"}}>${getValue(value.name, value.amount)}</td>
-                                                                        <td><button style={{backgroundColor: "#35b660b5", margin: "5px", padding: "5px 15px", borderRadius: "15px", color: "rgba(255, 255, 255, 0.7)"}}>Sell</button></td>
-																		{value}
-                                                                    </tr>
-																);
-															})
+														{this.state.portfolioDidLoad === "" && (<CircularProgress style={{position: "absolute", left: "50%", top: "50%"}}/>)}
+														{this.state.portfolioDidLoad === "empty" && (<span>You have not bought anything!</span>)}
+														{this.state.portfolioDidLoad === false && (
+															<div className="errorMsg" style={{color: "rgba(255, 255, 255, 0.5)"}}>
+																<ErrorOutlineIcon style={{ fontSize: 80}}/>
+																<p>Couldn't load :(</p>
+															</div>)
+														}                                                        
+														{ this.state.portfolioDidLoad === true &&
+															(
+																<table className="panel__portfolio-list" style={{borderSpacing: "15px"}}>
+																	<thead>
+																		<tr>
+																			<th style={{textAlign: "left", paddingLeft: "10px"}}>SYMBOL</th>
+																			<th style={{textAlign: "right"}}>QUANTITY</th>
+																			<th style={{textAlign: "right", paddingRight: "15px"}}>GAIN/LOSS (%)</th>
+																			<th style={{textAlign: "left"}}>BOUGHT PRICE</th>
+																			<th style={{textAlign: "left"}}>CURRENT PRICE</th>
+																			<th></th>
+																		</tr>
+																	</thead>
+																		<tbody>
+																			{
+																				portfolioStocks.map((value, index) => {
+																				// let currentValue = getValue(value.name, value.amount);
+																					return (
+																						<tr key={index}>
+																							<td style={{textAlign: "left"}}>{value.name}</td>
+																							<td style={{textAlign: "right"}}>{value.amount}</td>
+																							<td style={{textAlign: "left"}}>${getValue(value.name, value.amount)}</td>
+																							<td><button style={{backgroundColor: "#35b660b5", margin: "5px", padding: "5px 15px", borderRadius: "15px", color: "rgba(255, 255, 255, 0.7)"}}>Sell</button></td>
+																						</tr>
+																					);
+																				})
+																			}
+																		</tbody>
+																</table>
+															)
 														}
-                                                        </tbody>
-                                                    </table>
                                             </div>
                                         </div>
                                     </div>
@@ -701,7 +744,7 @@ class Dashboard extends React.Component {
                                     </svg>
                                     <h3>Most Active</h3>
                                 </div>
-                                {this.state.loader3 === true && (
+                                {this.state.activeStocks === true && (
                                     <div className="panel__bottom">
                                         <div className="panel__stockList">
                                             <ul className="panel__list">
@@ -834,8 +877,8 @@ class Dashboard extends React.Component {
                                         </div>
                                     </div>
                                 )}{" "}
-                                {this.state.loader3 === "" && <CircularProgress style={{position: "absolute", left: "50%", top: "50%"}}/>}
-                                {this.state.loader3 === false && (
+                                {this.state.activeStocks === "" && <CircularProgress style={{position: "absolute", left: "50%", top: "50%"}}/>}
+                                {this.state.activeStocks === false && (
 									<div className="errorMsg" style={{color: "rgba(255, 255, 255, 0.5)"}}>
 										<ErrorOutlineIcon style={{ fontSize: 80}}/>
 										<p>Couldn't load :(</p>

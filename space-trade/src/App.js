@@ -63,31 +63,32 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
-  return (
-    <ScrollReveal
-      ref={childRef}
-      children={() => (
-        <ApolloProvider client={client}>
-          <Switch>
-            <AppRoute exact path="/" component={Home} layout={LayoutDefault} />
+	return (
+		<ScrollReveal
+		ref={childRef}
+		children={() => (
+			<ApolloProvider client={client}>
+				<Switch>
+					<AppRoute exact path="/" component={Home} layout={LayoutDefault} />
 
-            <Route path="/dashboard">
-              <VerticalMenu />
-              <Dashboard />
-            </Route>
+					<Route path="/dashboard">
+						<VerticalMenu/>
+						<Dashboard />
+						<ChatBot />
+					</Route>
+					
+					<Route path="/stocks/:stockId">
+						<VerticalMenu/>
+						<Stock/>
+						<ChatBot />
+					</Route>
+					
+					<Route exact path="/login" component={LoginForm} />
+					<Route exact path="/register" component={RegisterForm} />
 
-            <Route path="/stocks/:stockId">
-              <VerticalMenu />
-              <Stock />
-            </Route>
-
-            <Route exact path="/login" component={LoginForm} />
-            <Route exact path="/register" component={RegisterForm} />
-
-          </Switch>
-          <ChatBot />
-        </ApolloProvider>
-      )} />
+				</Switch>
+			</ApolloProvider>
+		)} />
   );
 }
 
