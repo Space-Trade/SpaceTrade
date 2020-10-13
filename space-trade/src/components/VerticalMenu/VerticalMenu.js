@@ -177,6 +177,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function VerticalMenu() {
+	const balance = localStorage.getItem('balance');
 	const classes = useStyles();
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(false);
@@ -332,6 +333,9 @@ export default function VerticalMenu() {
 								<NotificationsIcon />
 							</Badge>
 						</IconButton>
+						<div>
+							${balance}
+						</div>
 						<IconButton
 							edge="end"
 							aria-label="account of current user"
