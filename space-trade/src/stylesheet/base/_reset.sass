@@ -1,5 +1,8 @@
 ::-webkit-scrollbar 
   width: 5px
+  position: fixed
+  top: 0
+  right: 0
 
 
 /* Track */
@@ -25,8 +28,10 @@ html, body, #root, .container, .Dashboard
 .light
   .container, .Dashboard
     background-color: $light-panel-color
-.Dashboard
-  overflow: hidden
+.Dashboard	
+    width: calc(100% - 55px);
+    right: 0px;
+    position: absolute;
 textarea
   outline: none
   border: none

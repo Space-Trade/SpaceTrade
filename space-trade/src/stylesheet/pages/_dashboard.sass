@@ -163,12 +163,6 @@ a
     transition: all .4s
     @media only screen and (max-width: 600px) 
       width: 100% 
-    .panel__container
-      display: flex
-      align-items: center
-      flex-wrap: wrap
-      height: 40%
-      margin-bottom: 50px
     .panel__topCharts
       height: 90%
       width: 100%
@@ -244,14 +238,15 @@ a
     &:nth-child(1)
       width: 100%
       margin: 0
-.panel__portfolio-title
-  width: 5.5%
-  fill: $main-color
-  margin-right: 10px
-  min-width: 20px
+
 .panel__portfolio-section
-  width: 34%
-  height: 100%
+  .panel__portfolio-title
+    width: 5.5%
+    fill: $main-color
+    margin-right: 10px
+    min-width: 20px
+  width: 100%
+  height: 300px
   min-width: 250px
   @media only screen and (max-width: 1050px) 
     display: none

@@ -224,9 +224,9 @@ class Dashboard extends React.Component {
                     ) {
                         dataChart.push(
                             parseFloat(
-                                result["Time Series (1min)"][
-                                Object.keys(result["Time Series (1min)"])[parseInt(i)]
-                                ]["4. close"],
+                            result["Time Series (1min)"][
+                            Object.keys(result["Time Series (1min)"])[parseInt(i)]
+                            ]["4. close"],
                             ).toFixed(2),
                         );
                     }
@@ -238,49 +238,49 @@ class Dashboard extends React.Component {
                         fetch(stockApi)
                             .then(res => res.json())
                             .then(result => {
-                                if (
-                                    typeof result["Note"] === "undefined" &&
-                                    result.length > 1
+                            if (
+                                typeof result["Note"] === "undefined" &&
+                                result.length > 1
+                            ) {
+                                for (
+                                    let i =
+                                        Object.keys(result["Time Series (1min)"]).length - 1;
+                                    i > 0 || callback();
+                                    i--
                                 ) {
-                                    for (
-                                        let i =
-                                            Object.keys(result["Time Series (1min)"]).length - 1;
-                                        i > 0 || callback();
-                                        i--
-                                    ) {
-                                        dataChart.push(
-                                            parseFloat(
-                                                result["Time Series (1min)"][
-                                                Object.keys(result["Time Series (1min)"])[parseInt(i)]
-                                                ]["4. close"],
-                                            ).toFixed(2),
-                                        );
-                                    }
+                                    dataChart.push(
+                                        parseFloat(
+                                            result["Time Series (1min)"][
+                                            Object.keys(result["Time Series (1min)"])[parseInt(i)]
+                                            ]["4. close"],
+                                        ).toFixed(2),
+                                    );
                                 }
+                            }
                             });
                     } else {
                         if (typeof result["Note"] === "undefined" && result.length > 1) {
                             b++;
                             const stockApi = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=1min&apikey=${apiKeys[parseInt(b)]
-                                }`;
+                            }`;
                             fetch(stockApi)
-                                .then(res => res.json())
-                                .then(result => {
-                                    for (
-                                        let i =
-                                            Object.keys(result["Time Series (1min)"]).length - 1;
-                                        i > 0 || callback();
-                                        i--
-                                    ) {
-                                        dataChart.push(
-                                            parseFloat(
-                                                result["Time Series (1min)"][
-                                                Object.keys(result["Time Series (1min)"])[parseInt(i)]
-                                                ]["4. close"],
-                                            ).toFixed(2),
-                                        );
-                                    }
-                                });
+                            .then(res => res.json())
+                            .then(result => {
+                                for (
+                                    let i =
+                                        Object.keys(result["Time Series (1min)"]).length - 1;
+                                    i > 0 || callback();
+                                    i--
+                                ) {
+                                    dataChart.push(
+                                        parseFloat(
+                                            result["Time Series (1min)"][
+                                            Object.keys(result["Time Series (1min)"])[parseInt(i)]
+                                            ]["4. close"],
+                                        ).toFixed(2),
+                                    );
+                                }
+                            });
                         }
                     }
                 }
@@ -596,294 +596,294 @@ class Dashboard extends React.Component {
         }
         const balance = localStorage.getItem('balance');
         return (
-            <main className="Dashboard" id="dashboard" style={{marginLeft: "57px"}}>
+            <main className="Dashboard" id="dashboard" style={{width: "calc(100% - 57px)", right: "0"}}>
                 {localStorage.getItem('balance')}
                 <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
                     <div style={{ display: "flex", height: "auto" }}>
                         <div className="panel">
-                            <div className="panel__container">
-                                <div className="panel__top">
-                                    <div className="panel__title">
-                                        <div style={{ display: "flex", alignItems: "center" }}>
-                                            <svg
-                                                className="panel__popular"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                width="48"
-                                                height="48"
-                                                viewBox="0 0 24 24"
-                                                fill="none"
-                                                stroke="#5eb5f8"
-                                                strokeWidth="2"
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round">
-                                                <path d="M3 3v18h18" />
-                                                <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3" />
-                                            </svg>
-                                            <h3>Gainers</h3>
-                                        </div>
-                                        <div
-                                            style={{
-                                                display: "flex",
-                                                alignItems: "center",
-                                                width: "33%",
-                                            }}>
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                className="panel__portfolio-title"
-                                                viewBox="0 0 24 24">
-                                                <g>
-                                                    <path fill="none" d="M0 0h24v24H0z" />
-                                                    <path d="M4.873 3h14.254a1 1 0 0 1 .809.412l3.823 5.256a.5.5 0 0 1-.037.633L12.367 21.602a.5.5 0 0 1-.706.028c-.007-.006-3.8-4.115-11.383-12.329a.5.5 0 0 1-.037-.633l3.823-5.256A1 1 0 0 1 4.873 3zm.51 2l-2.8 3.85L12 19.05 21.417 8.85 18.617 5H5.383z" />
-                                                </g>
-                                            </svg>
-                                            <h3>Portfolio</h3>
-                                        </div>
+                            <div className="panel__top">
+                                <div className="panel__title">
+                                    <div style={{ display: "flex", alignItems: "center" }}>
+                                        <svg
+                                            className="panel__popular"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="48"
+                                            height="48"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="#5eb5f8"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round">
+                                            <path d="M3 3v18h18" />
+                                            <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3" />
+                                        </svg>
+                                        <h3>Gainers</h3>
                                     </div>
-                                    <div className="panel__topCharts" style={{ display: "flex" }}>
-                                        <a
-                                            ref={this.chartFirst}
-                                            id="chartFirst"
-                                            href="/"
-                                            className="chartLink">
-                                            <StockCard
-                                                loader={this.state.loader1}
-                                                data={this.data1}
-                                                stockSymbol={stockSymbols[0]}
-                                                stockPrice={stockPrices[0]}
-                                                stockChange={stockChanges[0]}
-                                                changesColor={changesColors[0]}
-                                            />
-                                        </a>
-                                        <a
-                                            ref={this.chartSecond}
-                                            id="chartSecond"
-                                            href="/"
-                                            className="chartLink">
-                                            <StockCard
-                                                loader={this.state.loader1}
-                                                data={this.data2}
-                                                stockSymbol={stockSymbols[1]}
-                                                stockPrice={stockPrices[1]}
-                                                stockChange={stockChanges[1]}
-                                                changesColor={changesColors[1]}
-                                            />
-                                        </a>
-                                        <a
-                                            ref={this.chartThird}
-                                            id="chartThird"
-                                            href="/"
-                                            className="chartLink">
-                                            <StockCard
-                                                loader={this.state.loader1}
-                                                data={this.data3}
-                                                stockSymbol={stockSymbols[2]}
-                                                stockPrice={stockPrices[2]}
-                                                stockChange={stockChanges[2]}
-                                                changesColor={changesColors[2]}
-                                            />
-                                        </a>
-                                        <div className="panel__portfolio-section">
-                                            <div
-                                                className="panel__portfolio"
-                                                ref={this.portfolio}
-                                                id="portfolio">
-														{this.state.portfolioDidLoad === "" && (<CircularProgress style={{position: "absolute", left: "50%", top: "50%"}}/>)}
-														{this.state.portfolioDidLoad === "empty" && (<span>You have not bought anything!</span>)}
-														{this.state.portfolioDidLoad === false && (
-															<div className="errorMsg" style={{color: "rgba(255, 255, 255, 0.5)"}}>
-																<ErrorOutlineIcon style={{ fontSize: 80}}/>
-																<p>Couldn't load :(</p>
-															</div>)
-														}                                                        
-														{ this.state.portfolioDidLoad === true &&
-															(
-																<table className="panel__portfolio-list" style={{borderSpacing: "15px"}}>
-																	<thead>
-																		<tr>
-																			<th style={{textAlign: "left", paddingLeft: "10px"}}>SYMBOL</th>
-																			<th style={{textAlign: "right"}}>QUANTITY</th>
-																			<th style={{textAlign: "right", paddingRight: "15px"}}>GAIN/LOSS (%)</th>
-																			<th style={{textAlign: "left"}}>BOUGHT PRICE</th>
-																			<th style={{textAlign: "left"}}>CURRENT PRICE</th>
-																			<th></th>
-																		</tr>
-																	</thead>
-																		<tbody>
-																			{
-																				portfolioStocks.map((value, index) => {
-																				// let currentValue = getValue(value.name, value.amount);
-																					return (
-																						<tr key={index}>
-																							<td style={{textAlign: "left"}}>{value.name}</td>
-																							<td style={{textAlign: "right"}}>{value.amount}</td>
-																							<td style={{textAlign: "left"}}>${getValue(value.name, value.amount)}</td>
-																							<td><button style={{backgroundColor: "#35b660b5", margin: "5px", padding: "5px 15px", borderRadius: "15px", color: "rgba(255, 255, 255, 0.7)"}}>Sell</button></td>
-																						</tr>
-																					);
-																				})
-																			}
-																		</tbody>
-																</table>
-															)
-														}
-                                            </div>
-                                        </div>
-                                    </div>
+                                </div>
+                                <div className="panel__topCharts" style={{ display: "flex" }}>
+                                    <a
+                                        ref={this.chartFirst}
+                                        id="chartFirst"
+                                        href="/"
+                                        className="chartLink">
+                                        <StockCard
+                                            loader={this.state.loader1}
+                                            data={this.data1}
+                                            stockSymbol={stockSymbols[0]}
+                                            stockPrice={stockPrices[0]}
+                                            stockChange={stockChanges[0]}
+                                            changesColor={changesColors[0]}
+                                        />
+                                    </a>
+                                    <a
+                                        ref={this.chartSecond}
+                                        id="chartSecond"
+                                        href="/"
+                                        className="chartLink">
+                                        <StockCard
+                                            loader={this.state.loader1}
+                                            data={this.data2}
+                                            stockSymbol={stockSymbols[1]}
+                                            stockPrice={stockPrices[1]}
+                                            stockChange={stockChanges[1]}
+                                            changesColor={changesColors[1]}
+                                        />
+                                    </a>
+                                    <a
+                                        ref={this.chartThird}
+                                        id="chartThird"
+                                        href="/"
+                                        className="chartLink">
+                                        <StockCard
+                                            loader={this.state.loader1}
+                                            data={this.data3}
+                                            stockSymbol={stockSymbols[2]}
+                                            stockPrice={stockPrices[2]}
+                                            stockChange={stockChanges[2]}
+                                            changesColor={changesColors[2]}
+                                        />
+                                    </a>
+                                    
                                 </div>
                             </div>
+							<div className="panel__portfolio-section">
+								<div
+									style={{
+									display: "flex",
+									alignItems: "center",
+									width: "33%",
+								}}>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										className="panel__portfolio-title"
+										viewBox="0 0 24 24">
+										<g>
+										<path fill="none" d="M0 0h24v24H0z" />
+										<path d="M4.873 3h14.254a1 1 0 0 1 .809.412l3.823 5.256a.5.5 0 0 1-.037.633L12.367 21.602a.5.5 0 0 1-.706.028c-.007-.006-3.8-4.115-11.383-12.329a.5.5 0 0 1-.037-.633l3.823-5.256A1 1 0 0 1 4.873 3zm.51 2l-2.8 3.85L12 19.05 21.417 8.85 18.617 5H5.383z" />
+										</g>
+									</svg>
+									<h3>Portfolio</h3>
+								</div>
+							</div>
+                            <div
+                                className="panel__portfolio"
+                                ref={this.portfolio}
+                                id="portfolio"
+							>
+								{this.state.portfolioDidLoad === "" && (<CircularProgress style={{position: "absolute", left: "50%", top: "50%"}}/>)}
+								{this.state.portfolioDidLoad === "empty" && (<span>You have not bought anything!</span>)}
+								{this.state.portfolioDidLoad === false && (
+									<div className="errorMsg" style={{color: "rgba(255, 255, 255, 0.5)"}}>
+										<ErrorOutlineIcon style={{ fontSize: 80}}/>
+										<p>Couldn't load :(</p>
+									</div>)
+								}                                                    
+								{ this.state.portfolioDidLoad === true &&
+									(
+										<table className="panel__portfolio-list" style={{borderSpacing: "15px"}}>
+											<thead>
+												<tr>
+													<th style={{textAlign: "left", paddingLeft: "10px"}}>SYMBOL</th>
+													<th style={{textAlign: "right"}}>QUANTITY</th>
+													<th style={{textAlign: "right", paddingRight: "15px"}}>GAIN/LOSS (%)</th>
+													<th style={{textAlign: "left"}}>BOUGHT PRICE</th>
+													<th style={{textAlign: "left"}}>CURRENT PRICE</th>
+													<th></th>
+												</tr>
+											</thead>
+											<tbody>
+												{
+													portfolioStocks.map((value, index) => {
+														// let currentValue = getValue(value.name, value.amount);
+														return (
+																<tr key={index}>
+																<td style={{textAlign: "left"}}>{value.name}</td>
+																<td style={{textAlign: "right"}}>{value.amount}</td>
+																<td style={{textAlign: "left"}}>${getValue(value.name, value.amount)}</td>
+																<td><button style={{backgroundColor: "#35b660b5", margin: "5px", padding: "5px 15px", borderRadius: "15px", color: "rgba(255, 255, 255, 0.7)"}}>Sell</button></td>
+															</tr>
+														);
+													})
+												}
+											</tbody>
+										</table>
+									)
+								}
+                            </div>
                             <div className="panel__low">
-                                <div className="panel__bottom-title">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                        <g>
-                                            <path fill="none" d="M0 0h24v24H0z" />
-                                            <path
-                                                fillRule="nonzero"
-                                                d="M12 23a7.5 7.5 0 0 0 7.5-7.5c0-.866-.23-1.697-.5-2.47-1.667 1.647-2.933 2.47-3.8 2.47 3.995-7 1.8-10-4.2-14 .5 5-2.796 7.274-4.138 8.537A7.5 7.5 0 0 0 12 23zm.71-17.765c3.241 2.75 3.257 4.887.753 9.274-.761 1.333.202 2.991 1.737 2.991.688 0 1.384-.2 2.119-.595a5.5 5.5 0 1 1-9.087-5.412c.126-.118.765-.685.793-.71.424-.38.773-.717 1.118-1.086 1.23-1.318 2.114-2.78 2.566-4.462z"
-                                            />
-                                        </g>
-                                    </svg>
-                                    <h3>Most Active</h3>
-                                </div>
-                                {this.state.activeStocks === true && (
-                                    <div className="panel__bottom">
-                                        <div className="panel__stockList">
-                                            <ul className="panel__list">
-                                                {stockList.map((value, index) => {
-                                                    if (index < 3) {
-                                                        return (
-                                                            <li key={index}>
-                                                                <Link
-                                                                    to={
-                                                                        "stocks/" +
-                                                                        stockListTickers[parseInt(index)]
-                                                                    }>
-                                                                    <span className="panel__fullname">
-                                                                        <h4>{stockListTickers[parseInt(index)]}</h4>
-                                                                        <h6 className="panel__name">{value}</h6>
-                                                                    </span>
-                                                                    <div className="panel__list-change">
-                                                                        <h4> {stockListPrices[parseInt(index)]}</h4>
-                                                                        <h5
-                                                                            style={{
-                                                                                color:
-                                                                                    stockListChangeColors[
-                                                                                    parseInt(index)
-                                                                                    ] + ")",
-                                                                                margin: "5px 0 0 0",
-                                                                                textShadow:
-                                                                                    "0px 0px 7px " +
-                                                                                    stockListChangeColors[
-                                                                                    parseInt(index)
-                                                                                    ] +
-                                                                                    ",0.5)",
-                                                                            }}>
-                                                                            {stockListChange[parseInt(index)]}
-                                                                        </h5>
-                                                                    </div>
-                                                                </Link>
-                                                            </li>
-                                                        );
-                                                    } else {
-                                                        return "";
-                                                    }
-                                                })}
-                                            </ul>
-                                        </div>
-                                        <div className="panel__stockList">
-                                            <ul className="panel__list">
-                                                {stockList.map((value, index) => {
-                                                    if (index >= 3 && index < 6) {
-                                                        return (
-                                                            <li key={index}>
-                                                                <Link
-                                                                    to={
-                                                                        "stocks/" +
-                                                                        stockListTickers[parseInt(index)]
-                                                                    }>
-                                                                    <span className="panel__fullname">
-                                                                        <h4>{stockListTickers[parseInt(index)]}</h4>
-                                                                        <h6 className="panel__name">{value}</h6>
-                                                                    </span>
-                                                                    <div className="panel__list-change">
-                                                                        <h4> {stockListPrices[parseInt(index)]}</h4>
-                                                                        <h5
-                                                                            style={{
-                                                                                color:
-                                                                                    stockListChangeColors[
-                                                                                    parseInt(index)
-                                                                                    ] + ")",
-                                                                                margin: "5px 0 0 0",
-                                                                                textShadow:
-                                                                                    "0px 0px 7px " +
-                                                                                    stockListChangeColors[
-                                                                                    parseInt(index)
-                                                                                    ] +
-                                                                                    ",0.5)",
-                                                                            }}>
-                                                                            {stockListChange[parseInt(index)]}
-                                                                        </h5>
-                                                                    </div>
-                                                                </Link>
-                                                            </li>
-                                                        );
-                                                    } else {
-                                                        return "";
-                                                    }
-                                                })}
-                                            </ul>
-                                        </div>
-                                        <div className="panel__stockList">
-                                            <ul className="panel__list">
-                                                {stockList.map((value, index) => {
-                                                    if (index >= 6) {
-                                                        return (
-                                                            <li key={index}>
-                                                                <Link
-                                                                    to={
-                                                                        "stocks/" +
-                                                                        stockListTickers[parseInt(index)]
-                                                                    }>
-                                                                    <span className="panel__fullname">
-                                                                        <h4>{stockListTickers[parseInt(index)]}</h4>
-                                                                        <h6 className="panel__name">{value}</h6>
-                                                                    </span>
-                                                                    <div className="panel__list-change">
-                                                                        <h4> {stockListPrices[parseInt(index)]}</h4>
-                                                                        <h5
-                                                                            style={{
-                                                                                color:
-                                                                                    stockListChangeColors[
-                                                                                    parseInt(index)
-                                                                                    ] + ")",
-                                                                                margin: "5px 0 0 0",
-                                                                                textShadow:
-                                                                                    "0px 0px 7px " +
-                                                                                    stockListChangeColors[
-                                                                                    parseInt(index)
-                                                                                    ] +
-                                                                                    ",0.5)",
-                                                                            }}>
-                                                                            {stockListChange[parseInt(index)]}
-                                                                        </h5>
-                                                                    </div>
-                                                                </Link>
-                                                            </li>
-                                                        );
-                                                    } else {
-                                                        return "";
-                                                    }
-                                                })}
-                                            </ul>
-                                        </div>
+                            <div className="panel__bottom-title">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <g>
+                                        <path fill="none" d="M0 0h24v24H0z" />
+                                        <path
+                                            fillRule="nonzero"
+                                            d="M12 23a7.5 7.5 0 0 0 7.5-7.5c0-.866-.23-1.697-.5-2.47-1.667 1.647-2.933 2.47-3.8 2.47 3.995-7 1.8-10-4.2-14 .5 5-2.796 7.274-4.138 8.537A7.5 7.5 0 0 0 12 23zm.71-17.765c3.241 2.75 3.257 4.887.753 9.274-.761 1.333.202 2.991 1.737 2.991.688 0 1.384-.2 2.119-.595a5.5 5.5 0 1 1-9.087-5.412c.126-.118.765-.685.793-.71.424-.38.773-.717 1.118-1.086 1.23-1.318 2.114-2.78 2.566-4.462z"
+                                        />
+                                    </g>
+                                </svg>
+                                <h3>Most Active</h3>
+                            </div>
+                            {this.state.activeStocks === true && (
+                                <div className="panel__bottom">
+                                    <div className="panel__stockList">
+                                        <ul className="panel__list">
+                                            {stockList.map((value, index) => {
+                                                if (index < 3) {
+                                                    return (
+                                                        <li key={index}>
+                                                        <Link
+                                                            to={
+                                                                "stocks/" +
+                                                                stockListTickers[parseInt(index)]
+                                                            }>
+                                                            <span className="panel__fullname">
+                                                                <h4>{stockListTickers[parseInt(index)]}</h4>
+                                                                <h6 className="panel__name">{value}</h6>
+                                                            </span>
+                                                            <div className="panel__list-change">
+                                                                <h4> {stockListPrices[parseInt(index)]}</h4>
+                                                                <h5
+                                                                    style={{
+                                                                        color:
+                                                                            stockListChangeColors[
+                                                                            parseInt(index)
+                                                                            ] + ")",
+                                                                        margin: "5px 0 0 0",
+                                                                        textShadow:
+                                                                            "0px 0px 7px " +
+                                                                            stockListChangeColors[
+                                                                            parseInt(index)
+                                                                            ] +
+                                                                            ",0.5)",
+                                                                    }}>
+                                                                    {stockListChange[parseInt(index)]}
+                                                                </h5>
+                                                            </div>
+                                                        </Link>
+                                                        </li>
+                                                    );
+                                                } else {
+                                                    return "";
+                                                }
+                                            })}
+                                        </ul>
                                     </div>
-                                )}{" "}
-                                {this.state.activeStocks === "" && <CircularProgress style={{position: "absolute", left: "50%", top: "50%"}}/>}
-                                {this.state.activeStocks === false && (
+                                    <div className="panel__stockList">
+                                        <ul className="panel__list">
+                                            {stockList.map((value, index) => {
+                                                if (index >= 3 && index < 6) {
+                                                    return (
+                                                        <li key={index}>
+                                                        <Link
+                                                            to={
+                                                                "stocks/" +
+                                                                stockListTickers[parseInt(index)]
+                                                            }>
+                                                            <span className="panel__fullname">
+                                                                <h4>{stockListTickers[parseInt(index)]}</h4>
+                                                                <h6 className="panel__name">{value}</h6>
+                                                            </span>
+                                                            <div className="panel__list-change">
+                                                                <h4> {stockListPrices[parseInt(index)]}</h4>
+                                                                <h5
+                                                                    style={{
+                                                                        color:
+                                                                            stockListChangeColors[
+                                                                            parseInt(index)
+                                                                            ] + ")",
+                                                                        margin: "5px 0 0 0",
+                                                                        textShadow:
+                                                                            "0px 0px 7px " +
+                                                                            stockListChangeColors[
+                                                                            parseInt(index)
+                                                                            ] +
+                                                                            ",0.5)",
+                                                                    }}>
+                                                                    {stockListChange[parseInt(index)]}
+                                                                </h5>
+                                                            </div>
+                                                        </Link>
+                                                        </li>
+                                                    );
+                                                } else {
+                                                    return "";
+                                                }
+                                            })}
+                                        </ul>
+                                    </div>
+                                    <div className="panel__stockList">
+                                        <ul className="panel__list">
+                                            {stockList.map((value, index) => {
+                                                if (index >= 6) {
+                                                    return (
+                                                        <li key={index}>
+                                                        <Link
+                                                            to={
+                                                                "stocks/" +
+                                                                stockListTickers[parseInt(index)]
+                                                            }>
+                                                            <span className="panel__fullname">
+                                                                <h4>{stockListTickers[parseInt(index)]}</h4>
+                                                                <h6 className="panel__name">{value}</h6>
+                                                            </span>
+                                                            <div className="panel__list-change">
+                                                                <h4> {stockListPrices[parseInt(index)]}</h4>
+                                                                <h5
+                                                                    style={{
+                                                                        color:
+                                                                            stockListChangeColors[
+                                                                            parseInt(index)
+                                                                            ] + ")",
+                                                                        margin: "5px 0 0 0",
+                                                                        textShadow:
+                                                                            "0px 0px 7px " +
+                                                                            stockListChangeColors[
+                                                                            parseInt(index)
+                                                                            ] +
+                                                                            ",0.5)",
+                                                                    }}>
+                                                                    {stockListChange[parseInt(index)]}
+                                                                </h5>
+                                                            </div>
+                                                        </Link>
+                                                        </li>
+                                                    );
+                                                } else {
+                                                    return "";
+                                                }
+                                            })}
+                                        </ul>
+                                    </div>
+                                </div>
+                            )}{" "}
+                            {this.state.activeStocks === "" && <CircularProgress style={{position: "absolute", left: "50%", top: "50%"}}/>}
+                            {this.state.activeStocks === false && (
 									<div className="errorMsg" style={{color: "rgba(255, 255, 255, 0.5)"}}>
 										<ErrorOutlineIcon style={{ fontSize: 80}}/>
 										<p>Couldn't load :(</p>
 									</div>
-                                )}
+                            )}
                             </div>
                         </div>
                     </div>
