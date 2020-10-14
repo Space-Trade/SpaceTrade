@@ -323,6 +323,9 @@ export default function VerticalMenu() {
 					</div>
 					<div className={classes.grow} />
 					<div className={classes.sectionDesktop}>
+						<div>
+							${(Math.round(balance * 100) / 100).toFixed(2)}
+						</div>
 						<IconButton aria-label="show 4 new mails" color="inherit">
 							<Badge badgeContent={4} color="secondary">
 								<MailIcon />
@@ -333,9 +336,6 @@ export default function VerticalMenu() {
 								<NotificationsIcon />
 							</Badge>
 						</IconButton>
-						<div>
-							${balance}
-						</div>
 						<IconButton
 							edge="end"
 							aria-label="account of current user"
