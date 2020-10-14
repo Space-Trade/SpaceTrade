@@ -9,7 +9,7 @@ let newsImage = [];
 let newsSummary = [];
 let newsUrl = [];
 let newsRelated = [];
-
+const API_KEY = keyList[3];
 class News extends React.Component {
   _isMounted = false;
   constructor() {
@@ -21,7 +21,7 @@ class News extends React.Component {
 
   getLatestNews() {
     fetch(
-      `https://cloud.iexapis.com/stable/stock/${this.props.symbol}/news?token=${keyList[4]}`,
+      `https://cloud.iexapis.com/stable/stock/${this.props.symbol}/news?token=${API_KEY}`,
     )
       .then(res => res.json())
       .then(result => {
@@ -43,15 +43,13 @@ class News extends React.Component {
         }
       })
       .then(() => {
-        setTimeout(() => {
-          for (let i = 0; i < newsUrl.length; i++) {
+        for (let i = 0; i < newsUrl.length; i++) {
             if (document.querySelector("#img" + i) !== null) {
               document.querySelector(
                 "#img" + i,
               ).style = `background-image:url(${newsImage[parseInt(i)]})`;
             }
           }
-        }, 1000);
       })
       .then(() => {
         if (this._isMounted) {

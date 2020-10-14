@@ -211,36 +211,32 @@ export default class Stock extends React.Component {
                             );
                         }
                     } else {
-                        setTimeout(() => {
-                            b++;
-                            const stockApi = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=1min&apikey=${apiKeys[parseInt(b)]}`;
-                            fetch(stockApi)
-                                .then(res => res.json())
-                                .then(result => {
-                                    for (let i = Object.keys(result["Time Series (1min)"]).length - 1; i > 0; i--) {
-                                        chartData1.push(
-                                            parseFloat(
-                                                result["Time Series (1min)"][
-                                                Object.keys(result["Time Series (1min)"])[parseInt(i)]
+                        b++;
+                        const stockApi = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=1min&apikey=${apiKeys[parseInt(b)]}`;
+                        fetch(stockApi)
+                            .then(res => res.json())
+                            .then(result => {
+                        	    for (let i = Object.keys(result["Time Series (1min)"]).length - 1; i > 0; i--) {
+                                    chartData1.push(
+                                        parseFloat(
+                                            result["Time Series (1min)"][
+                            	                Object.keys(result["Time Series (1min)"])[parseInt(i)]
                                                 ]["4. close"],
-                                            ).toFixed(2),
-                                        );
-                                        labels.push(Object.keys(result["Time Series (1min)"])[parseInt(i)].split(" ")[1].slice(0, -3),);
-                                    }
-                                });
-                        }, 500);
+                                        ).toFixed(2),
+                                    );
+                                    labels.push(Object.keys(result["Time Series (1min)"])[parseInt(i)].split(" ")[1].slice(0, -3),);
+                                }
+                            });
                     }
                 })
                 .then(() => {
-                    setTimeout(() => {
-                        if (this._isMounted) {
-                            this.setState({
-                                loaded: true,
-                            });
-                            chartData1.map(val => oneDay.push(val));
-                            labels.map(val => oneDayLabels.push(val));
-                        }
-                    }, 1000);
+                    if (this._isMounted) {
+						this.setState({
+							loaded: true,
+						});
+						chartData1.map(val => oneDay.push(val));
+						labels.map(val => oneDayLabels.push(val));
+					}
                 });
         } else {
             labels = oneDayLabels;
@@ -423,41 +419,35 @@ export default class Stock extends React.Component {
     }
 
     changeFocus(option) {
-        setTimeout(
-            function () {
-                var elems = document.querySelectorAll(".Chart__option");
+        var elems = document.querySelectorAll(".Chart__option");
 
-                [].forEach.call(elems, function (el) {
-                    el.classList.remove("active");
-                });
-                switch (option) {
-                    case 1:
-                        this.day.current.classList.add("active");
-                        break;
+        [].forEach.call(elems, function (el) {
+            el.classList.remove("active");
+        });
+        switch (option) {
+            case 1:
+        	    this.day.current.classList.add("active");
+     	       break;
+			case 2:
+                this.month.current.classList.add("active");
+                break;
 
-                    case 2:
-                        this.month.current.classList.add("active");
-                        break;
+			case 3:
+			    this.year.current.classList.add("active");
+			    break;
 
-                    case 3:
-                        this.year.current.classList.add("active");
-                        break;
+			case 4:
+			    this.years.current.classList.add("active");
+			    break;
 
-                    case 4:
-                        this.years.current.classList.add("active");
-                        break;
+			case 5:
+			    this.ytd.current.classList.add("active");
+			    break;
 
-                    case 5:
-                        this.ytd.current.classList.add("active");
-                        break;
-
-                    default:
-                        this.ytd.current.classList.add("active");
-                        break;
-                }
-            }.bind(this),
-            200,
-        );
+			default:
+			    this.ytd.current.classList.add("active");
+				break;
+		}
     }
 
     rendering() {
