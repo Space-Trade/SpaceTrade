@@ -73,7 +73,7 @@ var options = {
     },
 };
 
-const API_KEY = keyList[7];
+const API_KEY = keyList[5];
 
 const apiKeys = [
     "SAOS0Y8B63XM4DPK",
@@ -715,23 +715,27 @@ export default class Stock extends React.Component {
                                             id="buy-input"
                                             type="number"
                                         />
-                                        <button onClick={function () {
-                                            var result = localStorage.getItem('balance') - document.getElementById("buy-input").value;
-                                            console.log("this.state.latestPrice  ");
+                                        <button onClick={ () => {
+                                            var result = localStorage.getItem('balance') - (this.state.latestPrice * document.getElementById("buy-input").value);
                                             if (result >= 0) {
-                                                //localStorage.setItem('balance', localStorage.getItem('balance') - (latestPrice * document.getElementById("buy-input").value)); // localStorage.getItem('balance') - latestPrice * cantidad del input 
-                                                
+                                                localStorage.setItem('balance', localStorage.getItem('balance') - (this.state.latestPrice * document.getElementById("buy-input").value));
                                                 let transaction = {
                                                     "name": symbol,
                                                     "amount": document.getElementById("buy-input").value,
-                                                    "price": 100
+                                                    "price": this.state.latestPrice
                                                 };
 
-                                                console.log(transaction);
-
                                                 const stocks = JSON.parse(localStorage.getItem('stocks'));
-                                                stocks.push(transaction);
-                                                alert("You bought " + document.getElementById("buy-input").value + " shares!");
+                                                stocks.push(
+                                                    {
+                                                        "name": symbol,
+                                                        "amount": document.getElementById("buy-input").value,
+                                                        "price": this.state.latestPrice
+                                                    }
+                                                );
+                                                localStorage.setItem('stocks', stocks);
+                                                console.log(JSON.parse(localStorage.getItem('stocks')));
+                                                alert("You bought " + document.getElementById("buy-input").value +  " shares!");
                                             } else {
                                                 alert("You do not have enough money to buy this shares!");
                                             }
