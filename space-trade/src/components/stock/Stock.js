@@ -73,7 +73,7 @@ var options = {
     },
 };
 
-const API_KEY = keyList[0];
+const API_KEY = keyList[1];
 
 const apiKeys = [
     "SAOS0Y8B63XM4DPK",
@@ -216,12 +216,12 @@ export default class Stock extends React.Component {
                         fetch(stockApi)
                             .then(res => res.json())
                             .then(result => {
-                        	    for (let i = Object.keys(result["Time Series (1min)"]).length - 1; i > 0; i--) {
+                                for (let i = Object.keys(result["Time Series (1min)"]).length - 1; i > 0; i--) {
                                     chartData1.push(
                                         parseFloat(
                                             result["Time Series (1min)"][
-                            	                Object.keys(result["Time Series (1min)"])[parseInt(i)]
-                                                ]["4. close"],
+                                            Object.keys(result["Time Series (1min)"])[parseInt(i)]
+                                            ]["4. close"],
                                         ).toFixed(2),
                                     );
                                     labels.push(Object.keys(result["Time Series (1min)"])[parseInt(i)].split(" ")[1].slice(0, -3),);
@@ -231,12 +231,12 @@ export default class Stock extends React.Component {
                 })
                 .then(() => {
                     if (this._isMounted) {
-						this.setState({
-							loaded: true,
-						});
-						chartData1.map(val => oneDay.push(val));
-						labels.map(val => oneDayLabels.push(val));
-					}
+                        this.setState({
+                            loaded: true,
+                        });
+                        chartData1.map(val => oneDay.push(val));
+                        labels.map(val => oneDayLabels.push(val));
+                    }
                 });
         } else {
             labels = oneDayLabels;
@@ -426,28 +426,28 @@ export default class Stock extends React.Component {
         });
         switch (option) {
             case 1:
-        	    this.day.current.classList.add("active");
-     	       break;
-			case 2:
+                this.day.current.classList.add("active");
+                break;
+            case 2:
                 this.month.current.classList.add("active");
                 break;
 
-			case 3:
-			    this.year.current.classList.add("active");
-			    break;
+            case 3:
+                this.year.current.classList.add("active");
+                break;
 
-			case 4:
-			    this.years.current.classList.add("active");
-			    break;
+            case 4:
+                this.years.current.classList.add("active");
+                break;
 
-			case 5:
-			    this.ytd.current.classList.add("active");
-			    break;
+            case 5:
+                this.ytd.current.classList.add("active");
+                break;
 
-			default:
-			    this.ytd.current.classList.add("active");
-				break;
-		}
+            default:
+                this.ytd.current.classList.add("active");
+                break;
+        }
     }
 
     rendering() {
@@ -703,23 +703,20 @@ export default class Stock extends React.Component {
                                         var result = localStorage.getItem('balance') - (this.state.latestPrice * document.getElementById("buy-input").value);
                                         if (result >= 0) {
                                             localStorage.setItem('balance', localStorage.getItem('balance') - (this.state.latestPrice * document.getElementById("buy-input").value));
-                                            let stocks = localStorage.getItem('stocks');
-                                            let transaction = {
-                                                "name": symbol,
-                                                "amount": document.getElementById("buy-input").value,
-                                                "price": this.state.latestPrice
-                                            };
-                                            stocks.push(transaction);
-                                            /*
-                                                localStorage.setItem('stocks', stocks);
-                                                console.log(JSON.parse(localStorage.getItem('stocks')));
-                                                alert("You bought " + document.getElementById("buy-input").value +  " shares!");*/
+                                            let stocks = JSON.parse(localStorage.getItem('stocks'));
+                                            stocks.push(
+                                                {
+                                                    "name": symbol.toUpperCase(),
+                                                    "amount": parseInt(document.getElementById("buy-input").value),
+                                                    "price": parseInt(this.state.latestPrice)
+                                                }
+                                            );
+                                            localStorage.setItem('stocks', JSON.stringify(stocks));
+                                            alert("You bought " + document.getElementById("buy-input").value + " " + stockData.name + " shares!");
                                         } else {
                                             alert("You do not have enough money to buy this shares!");
                                         }
-                                    }}
-                                        className="stockPage__buy-button"> BUY
-                                            </button>
+                                    }} className="stockPage__buy-button"> BUY </button>
                                 </div>
                             </div>
                         </div>
