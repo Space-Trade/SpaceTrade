@@ -138,77 +138,6 @@ class Dashboard extends React.Component {
         };
 		////////////////////////////////////////////////////////////////////////////////////
     }
-	// getAccountInfo() {
-	// 	let user = firebase.auth().currentUser.uid;
-	// 	let i = 0;
-	
-	// 	portfolioStocks = [];
-	// 	portfolioValue = [];
-	// 	portfolioShares = [];
-	// 	portfolioMoneyPaid = [];
-	// 	portfolioDifference = [];
-	// 	portfolioColor = [];
-	// 	firebase
-	// 	  .firestore()
-	// 	  .collection("users")
-	// 	  .doc(user)
-	// 	  .collection("stocks")
-	// 	  .get()
-	// 	  .then(snapshot => {
-	// 		if (snapshot.docs.length !== 0 && portfolioDifference.length === 0) {
-	// 		  snapshot.forEach(doc => {
-	// 			if (portfolioStocks.length < 4) {
-	// 			  portfolioStocks.push(doc.data().symbol);
-	// 			  portfolioShares.push(doc.data().shares);
-	// 			  portfolioMoneyPaid.push(parseFloat(doc.data().moneyPaid));
-	// 			  this.getLatestPrice(portfolioStocks[parseInt(i)], i);
-	// 			  i++;
-	// 			}
-	// 		  });
-	// 		} else if (this._isMounted && portfolioStocks.length === 0) {
-	// 		  this.setState({
-	// 			portfolioDidLoad: "nothing",
-	// 		  });
-	// 		}
-	// 	  })
-	// 	  .then(() => {
-	// 		if (this.portfolio.current && portfolioStocks.length > 0) {
-	// 		  this.portfolio.current.style.display = "block";
-	// 		}
-	// 	  })
-	// 	  .then(() => {
-	// 		setTimeout(() => {
-	// 		  let val = portfolioValue.reduce((a, b) => Number(a) + Number(b), 0);
-	// 		  if (this._isMounted) {
-	// 			this.setState({
-	// 			  accountValue:
-	// 				"$" +
-	// 				numberWithCommas(
-	// 				  Number(val) + Number(this.state.fundsWithoutCommas),
-	// 				),
-	// 			});
-	// 		  }
-	// 		}, 1300);
-	// 	  })
-	// 	  .then(() => {
-	// 		if (portfolioStocks.length > 0) {
-	// 		  setTimeout(() => {
-	// 			if (this._isMounted) {
-	// 			  this.setState({
-	// 				portfolioDidLoad: true,
-	// 			  });
-	// 			}
-	// 		  }, 1200);
-	// 		}
-	// 	  })
-	// 	  .catch(error => {
-	// 		if (this._isMounted) {
-	// 		  this.setState({
-	// 			portfolioDidLoad: false,
-	// 		  });
-	// 		}
-	// 	  });
-	//   }
     getChart(dataChart, symbol, callback) {
         let b = 0;
         const stockApi = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=1min&apikey=${apiKeys[0]}`;
@@ -546,12 +475,12 @@ class Dashboard extends React.Component {
 		portfolioStocks = JSON.parse(localStorage.getItem('stocks'));
 		if(portfolioStocks.length){
 			this.setState({
-				portfolioLoader: true
+				portfolioDidLoad: true
 			})
 		}
 		else {
 			this.setState({
-				portfolioLoader: "empty"
+				portfolioDidLoad: "empty"
 			})
 		}
 
@@ -566,6 +495,7 @@ class Dashboard extends React.Component {
         this.getGainers();
 		this.getStocksList();
 		this.getPorfolioStoks();
+		console.log(portfolioStocks)
 		
     }
 
@@ -684,11 +614,11 @@ class Dashboard extends React.Component {
 											<table className="panel__portfolio-list" style={{borderSpacing: "15px"}}>
 												<thead>
 													<tr>
-														<th style={{textAlign: "left", paddingLeft: "10px"}}>SYMBOL</th>
-														<th style={{textAlign: "right"}}>QUANTITY</th>
-														<th style={{textAlign: "right", paddingRight: "15px"}}>GAIN/LOSS (%)</th>
-														<th style={{textAlign: "left"}}>BOUGHT PRICE</th>
-														<th style={{textAlign: "left"}}>CURRENT PRICE</th>
+														<th style={{textAlign: "center"}}>SYMBOL</th>
+														<th style={{textAlign: "center"}}>QUANTITY</th>
+														<th style={{textAlign: "center"}}>GAIN/LOSS (%)</th>
+														<th style={{textAlign: "center"}}>BOUGHT PRICE</th>
+														<th style={{textAlign: "center"}}>CURRENT PRICE</th>
 														<th></th>
 													</tr>
 												</thead>
@@ -698,10 +628,12 @@ class Dashboard extends React.Component {
 															// let currentValue = getValue(value.name, value.amount);
 															return (
 																	<tr key={index}>
-																	<td style={{textAlign: "left"}}>{value.name}</td>
-																	<td style={{textAlign: "right"}}>{value.amount}</td>
-																	<td style={{textAlign: "left"}}>${getValue(value.name, value.amount)}</td>
-																	<td><button style={{backgroundColor: "#35b660b5", margin: "5px", padding: "5px 15px", borderRadius: "15px", color: "rgba(255, 255, 255, 0.7)"}}>Sell</button></td>
+																	<td>{value.name}</td>
+																	<td>{value.amount}</td>
+                                                                        <td>{25/*getGain(getValue(value.name), value.price, value.amount)*/}%</td>
+                                                                        <td>${value.price}</td>
+                                                                        <td>${100/*getValue(value.name, value.amount)*/}</td>
+                                                                        <td><button style={{backgroundColor: "#35b660b5", margin: "5px", padding: "5px 15px", borderRadius: "15px", color: "rgba(255, 255, 255, 0.7)"}}>Sell</button></td>
 																</tr>
 															);
 														})

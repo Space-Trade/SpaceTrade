@@ -551,30 +551,26 @@ export default class Stock extends React.Component {
             })
             .then(() => {
                 if (this.state.marketStatus) {
-                    setInterval(() => {
-                        fetch(
-                            `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=${API_KEY}`,
-                        )
-                            .then(res => res.json())
-                            .then(result => {
-                                if (this._isMounted) {
-                                    this.setState({
-                                        latestPrice: result.latestPrice.toFixed(2),
-                                    });
-                                }
+                    fetch(
+                           `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=${API_KEY}`,
+                    )
+                    .then(res => res.json())
+                    .then(result => {
+                        if (this._isMounted) {
+                            this.setState({
+                    	       latestPrice: result.latestPrice.toFixed(2),
                             });
-                    }, 5000);
+                        }
+                    });
                 }
             });
-        setTimeout(() => {
-            if (!this.state.marketStatus && this.buyInput.current) {
-                this.buyInput.current.disabled = true;
-                this.buyInput.current.placeholder = "MARKET CLOSED";
-            } else if (this.buyInput.current) {
-                this.buyInput.current.disabled = false;
-                this.buyInput.current.placeholder = "QUANTITY";
-            }
-        }, 1000);
+        if (!this.state.marketStatus && this.buyInput.current) {
+            this.buyInput.current.disabled = true;
+            this.buyInput.current.placeholder = "MARKET CLOSED";
+        } else if (this.buyInput.current) {
+            this.buyInput.current.disabled = false;
+            this.buyInput.current.placeholder = "QUANTITY";
+        }
 
         this.getYTDChart();
         if (document.querySelector(".hamburger")) {
@@ -604,24 +600,22 @@ export default class Stock extends React.Component {
                     return val;
                 });
                 for (let i = 0; i < result.length; i++) {
-                    symbolsOnly.push(result[parseInt(i)].symbol);
+                    symbolsOnly.push(result[i].symbol);
                 }
             })
             .then(() => {
                 symbol = window.location.href.split("/")[
                     window.location.href.split("/").length - 1
                 ];
-                setTimeout(() => {
-                    if (this.isInArray(symbolsOnly, symbol)) {
-                        if (this._isMounted) {
-                            this.setState({ valid: true });
-                        }
-                        this.rendering();
-                    } else if (this._isMounted) {
+                if (this.isInArray(symbolsOnly, symbol)) {
+                    if (this._isMounted) {
                         this.setState({ valid: true });
-                        this.rendering();
                     }
-                }, 1000);
+                    this.rendering();
+                } else if (this._isMounted) {
+                    this.setState({ valid: true });
+                    this.rendering();
+                }
             });
     }
 
@@ -719,12 +713,6 @@ export default class Stock extends React.Component {
                                             var result = localStorage.getItem('balance') - (this.state.latestPrice * document.getElementById("buy-input").value);
                                             if (result >= 0) {
                                                 localStorage.setItem('balance', localStorage.getItem('balance') - (this.state.latestPrice * document.getElementById("buy-input").value));
-                                                let transaction = {
-                                                    "name": symbol,
-                                                    "amount": document.getElementById("buy-input").value,
-                                                    "price": this.state.latestPrice
-                                                };
-
                                                 const stocks = JSON.parse(localStorage.getItem('stocks'));
                                                 stocks.push(
                                                     {
