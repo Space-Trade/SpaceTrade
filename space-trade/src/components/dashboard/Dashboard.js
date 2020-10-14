@@ -16,6 +16,8 @@ const apiKeys = [
     "7V0Q0N46CBIPHA2K",
 ];
 
+const API_KEY = keyList[2];
+
 let chartData1 = [],
     chartData2 = [],
     chartData3 = [];
@@ -44,7 +46,7 @@ let portfolioStocks = [],
 
 const getValue = async (symbol, amount) => {
     var symbolValue = 90;
-    const percChangeUrl = `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=${keyList[1]}`;
+    const percChangeUrl = `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=${API_KEY}`;
     if (symbol) {
         const responseRetrived = await fetch(percChangeUrl);
         const responseObj = await responseRetrived.json();
@@ -219,7 +221,7 @@ class Dashboard extends React.Component {
             });
     }
     getStockInfo = async (symbol, dataChart, changeStash, priceStash, num, callback) => {
-        const percChangeUrl = `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=${keyList[1]}`;
+        const percChangeUrl = `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=${API_KEY}`;
 
         if (symbol) {
             const percChangeResponse = await fetch(percChangeUrl);
@@ -238,8 +240,8 @@ class Dashboard extends React.Component {
         }
     }
     getStocksList = async () => {
-        const mostActivesUrl = `https://cloud.iexapis.com/stable/stock/market/list/mostactive?token=${keyList[1]}`;
-        const gainersUrl = `https://cloud.iexapis.com/stable/stock/market/list/gainers?token=${keyList[1]}`;
+        const mostActivesUrl = `https://cloud.iexapis.com/stable/stock/market/list/mostactive?token=${API_KEY}`;
+        const gainersUrl = `https://cloud.iexapis.com/stable/stock/market/list/gainers?token=${API_KEY}`;
         const mostActiveResponse = await fetch(mostActivesUrl);
         const mostActiveObjArr = await mostActiveResponse.json();
         const gainersResponse = await fetch(gainersUrl);
@@ -277,7 +279,7 @@ class Dashboard extends React.Component {
             }
         }
         for (let i = 0; i < 9; i++) {
-            const percChangeUrl = `https://cloud.iexapis.com/stable/stock/${stockListTickers[i]}/quote?displayPercent=true&token=${keyList[1]}`;
+            const percChangeUrl = `https://cloud.iexapis.com/stable/stock/${stockListTickers[i]}/quote?displayPercent=true&token=${API_KEY}`;
 
             if (stockListTickers[i]) {
                 const percChangeResponse = await fetch(percChangeUrl);
@@ -319,7 +321,7 @@ class Dashboard extends React.Component {
     }
 
     getLatestPrice(symbol, i) {
-        const lastPrice = `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=${keyList[1]}`;
+        const lastPrice = `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=${API_KEY}`;
         fetch(lastPrice)
             .then(res => res.json())
             .then(result => {
@@ -362,7 +364,7 @@ class Dashboard extends React.Component {
         chartData2 = [];
         chartData3 = [];
 
-        const gainers = `https://cloud.iexapis.com/stable/stock/market/list/gainers?token=${keyList[1]}`;
+        const gainers = `https://cloud.iexapis.com/stable/stock/market/list/gainers?token=${API_KEY}`;
         const responseRetrived = await fetch(gainers);
         const responseObj = await responseRetrived.json();
         for (let i = 0; i < 3; i++) {
@@ -552,15 +554,15 @@ class Dashboard extends React.Component {
         }
 
         return (
-            <main className="Dashboard" id="dashboard" style={{ width: "calc(100% - 57px)", right: "0" }}>
+            <main className="Dashboard" id="dashboard">
                 <div style={{ display: "flex", flexDirection: "column", width: "100%" }}>
                     <div style={{ display: "flex", height: "auto" }}>
                         <div className="panel">
                             <div className="panel__top">
                                 <div className="panel__title">
-                                    <div style={{ display: "flex", alignItems: "center" }}>
-                                        <AssessmentRoundedIcon style={{ fill: "rgba(236, 237,237, 0.9)", marginTop: "36px", marginBottom: "24px", marginRight: "10px" }} />
-                                        <h3 style={{ color: "rgba(236, 237,237, 0.9)" }}>Gainers</h3>
+                                    <div style={{ display: "flex", alignItems: "center", flexDirection: "row", justifyContent: "flex-start", paddingTop: "30px", paddingBottom: "5px"}}>
+                                        <AssessmentRoundedIcon style={{ fill: "rgba(236, 237,237, 0.9)", margin: "0", marginRight: "5px"}} />
+                                        <h3 style={{ color: "rgba(236, 237,237, 0.9)", margin: "0"}}>Gainers</h3>
                                     </div>
                                 </div>
                                 <div className="panel__topCharts" style={{ display: "flex" }}>
@@ -610,13 +612,9 @@ class Dashboard extends React.Component {
                                 </div>
                             </div>
                             <div className="panel__portfolio-section">
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        alignItems: "center",
-                                    }}>
-                                    <BusinessCenterRoundedIcon style={{ fill: "rgba(236, 237,237, 0.9)", marginTop: "36px", marginBottom: "24px", marginRight: "10px" }} />
-                                    <h3 style={{ color: "rgba(236, 237,237, 0.9)" }}>Portfolio</h3>
+                                <div style={{ display: "flex", alignItems: "center", flexDirection: "row", justifyContent: "flex-start", paddingTop: "10px", paddingBottom: "5px"}}>
+                                    <BusinessCenterRoundedIcon style={{ fill: "rgba(236, 237,237, 0.9)", margin: "0", marginRight: "5px"}} />
+                                    <h3 style={{ color: "rgba(236, 237,237, 0.9)", margin: "0"}}>Portfolio</h3>
                                 </div>
                                 <div
                                     className="panel__portfolio"
@@ -677,9 +675,9 @@ class Dashboard extends React.Component {
                                 </div>
                             </div>
                             <div className="panel__low">
-                                <div className="panel__bottom-title">
-                                    <OfflineBoltIcon style={{ fill: "rgba(236, 237,237, 0.9)", marginTop: "36px", marginBottom: "24px" }} />
-                                    <h3 style={{ color: "rgba(236, 237,237, 0.9)" }}>Most Active</h3>
+                                <div className="panel__bottom-title" style={{ display: "flex", alignItems: "center", flexDirection: "row", justifyContent: "flex-start", paddingTop: "10px", paddingBottom: "5px"}}>
+                                    <OfflineBoltIcon style={{ fill: "rgba(236, 237,237, 0.9)", margin: "0", marginRight: "5px"}} />
+                                    <h3 style={{ color: "rgba(236, 237,237, 0.9)", margin: "0"}}>Most Active</h3>
                                 </div>
                                 {this.state.activeStocks === true && (
                                     <div className="panel__bottom">

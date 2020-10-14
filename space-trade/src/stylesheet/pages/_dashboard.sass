@@ -1,165 +1,12 @@
-.loader
-  z-index: 3
-  margin: 0 auto
-  left: 0
-  right: 0
-  top: 50%
-  margin-top: -30px
-  width: 60px
-  padding: 0
-  height: 60px
-  list-style: none
-  box-sizing: content-box
-  position: absolute
-
-@-webkit-keyframes 'loadbars'
-  0%
-    height: 10px
-    margin-top: 25px
-
-  50%
-    height: 50px
-    margin-top: 0px
-
-  100%
-    height: 10px
-    margin-top: 25px
-
-.loader li
-  background-color: $main-color
-  width: 10px
-  height: 10px
-  float: right
-  margin-right: 5px
-  box-shadow: 0px 80px 20px rgba(0, 0, 0, 0.3)
-  &:first-child
-    -webkit-animation: loadbars 0.6s cubic-bezier(0.645, 0.045, 0.355, 1) infinite 0s
-  &:nth-child(2)
-    -webkit-animation: loadbars 0.6s ease-in-out infinite -0.2s
-  &:nth-child(3)
-    -webkit-animation: loadbars 0.6s ease-in-out infinite -0.4s
 a
   color: white
-
-@keyframes show-popup
-  0%
-    -webkit-transform: translate(-50%, -50%) scale(0.7)
-    transform: translate(-50%, -50%) scale(0.7)
-    opacity: 0
-
-  45%
-    -webkit-transform: translate(-50%, -50%) scale(1.05)
-    transform: translate(-50%, -50%) scale(1.05)
-    opacity: 1
-
-  80%
-    -webkit-transform: translate(-50%, -50%) scale(0.95)
-    transform: translate(-50%, -50%) scale(0.95)
-
-  100%
-    -webkit-transform: translate(-50%, -50%) scale(1)
-    transform: translate(-50%, -50%) scale(1)
-
-.alertMessage
-  position: absolute
-  top: 50%
-  left: 50%
-  transform: translate(-50%, -50%)
-  z-index: 50
-  width: 60%
-  background-color: $panel-color
-  display: flex
-  justify-content: center
-  align-items: center
-  height: 20%
-  min-height: 250px
-  box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.27)
-  flex-direction: column
-  text-align: center
-  padding: 50px
-  animation: show-popup .3s
-  h2
-    margin-bottom: 10px
-  p
-    margin-bottom: 50px
-  .alertMessage__button
-    background: $main-color
-    padding: 15px 40px
-    border-radius: 10px
-    color: white
-    font-weight: bold
-    transition: all .4s
-    &:hover
-      box-shadow: 0px 0px 15px 0px $main-color
-
-.leftbar
-  position: relative
-  background-color: $bar-color
-  width: 5%
-  display: flex
-  align-items: center
-  justify-content: center
-  flex-direction: column
-  padding: 0 10px
-  transition: all .4s
-  min-width: 50px
-  &__logo
-    width: 5%
-    min-width: 40px
-    position: absolute
-    top: 30px
-    fill: $main-color
-  @media only screen and (max-width: 600px) 
-    display: none
-  a
-    margin-bottom: 50px
-
-  .leftbar__log
-    fill: $inactive-color
-    width: 30%
-    cursor: pointer
-    position: absolute
-    transition: all .4s
-    bottom: 20px
-    min-width: 20px
-    &:hover
-      fill: $main-color
-
-.light
-  .panel
-    background-color: $light-panel-color
-    &__title h3
-      color: black
-    &__portfolio
-      background-color: $light-elements-color!important
-      td:nth-child(1),td:nth-child(2),td:nth-child(4),
-        color: #3a1414!important
-    &__list li
-      background-color: $light-elements-color
-    &__fullname h4, &__list-change h4, &__bottom-title h3, &__value
-      color: #3a1414!important
-  .leftbar
-    background-color: $light-bar-color
-    &__menu li
-      fill: $light-inactive-color
-  .stockChart
-    background-color: $light-elements-color
-    &__price
-      color: #3a1414
-  .errorMsg p
-    color: #3a1414
-  .alertMessage
-    background-color: white!important
-    color: #3a1414
-    h2
-      color: #3a1414
 
 .panel
     background-color: $panel-color
     width: 100%
     height: 100%
     padding: 3%
-    padding-top: 2%
+    padding-top: 4%
     transition: all .4s
     @media only screen and (max-width: 600px) 
       width: 100% 
@@ -327,35 +174,38 @@ a
     top: 40px
     cursor:pointer
 .stockChart__info
-  bottom: 0
-  display: flex
-  justify-content: space-between
-  width: 100%
-  padding: 30px
-  padding-bottom: 10px
-  align-items: center
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 90%;
+  background: rgba(0, 0, 0, 0.06);
+  height: 30%;
+  padding: 10px 30px;
+  align-items: center;
   h4
-    margin: 5px 0
-  .stockChart__price
-  font-weight: 400
-.stockChart__name
-  color: $text-color!important
-  margin: 0
-  background: linear-gradient(to right, rgb(124, 131, 255) 30%, rgb(124, 193, 255) 100%);
-  box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.2)
-  width: 90px
-  height: 60px
+    margin: 0
+    font-size: 0.8em
+  .stockChart-price
+    font-weight: 400
+    font-size: 1.2em
+.stockChart-Symbol
+  color: rgba(236, 237,237, 1)
+  border-left: 1px solid rgba(236, 237,237, 0.5)
+  padding: 10px
   display: flex
   justify-content: center
   align-items: center
-  border-radius: 20px
-  color: white
-.stockChart__price
+  font-size: 1.3em
+  font-weight: 100
   margin: 0
-.stockChart__price-info
+.stockChart-price
+  margin: 0
+.stockChart-priceDetails
   display: flex
   align-items: flex-end
+  justify-content: space-evenly;
   flex-direction: column
+  height: 100%
 .stockChart__change
   font-weight: 400
 .leftbar__menu

@@ -100,7 +100,7 @@ const Hero = ({
               </div>
             </div>
           </div>
-          <img src={require("../../assets/images/mockup.png")} alt="mockup" />
+          <img src={require("../../assets/images/mockup.png")} alt="mockup" style={{marginTop: "20%"}} />
         </div>
       </div>
     </section>

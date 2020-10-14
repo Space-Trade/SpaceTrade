@@ -97,12 +97,12 @@ export default function StockCard({
 			)}
 			{loader ? (
 			<div className="stockChart__info">
-				<h3 className="stockChart__name">{stockSymbol}</h3>
-				<div className="stockChart__price-info">
+				<h3 className="stockChart-Symbol">{stockSymbol}</h3>
+				<div className="stockChart-priceDetails">
+				<h3 className="stockChart-price">${stockPrice}</h3>
 				<h4 className="stockChart__change" style={{color: changesColor, textShadow: `0px 0px 5px ${changesColor}80`}}>
 					{stockChange}%
 				</h4>
-				<h3 className="stockChart__price">${stockPrice}</h3>
 				</div>
 			</div>
 			) : (

@@ -43,6 +43,14 @@ const Logo = styled.img`
 	  display: none
 	}
   `;
+const Balance = styled.div`
+	background-image: linear-gradient(to right, rgba(108, 148, 213, 1), rgb(91, 207, 220, 0.6));
+	padding: 5px 7px;
+	border-radius: 5px;
+	box-shadow: 0px 0px 10px 0px rgb(139, 210, 218, 0.70);
+	margin-left: 15px;
+	cursor: pointer;
+`;
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -50,9 +58,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 	grow: {
 		flexGrow: 1,
-	},
-	menuButton: {
-		marginRight: theme.spacing(2),
 	},
 	search: {
 		position: 'relative',
@@ -128,7 +133,7 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: "rgba(0,0, 0, 0.23)"
 	},
 	menuButton: {
-		marginRight: 36,
+		marginRight: "12px",
 	},
 	hide: {
 		display: 'none',
@@ -154,8 +159,8 @@ const useStyles = makeStyles((theme) => ({
 		}),
 		overflowX: 'hidden',
 		width: "65px",
-		[theme.breakpoints.down('sm')]: {
-			width: "50px",
+		['@media (max-width:900px)']: {
+			width: "0px",
 		},
 	},
 	itemList: {
@@ -323,9 +328,6 @@ export default function VerticalMenu() {
 					</div>
 					<div className={classes.grow} />
 					<div className={classes.sectionDesktop}>
-						<div>
-							${(Math.round(balance * 100) / 100).toFixed(2)}
-						</div>
 						<IconButton aria-label="show 4 new mails" color="inherit">
 							<Badge badgeContent={4} color="secondary">
 								<MailIcon />
@@ -347,6 +349,9 @@ export default function VerticalMenu() {
 							<AccountCircleRounded />
 						</IconButton>
 					</div>
+					<Balance>
+						${(Math.round(balance * 100) / 100).toFixed(2)}
+					</Balance>
 					<div className={classes.sectionMobile}>
 						<IconButton
 							aria-label="show more"
