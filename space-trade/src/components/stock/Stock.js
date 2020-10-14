@@ -73,7 +73,7 @@ var options = {
     },
 };
 
-const API_KEY = keyList[7];
+const API_KEY = keyList[0];
 
 const apiKeys = [
     "SAOS0Y8B63XM4DPK",
@@ -551,30 +551,26 @@ export default class Stock extends React.Component {
             })
             .then(() => {
                 if (this.state.marketStatus) {
-                    setInterval(() => {
-                        fetch(
-                            `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=${API_KEY}`,
-                        )
-                            .then(res => res.json())
-                            .then(result => {
-                                if (this._isMounted) {
-                                    this.setState({
-                                        latestPrice: result.latestPrice.toFixed(2),
-                                    });
-                                }
+                    fetch(
+                           `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=${API_KEY}`,
+                    )
+                    .then(res => res.json())
+                    .then(result => {
+                        if (this._isMounted) {
+                            this.setState({
+                    	       latestPrice: result.latestPrice.toFixed(2),
                             });
-                    }, 5000);
+                        }
+                    });
                 }
             });
-        setTimeout(() => {
-            if (!this.state.marketStatus && this.buyInput.current) {
-                this.buyInput.current.disabled = true;
-                this.buyInput.current.placeholder = "MARKET CLOSED";
-            } else if (this.buyInput.current) {
-                this.buyInput.current.disabled = false;
-                this.buyInput.current.placeholder = "QUANTITY";
-            }
-        }, 1000);
+        if (!this.state.marketStatus && this.buyInput.current) {
+            this.buyInput.current.disabled = true;
+            this.buyInput.current.placeholder = "MARKET CLOSED";
+        } else if (this.buyInput.current) {
+            this.buyInput.current.disabled = false;
+            this.buyInput.current.placeholder = "QUANTITY";
+        }
 
         this.getYTDChart();
         if (document.querySelector(".hamburger")) {
@@ -604,24 +600,22 @@ export default class Stock extends React.Component {
                     return val;
                 });
                 for (let i = 0; i < result.length; i++) {
-                    symbolsOnly.push(result[parseInt(i)].symbol);
+                    symbolsOnly.push(result[i].symbol);
                 }
             })
             .then(() => {
                 symbol = window.location.href.split("/")[
                     window.location.href.split("/").length - 1
                 ];
-                setTimeout(() => {
-                    if (this.isInArray(symbolsOnly, symbol)) {
-                        if (this._isMounted) {
-                            this.setState({ valid: true });
-                        }
-                        this.rendering();
-                    } else if (this._isMounted) {
+                if (this.isInArray(symbolsOnly, symbol)) {
+                    if (this._isMounted) {
                         this.setState({ valid: true });
-                        this.rendering();
                     }
-                }, 1000);
+                    this.rendering();
+                } else if (this._isMounted) {
+                    this.setState({ valid: true });
+                    this.rendering();
+                }
             });
     }
 
@@ -715,9 +709,9 @@ export default class Stock extends React.Component {
                                             id="buy-input"
                                             type="number"
                                         />
-                                        <button onClick={function () {
+                                        <button onClick={()=> {
                                             var result = localStorage.getItem('balance') - document.getElementById("buy-input").value;
-                                            console.log("this.state.latestPrice  ");
+                                            console.log("this.state.latestPrice", this.state.latestPrice);
                                             if (result >= 0) {
                                                 //localStorage.setItem('balance', localStorage.getItem('balance') - (latestPrice * document.getElementById("buy-input").value)); // localStorage.getItem('balance') - latestPrice * cantidad del input 
                                                 

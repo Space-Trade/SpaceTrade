@@ -82,9 +82,9 @@ const Hero = ({
               Space<span style={{color: "rgb(55, 70, 92)"}}>Trade</span>
             </h1>
             <div className="container-xs">
-              <p className="m-0 mb-32 reveal-from-bottom" data-reveal-delay="400">
-                La app te llevará al espacio con cada trade que realices. En este viaje descubrirás diversas herramientas de utilidad. Únete ya y haz que tus ganacias despegen en el mundo del trading.
-                </p>
+              	<p className="m-0 mb-32 reveal-from-bottom" data-reveal-delay="400">
+			  		Improve your trading skills, make your profit take off to the stars, or discover the stocks market world, with SpaceTrade
+            	</p>
               <br />
               <div className="reveal-from-bottom" data-reveal-delay="600">
                 <ButtonGroup>

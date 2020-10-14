@@ -242,8 +242,14 @@ a
       width: 20%
 .chartLink
   margin: 25px
-  width: 500px
+  width: calc(33.3333333% - 50px)
   height: 260px
+  @media only screen and (max-width: 900px)
+    width: 300px
+    margin: 25px
+  @media only screen and (max-width: 700px)
+    width: 100%
+    margin: 12.5px 0px
 
 .panel__portfolio-section
   .panel__portfolio-title
