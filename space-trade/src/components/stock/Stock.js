@@ -8,7 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import FullChart from "./FullChart";
 import KeyInfo from "./KeyInfo";
 import { defaults } from "react-chartjs-2";
-import {keyList} from "../../data/apiKeys"
+import { keyList } from "../../data/apiKeys"
 
 defaults.global.defaultFontStyle = "Bold";
 defaults.global.defaultFontFamily = "Quantico";
@@ -73,7 +73,7 @@ var options = {
     },
 };
 
-const API_KEY = keyList[5];
+const API_KEY = keyList[6];
 
 const apiKeys = [
     "SAOS0Y8B63XM4DPK",
@@ -143,11 +143,11 @@ export default class Stock extends React.Component {
             gradient.addColorStop(1, "rgb(91, 207, 220)");
             let gradientFill = ctx.createLinearGradient(0, 0, 0, 100);
             gradientFill.addColorStop(0.1, "rgba(108, 148, 213, 0.2)");
-			gradientFill.addColorStop(0.9, "rgb(91, 207, 220, 0)")
+            gradientFill.addColorStop(0.9, "rgb(91, 207, 220, 0)")
             // ctx.shadowColor = "rgba(56, 162, 173, 0.7)";
             ctx.shadowBlur = 5;
             ctx.shadowOffsetX = 0;
-			ctx.shadowOffsetY = 0;
+            ctx.shadowOffsetY = 0;
             return {
                 labels,
                 datasets: [
@@ -552,16 +552,16 @@ export default class Stock extends React.Component {
             .then(() => {
                 if (this.state.marketStatus) {
                     fetch(
-                           `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=${API_KEY}`,
+                        `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=${API_KEY}`,
                     )
-                    .then(res => res.json())
-                    .then(result => {
-                        if (this._isMounted) {
-                            this.setState({
-                    	       latestPrice: result.latestPrice.toFixed(2),
-                            });
-                        }
-                    });
+                        .then(res => res.json())
+                        .then(result => {
+                            if (this._isMounted) {
+                                this.setState({
+                                    latestPrice: result.latestPrice.toFixed(2),
+                                });
+                            }
+                        });
                 }
             });
         if (!this.state.marketStatus && this.buyInput.current) {
@@ -625,7 +625,7 @@ export default class Stock extends React.Component {
 
     render() {
         return (
-            <main className="stock" style={{marginLeft: "80px", marginTop: "75px"}}>
+            <main className="stock" style={{ marginLeft: "80px", marginTop: "75px" }}>
                 {this.state.buyConfirmation === true && <div className="black-bg" />}
                 {this.state.buyConfirmation === true && (
                     <div className="buyConfirmation">
@@ -661,87 +661,87 @@ export default class Stock extends React.Component {
                         </div>
                     </div>
                 )}
-                {this.state.valid === "" && <CircularProgress style={{position: "absolute", top: "50%", left: "50%"}}/>}
+                {this.state.valid === "" && <CircularProgress style={{ position: "absolute", top: "50%", left: "50%" }} />}
                 {this.state.valid && (
-                        <div className="stockPage">
-                            <div className="stockPage__top">
-                                <FullChart
-                                    changeFocus={this.changeFocus}
-                                    getOneMonthChart={this.getOneMonthChart}
-                                    getOneYearChart={this.getOneYearChart}
-                                    getTwoYearChart={this.getTwoYearChart}
-                                    getYTDChart={this.getYTDChart}
-                                    getOneDayChart={this.getOneDayChart}
-                                    data1={this.data1}
-                                    year={this.year}
-                                    years={this.years}
-                                    stockData={stockData}
-                                    ytd={this.ytd}
-                                    month={this.month}
-                                    day={this.day}
-                                />
-                                <div className="stockPage__trade">
-                                    <div className="stockPage__mobile">
-                                        <h4>{stockData.name}</h4>
-                                        <div className="stockPage__trade-top">
-                                            <h2>${this.state.latestPrice}</h2>
-                                            <h6 style={{ color: this.state.changeColor }}>
-                                                {stockData.change} ({stockData.changePercent}%)
+                    <div className="stockPage">
+                        <div className="stockPage__top">
+                            <FullChart
+                                changeFocus={this.changeFocus}
+                                getOneMonthChart={this.getOneMonthChart}
+                                getOneYearChart={this.getOneYearChart}
+                                getTwoYearChart={this.getTwoYearChart}
+                                getYTDChart={this.getYTDChart}
+                                getOneDayChart={this.getOneDayChart}
+                                data1={this.data1}
+                                year={this.year}
+                                years={this.years}
+                                stockData={stockData}
+                                ytd={this.ytd}
+                                month={this.month}
+                                day={this.day}
+                            />
+                            <div className="stockPage__trade">
+                                <div className="stockPage__mobile">
+                                    <h4>{stockData.name}</h4>
+                                    <div className="stockPage__trade-top">
+                                        <h2>${this.state.latestPrice}</h2>
+                                        <h6 style={{ color: this.state.changeColor }}>
+                                            {stockData.change} ({stockData.changePercent}%)
                                                 </h6>
-                                        </div>
                                     </div>
-                                    {!this.state.marketStatus &
-                                        (stockData.extendedChange !== null) ? (
-                                            <h6>
-                                                Extended Hours:{" "}
-                                                <span style={{ color: this.state.extendedColor }}>
-                                                    ${stockData.extendedPrice} ({stockData.extendedChange}
+                                </div>
+                                {!this.state.marketStatus &
+                                    (stockData.extendedChange !== null) ? (
+                                        <h6>
+                                            Extended Hours:{" "}
+                                            <span style={{ color: this.state.extendedColor }}>
+                                                ${stockData.extendedPrice} ({stockData.extendedChange}
                                                     )
                                                     </span>
-                                            </h6>
-                                        ) : (
-                                            <div />
-                                        )}
-                                    <h5>Buy {symbol}</h5>
-                                    <div className="stockPage__buy-container">
-                                        <input
-                                            className="stockPage__buy-input"
-                                            id="buy-input"
-                                            type="number"
-                                        />
-                                        <button onClick={ () => {
-                                            var result = localStorage.getItem('balance') - (this.state.latestPrice * document.getElementById("buy-input").value);
-                                            if (result >= 0) {
-                                                localStorage.setItem('balance', localStorage.getItem('balance') - (this.state.latestPrice * document.getElementById("buy-input").value));
-                                                const stocks = JSON.parse(localStorage.getItem('stocks'));
-                                                stocks.push(
-                                                    {
-                                                        "name": symbol,
-                                                        "amount": document.getElementById("buy-input").value,
-                                                        "price": this.state.latestPrice
-                                                    }
-                                                );
+                                        </h6>
+                                    ) : (
+                                        <div />
+                                    )}
+                                <h5>Buy {symbol}</h5>
+                                <div className="stockPage__buy-container">
+                                    <input
+                                        className="stockPage__buy-input"
+                                        id="buy-input"
+                                        type="number"
+                                    />
+                                    <button onClick={() => {
+                                        var result = localStorage.getItem('balance') - (this.state.latestPrice * document.getElementById("buy-input").value);
+                                        if (result >= 0) {
+                                            localStorage.setItem('balance', localStorage.getItem('balance') - (this.state.latestPrice * document.getElementById("buy-input").value));
+                                            let stocks = localStorage.getItem('stocks');
+                                            let transaction = {
+                                                "name": symbol,
+                                                "amount": document.getElementById("buy-input").value,
+                                                "price": this.state.latestPrice
+                                            };
+                                            stocks.push(transaction);
+                                            /*
                                                 localStorage.setItem('stocks', stocks);
                                                 console.log(JSON.parse(localStorage.getItem('stocks')));
-                                                alert("You bought " + document.getElementById("buy-input").value +  " shares!");
-                                            } else {
-                                                alert("You do not have enough money to buy this shares!");
-                                            }
-                                        }}
-                                            className="stockPage__buy-button"> BUY
+                                                alert("You bought " + document.getElementById("buy-input").value +  " shares!");*/
+                                        } else {
+                                            alert("You do not have enough money to buy this shares!");
+                                        }
+                                    }}
+                                        className="stockPage__buy-button"> BUY
                                             </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="stockPage__keyStats">
-                                <div className="info">
-                                    <KeyInfo keyDataLabel={keyDataLabel} keyData={keyData} />
-                                </div>
-                                <div className="news">
-                                    <News symbol={symbol} />
                                 </div>
                             </div>
                         </div>
+                        <div className="stockPage__keyStats">
+                            <div className="info">
+                                <KeyInfo keyDataLabel={keyDataLabel} keyData={keyData} />
+                            </div>
+                            <div className="news">
+                                <News symbol={symbol} />
+                            </div>
+                        </div>
+                    </div>
                 )}
             </main>
         );
