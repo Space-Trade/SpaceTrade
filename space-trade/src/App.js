@@ -52,7 +52,7 @@ const App = () => {
   if (!localStorage.getItem('balance')) {
     localStorage.setItem('balance', 5000);
   }
-  if (!localStorage.getItem('stocks').length) {
+  if (!localStorage.getItem('stocks')) {
     localStorage.setItem('stocks', JSON.stringify(stocks));
   }
 
@@ -67,32 +67,32 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
-	return (
-		<ScrollReveal
-		ref={childRef}
-		children={() => (
-			<ApolloProvider client={client}>
-				<Switch>
-					<AppRoute exact path="/" component={Home} layout={LayoutDefault} />
+  return (
+    <ScrollReveal
+      ref={childRef}
+      children={() => (
+        <ApolloProvider client={client}>
+          <Switch>
+            <AppRoute exact path="/" component={Home} layout={LayoutDefault} />
 
-					<Route path="/dashboard">
-						<VerticalMenu/>
-						<Dashboard />
-						<ChatBot />
-					</Route>
-					
-					<Route path="/stocks/:stockId">
-						<VerticalMenu/>
-						<Stock/>
-						<ChatBot />
-					</Route>
-					
-					<Route exact path="/login" component={LoginForm} />
-					<Route exact path="/register" component={RegisterForm} />
+            <Route path="/dashboard">
+              <VerticalMenu />
+              <Dashboard />
+              <ChatBot />
+            </Route>
 
-				</Switch>
-			</ApolloProvider>
-		)} />
+            <Route path="/stocks/:stockId">
+              <VerticalMenu />
+              <Stock />
+              <ChatBot />
+            </Route>
+
+            <Route exact path="/login" component={LoginForm} />
+            <Route exact path="/register" component={RegisterForm} />
+
+          </Switch>
+        </ApolloProvider>
+      )} />
   );
 }
 
