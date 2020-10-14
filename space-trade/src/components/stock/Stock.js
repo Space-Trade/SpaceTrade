@@ -718,6 +718,20 @@ export default class Stock extends React.Component {
                                         }
                                     }} className="stockPage__buy-button"> BUY </button>
                                 </div>
+                                <br />
+                                <div className="stockPage__buy-container">
+                                    <input
+                                        className="stockPage__buy-input"
+                                        id="add-founds-input"
+                                        type="number"
+                                    />
+                                    <button onClick={() => {
+                                        let result = parseInt(localStorage.getItem('balance')) + parseInt(document.getElementById("add-founds-input").value);
+                                        localStorage.setItem('balance', result);
+                                        alert("You have added $" + document.getElementById("add-founds-input").value + " to your balance!");
+                                    }} className="stockPage__buy-button"> ADD </button>
+                                </div>
+
                             </div>
                         </div>
                         <div className="stockPage__keyStats">
