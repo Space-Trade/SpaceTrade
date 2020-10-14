@@ -7,7 +7,7 @@ const propTypes = {
     PropTypes.string
   ]).isRequired,
   width: PropTypes.number,
-  height: PropTypes.number,
+  height: PropTypes.any,
   alt: PropTypes.string
 }
 

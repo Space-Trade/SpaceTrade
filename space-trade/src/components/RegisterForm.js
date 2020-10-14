@@ -139,69 +139,7 @@ const RegisterForm = () => {
 			</main>
 			<br />
 		</Container>
-    // <Container maxWidth="sm">
-    //   <div style={{ textAlign: "center" }}>
-    //     <br />
-    //     <Logo src={logo} />
-    //     <br />
-    //     <br />
-    //     <Typography variant="h4">
-    //       Register
-    //   </Typography>
-    //   </div>
-    //   <br />
-    //   <FormContainer>
-    //     <CssTextField
-    //       className={classes.margin}
-    //       variant="outlined"
-    //       id="fullname"
-    //       label="Fullname"
-    //     />
-    //     <br />
-    //     <CssTextField
-    //       className={classes.margin}
-    //       variant="outlined"
-    //       id="email"
-    //       label="Email"
-    //     />
-    //     <br />
-    //     <CssTextField
-    //       className={classes.margin}
-    //       variant="outlined"
-    //       id="password"
-    //       label="Password"
-    //       type="password"
-    //     />
-    //     <br />
-    //     <CssTextField
-    //       className={classes.margin}
-    //       variant="outlined"
-    //       id="repeatPassword"
-    //       label="Repeat password"
-    //       type="password"
-    //     />
-    //     <br />
-    //     <Button
-    //       variant="contained"
-    //       color="primary"
-    //       type="submit"
-    //     ><Link to="/dashboard">
-    //         REGISTER
-    //               </Link>
-    //     </Button>
-    //     <Grid container>
-    //       <Grid item xs>
-    //       </Grid>
-    //       <Grid item>
-    //         <Link to="/login">
-    //           {"Already have an account? Sign In"}
-    //         </Link>
-    //       </Grid>
-    //     </Grid>
-    //   </FormContainer>
-    //   <br />
-    // </Container>
-  );
+	);
 };
 
 const Logo = styled.img`

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import Logo from './partials/Logo';
+import { makeStyles } from '@material-ui/core/styles';
 
 const propTypes = {
   navPosition: PropTypes.string,
@@ -19,7 +20,20 @@ const defaultProps = {
   bottomOuterDivider: false,
   bottomDivider: false
 }
+const useStyles = makeStyles((theme) => ({
+	fullButton:{
+		backgroundColor:  "#324f7b",
+		borderRadius: "7px",
+		color: "rgba(236, 237,237, 0.9)"
+	},
+	ghostButton:{
+		backgroundColor:  "rgba(0, 0, 0, 0)",
+		border: "2px solid #324f7b",
+		borderRadius: "7px",
+		color: "rgba(236, 237,237, 0.9)"
+	},
 
+}));
 const Header = ({
   className,
   navPosition,
@@ -73,6 +87,7 @@ const Header = ({
     bottomOuterDivider && 'has-bottom-divider',
     className
   );
+  const classesMUI = useStyles();
 
   return (
     <header
@@ -88,16 +103,6 @@ const Header = ({
           <Logo />
           {!hideNav &&
             <>
-              <button
-                ref={hamburger}
-                className="header-nav-toggle"
-                onClick={isActive ? closeMenu : openMenu}
-              >
-                <span className="screen-reader">Menu</span>
-                <span className="hamburger">
-                  <span className="hamburger-inner"></span>
-                </span>
-              </button>
               <nav
                 ref={nav}
                 className={
@@ -106,22 +111,16 @@ const Header = ({
                     isActive && 'is-active'
                   )}>
                 <div className="header-nav-inner">
-                  <ul className={
-                    classNames(
-                      'list-reset text-xs',
-                      navPosition && `header-nav-${navPosition}`
-                    )}>
-                    <li>
-                      <Link to="#0" onClick={closeMenu}>Documentation</Link>
-                    </li>
-                  </ul>
                   {!hideSignin &&
                     <ul
-                      className="list-reset header-nav-right"
+                      className="header-nav-right"
                     >
-                      <li>
-                        <Link to="/login" className="button button-primary button-wide-mobile button-sm" onClick={closeMenu}>Log in</Link>
-                      </li>
+						<li>
+							<Link to="/login" className={classesMUI.fullButton}>Log in</Link>
+						</li>
+						<li>
+							<Link to="/register" className={classesMUI.ghostButton}>Register</Link>
+						</li>
                     </ul>}
                 </div>
               </nav>

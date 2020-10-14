@@ -23,11 +23,6 @@
         outline: 0;
     }
 
-	&:hover {
-		background-color: color-bg(button-light-hover);
-		border-color: color-border(button-light-hover);
-	}
-
 	&.is-loading {
 		position: relative;
 		color: transparent!important;

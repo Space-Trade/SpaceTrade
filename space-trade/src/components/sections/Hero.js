@@ -6,6 +6,7 @@ import Button from '../elements/Button';
 import Image from '../elements/Image';
 import Modal from '../elements/Modal';
 import { Link } from "react-router-dom";
+import { makeStyles } from '@material-ui/core/styles';
 
 const propTypes = {
   ...SectionProps.types
@@ -14,6 +15,21 @@ const propTypes = {
 const defaultProps = {
   ...SectionProps.defaults
 }
+
+const useStyles = makeStyles((theme) => ({
+	fullButton:{
+		backgroundColor:  "#324f7b",
+		borderRadius: "7px",
+		color: "rgba(236, 237,237, 0.9)"
+	},
+	ghostButton:{
+		backgroundColor:  "rgba(0, 0, 0, 0)",
+		border: "2px solid #324f7b",
+		borderRadius: "7px",
+		color: "rgba(236, 237,237, 0.9)"
+	},
+
+}));
 
 const Hero = ({
   className,
@@ -52,6 +68,7 @@ const Hero = ({
     topDivider && 'has-top-divider',
     bottomDivider && 'has-bottom-divider'
   );
+  const classes = useStyles();
 
   return (
     <section
@@ -61,8 +78,8 @@ const Hero = ({
       <div className="container-sm">
         <div className={innerClasses}>
           <div className="hero-content">
-            <h1 className="mt-0 mb-16 reveal-from-bottom" data-reveal-delay="200">
-              Space<span className="text-color-primary">Trade</span>
+            <h1 className="mt-0 mb-16 reveal-from-bottom" data-reveal-delay="200" style={{textShadow: "0px 0px 5px rgba(236, 237,237, 0.6)"}}>
+              Space<span style={{color: "rgb(55, 70, 92)"}}>Trade</span>
             </h1>
             <div className="container-xs">
               <p className="m-0 mb-32 reveal-from-bottom" data-reveal-delay="400">
@@ -71,12 +88,12 @@ const Hero = ({
               <br />
               <div className="reveal-from-bottom" data-reveal-delay="600">
                 <ButtonGroup>
-                  <Button color="primary" wideMobile>
                     <Link to="/register">
-                      Get started
+						<Button className={classes.fullButton} wideMobile>
+							Get started
+						</Button>
                     </Link>
-                  </Button>
-                  <Button tag="a" color="dark" wideMobile href="https://github.com/invict1/SpaceTrade">
+                  <Button tag="a" className={classes.ghostButton} wideMobile href="https://github.com/invict1/SpaceTrade">
                     View on Github
                     </Button>
                 </ButtonGroup>

@@ -45,18 +45,15 @@
     }
 
     li {
-
-		+ .header-button {
-			margin-left: $header-nav--padding-h;
-		}
+		margin: 0px;
+		margin-left: 10px;
     }
 
     a:not(.button) {
 		display: block;
         @include anchor-aspect(header);
-		@include font-weight(header-link);
 		text-transform: $link-header--transform;
-        padding: 0 $header-nav--padding-h;
+        padding: 0 20px;
 
 		.invert-color & {
 			@include anchor-aspect(header, inverse);
