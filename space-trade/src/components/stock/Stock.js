@@ -715,21 +715,25 @@ export default class Stock extends React.Component {
                                             id="buy-input"
                                             type="number"
                                         />
-                                        <button onClick={function () { // ajaj xd
+                                        <button onClick={function () {
                                             var result = localStorage.getItem('balance') - document.getElementById("buy-input").value;
+                                            console.log("this.state.latestPrice  ");
                                             if (result >= 0) {
-                                                localStorage.setItem('balance', localStorage.getItem('balance') - document.getElementById("buy-input").value); // localStorage.getItem('balance') - latestPrice * cantidad del input 
-                                                localStorage.getItem('balance')
-
+                                                //localStorage.setItem('balance', localStorage.getItem('balance') - (latestPrice * document.getElementById("buy-input").value)); // localStorage.getItem('balance') - latestPrice * cantidad del input 
+                                                
                                                 let transaction = {
-                                                    "name": "GOOGL",
-                                                    "amount": 10,
+                                                    "name": symbol,
+                                                    "amount": document.getElementById("buy-input").value,
                                                     "price": 100
                                                 };
+
+                                                console.log(transaction);
+
                                                 const stocks = JSON.parse(localStorage.getItem('stocks'));
                                                 stocks.push(transaction);
-                                            } else {
                                                 alert("You bought " + document.getElementById("buy-input").value + " shares!");
+                                            } else {
+                                                alert("You do not have enough money to buy this shares!");
                                             }
                                         }}
                                             className="stockPage__buy-button"> BUY
