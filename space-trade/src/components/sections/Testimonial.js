@@ -61,7 +61,7 @@ const Testimonial = ({
               <div className="tiles-item-inner">
                 <div className="testimonial-item-content">
                   <p className="text-sm mb-0">
-                    — Muy buena app de trading. Tiene un buen diseño que es sencillo de entender, la usabilidad es intuitiva, y la sección de ayuda me guió mucho. Sin dudas la recomiendo
+                    — Perfect trading platform!. It has a good design that is easy to understand, the usability is intuitive, and the help section guided me a lot. I definitely recommend it
                     </p>
                 </div>
                 <div className="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
@@ -74,8 +74,8 @@ const Testimonial = ({
               <div className="tiles-item-inner">
                 <div className="testimonial-item-content">
                   <p className="text-sm mb-0">
-                    — He usado otras apps de trading, y de esta me gustó la ayuda del chatbot. Me ayudó a aprender a usar la app y supo responder a mis inquietudes correctamente
-                    </p>
+                    — I have used other trading platforms and this one is the best!, I loved the help of the chatbot. It helped me learn how to use the platform and it knew how to answer my questions correctly
+                  </p>
                 </div>
                 <div className="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
                   <span className="testimonial-item-link">Diana Rynzhuk</span>
@@ -87,8 +87,8 @@ const Testimonial = ({
               <div className="tiles-item-inner">
                 <div className="testimonial-item-content">
                   <p className="text-sm mb-0">
-                    — Tiene muchas facilidades al momento de hacer trading, además aparecen detalles como gráficos, últimas noticias, etc. Este aspecto la hace muy práctica y me incentiva a seguir usándola
-                    </p>
+                    — It has many facilities when trading, the platform shows details such as charts, latest news, etc. This aspect makes it very practical and encourages me to continue using it
+                  </p>
                 </div>
                 <div className="testimonial-item-footer text-xs mt-32 mb-0 has-top-divider">
                   <span className="testimonial-item-link">Ben Stafford</span>

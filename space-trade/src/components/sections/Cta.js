@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { SectionProps } from '../../utils/SectionProps';
 import Input from '../elements/Input';
+import Footer from '../Footer'
 
 const propTypes = {
   ...SectionProps.types,
@@ -40,7 +41,7 @@ const Cta = ({
     topDivider && 'has-top-divider',
     bottomDivider && 'has-bottom-divider',
     split && 'cta-split'
-  );  
+  );
 
   return (
     <section
@@ -53,8 +54,8 @@ const Cta = ({
         >
           <div className="cta-slogan">
             <h3 className="m-0">
-              For previewing layouts and visual?
-              </h3>
+              Subscribe to our Newsletter
+            </h3>
           </div>
           <div className="cta-action">
             <Input id="newsletter" type="email" label="Subscribe" labelHidden hasIcon="right" placeholder="Your best email">
