@@ -1,19 +1,19 @@
 ## SpaceTrade
 
 ### Landing
-- [Landing Page Img](http://prntscr.com/v02xcq)
+- ![image](https://media.discordapp.net/attachments/764175971623501857/766361439437979688/unknown.png?width=1379&height=702)
 
 ### Dashboard
-- [Dashboard Page Img](http://prntscr.com/v030as)
+- ![image](https://images-ext-2.discordapp.net/external/L0wlx_e7v_oU1OWReW07TyuZRc-2tCrV4ff951Vt3Pk/%3Fwidth%3D1383%26height%3D703/https/media.discordapp.net/attachments/764175971623501859/766353262571552839/jwdj0vokc2edt69bdbkh.png)
 
 ### Stocks/:stockid
-- [Stocks/:stockid Page Img](http://prntscr.com/v02y9n)
+- ![image](https://media.discordapp.net/attachments/764175971623501857/766362020815306782/unknown.png?width=1375&height=703)
 
 ### Portfolio
-- [Portfolio Page Img](http://prntscr.com/v02zbn)
+- ![image](https://media.discordapp.net/attachments/764175971623501857/766359336981102642/unknown.png?width=1385&height=703)
 
 ### Help
-- [Help Page Img](http://prntscr.com/v02yzr)
+- ![image](https://media.discordapp.net/attachments/764175971623501857/766360267066966046/unknown.png?width=1387&height=703)
 
 ### Participants
 
