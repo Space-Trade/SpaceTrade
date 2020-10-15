@@ -9,7 +9,6 @@
 ### [Live Demo](space-trade.vercel.app)
 
 ### System Requirements
-------
 
 - Node.js 10 or higher
 
