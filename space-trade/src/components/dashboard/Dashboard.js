@@ -141,7 +141,7 @@ class Dashboard extends React.Component {
     }
     getChart(dataChart, symbol, callback) {
         let b = 0;
-        const stockApi = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=1min&apikey=${API_KEY}`;
+        const stockApi = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=1min&apikey=${apiKeys[3]}`;
         fetch(stockApi)
             .then(res => res.json())
             .then(result => {
@@ -475,7 +475,8 @@ class Dashboard extends React.Component {
     getPorfolioStoks = async () => {
 		const totalStock = JSON.parse(localStorage.getItem('stocks'));
 		portfolioStocks = [];
-		for(let i=0; i<5; i++){
+		const limiter = (totalStock.length > 5)?(5):(totalStock.length)
+		for(let i=0; i<limiter; i++){
 			portfolioStocks.push(totalStock[i])
 		}
 		for(let i=0; i<portfolioStocks.length; i++){
