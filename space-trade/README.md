@@ -2,9 +2,9 @@
 
 ### Participants
 
-- [Pablo Pereira](https://github.com/invict1)
+- [@invict1](https://github.com/invict1) : Pablo Pereira
 
-- [Marcos Medina](https://github.com/MarkMed)
+- [@MarkMed](https://github.com/MarkMed) : Marcos Medina
 
 ### [Live Demo](space-trade.vercel.app)
 
