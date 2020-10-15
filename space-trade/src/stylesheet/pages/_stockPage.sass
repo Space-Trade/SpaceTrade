@@ -26,7 +26,9 @@ input[type=number]
 
 .stock
     height: 90%
-    width: calc(99% - 55px);
+    width: calc( 100% -  55px)
+    @media only screen and (max-width:900px)
+      width: 100%
     right: 0px;
     position: absolute;
 .stockPage
@@ -90,7 +92,6 @@ input[type=number]
     position: relative
     .stockPage__buy-container
         @media only screen and (max-width: 900px)
-            position: absolute
             right: 10px
             bottom: 20px
         @media only screen and (max-width: 400px)
@@ -112,6 +113,7 @@ input[type=number]
     h4
         color: $inactive-color
         margin: 0
+        font-size: 1.2em
     h6
         margin-top: -20px
         margin: 0
@@ -147,11 +149,12 @@ input[type=number]
             box-shadow: 0px 0px 20px 0px rgba(0,0,0,.2)
 .stockPage__buy-button
     padding: 10px
-    background: linear-gradient(to right, rgba(0, 255, 231, 0.5) 30%, rgba(0, 255, 231, 1) 100%);
+    background-image: linear-gradient(to right, rgba(108, 148, 213, 1), rgba(91, 207, 220, 0.6))
     color: white
     font-weight: bold
     transition: all .5s
     border-radius: 5px
+    box-shadow: 0px 0px 10px 0px rgba(139, 210, 218, 0.70);
     &:hover
         box-shadow: 0px 0px 10px 0px $main-color
     &:nth-child(1)
@@ -168,6 +171,7 @@ input[type=number]
     display: flex;
     flex-direction: row;
     align-items: flex-start;
+    justify-content: space-evenly;
     flex-wrap: wrap;
     @media only screen and (max-width: 900px)
         height: 40%
@@ -179,8 +183,10 @@ input[type=number]
             margin-right: 200px
 
     .info
-        width: 50%
-        margin-top: 50px;
+        width: 47%
+        margin-top: 50px
+        padding: 10px
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3)
         @media only screen and (max-width: 900px)
             width: 100%
 
@@ -228,9 +234,11 @@ input[type=number]
             fill: $main-color
     .news
         margin-top: 50px;
-        width: 50%
+        width: 47%
         display: flex
         flex-direction: column
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3)
+        padding: 10px
         // &__articles a:last-child
         @media only screen and (max-width: 900px)
             width: 100%
