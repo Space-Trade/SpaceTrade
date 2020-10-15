@@ -44,10 +44,10 @@ const Logo = styled.img`
 	}
   `;
 const Balance = styled.div`
-	background-image: linear-gradient(to right, rgba(108, 148, 213, 1), rgb(91, 207, 220, 0.6));
+	background-image: linear-gradient(to right, rgba(108, 148, 213, 1), rgba(91, 207, 220, 0.6));
 	padding: 5px 7px;
 	border-radius: 5px;
-	box-shadow: 0px 0px 10px 0px rgb(139, 210, 218, 0.70);
+	box-shadow: 0px 0px 10px 0px rgba(139, 210, 218, 0.70);
 	margin-left: 15px;
 	cursor: pointer;
 `;
@@ -182,10 +182,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function VerticalMenu() {
-	const balance = localStorage.getItem('balance');
+	const [balance, setBalance] = React.useState(localStorage.getItem('balance'));
 	const classes = useStyles();
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(false);
+	// console.log("render")
+	// React.useEffect(() => {
+	// 	// setBalance(localStorage.getItem('balance'));
+	//   }, [])
 
 	const handleDrawerOpen = () => {
 		setOpen(true);
