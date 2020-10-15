@@ -73,7 +73,7 @@ var options = {
     },
 };
 
-const API_KEY = keyList[1];
+const API_KEY = keyList[Math.floor(Math.random()*apiKeys.length)];
 
 const apiKeys = [
     "SAOS0Y8B63XM4DPK",
@@ -191,7 +191,7 @@ export default class Stock extends React.Component {
         chartData1 = [];
         let b = 0;
         if (oneDay.length === 0) {
-            const stockApi = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=1min&apikey=${apiKeys[0]}`;
+            const stockApi = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=1min&apikey=${API_KEY}`;
             fetch(stockApi)
                 .then(res => res.json())
                 .then(result => {

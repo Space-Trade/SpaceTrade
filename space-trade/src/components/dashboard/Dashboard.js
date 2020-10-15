@@ -16,7 +16,7 @@ const apiKeys = [
     "7V0Q0N46CBIPHA2K",
 ];
 
-const API_KEY = keyList[3];
+const API_KEY = keyList[Math.floor(Math.random()*apiKeys.length)];
 
 let chartData1 = [],
     chartData2 = [],
@@ -141,7 +141,7 @@ class Dashboard extends React.Component {
     }
     getChart(dataChart, symbol, callback) {
         let b = 0;
-        const stockApi = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=1min&apikey=${apiKeys[0]}`;
+        const stockApi = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=1min&apikey=${API_KEY}`;
         fetch(stockApi)
             .then(res => res.json())
             .then(result => {
