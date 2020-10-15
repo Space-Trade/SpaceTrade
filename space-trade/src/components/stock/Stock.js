@@ -735,10 +735,10 @@ export default class Stock extends React.Component {
                             </div>
                         </div>
                         <div className="stockPage__keyStats">
-                            <div className="info">
+                            <div className="info" style={{boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.3)"}}>
                                 <KeyInfo keyDataLabel={keyDataLabel} keyData={keyData} />
                             </div>
-                            <div className="news">
+                            <div className="news" style={{boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.3)"}}>
                                 <News symbol={symbol} />
                             </div>
                         </div>
