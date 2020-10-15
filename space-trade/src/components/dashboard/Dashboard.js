@@ -479,15 +479,10 @@ class Dashboard extends React.Component {
 		for(let i=0; i<5; i++){
 			portfolioStocks.push(totalStock[i])
 		}
-		for(let i=0; i<5; i++){
+		for(let i=0; i<portfolioStocks.length; i++){
 			portfolioStocks[i]["gain"] = 12;
 			portfolioStocks[i]["value"] = 13
 		}
-        // portfolioStocks.forEach(element => {
-        //     element["gain"] = 12 //getGain(value.name, value.price, value.amount);
-        //     element["value"] = 13 //getValue(value.name, value.amount);
-        //     console.log(element);
-        // });
 
         if (portfolioStocks.length) {
             this.setState({
