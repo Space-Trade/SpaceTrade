@@ -474,7 +474,11 @@ class Dashboard extends React.Component {
     }
 
     getPorfolioStoks = async () => {
-		portfolioStocks = JSON.parse(localStorage.getItem('stocks'));
+		const totalStock = JSON.parse(localStorage.getItem('stocks'));
+		portfolioStocks = [];
+		for(let i=0; i<5; i++){
+			portfolioStocks.push(totalStock[i])
+		}
 		for(let i=0; i<5; i++){
 			portfolioStocks[i]["gain"] = 12;
 			portfolioStocks[i]["value"] = 13
@@ -643,7 +647,6 @@ class Dashboard extends React.Component {
                                                         <th style={{ textAlign: "center" }}>GAIN/LOSS (%)</th>
                                                         <th style={{ textAlign: "center" }}>BOUGHT PRICE</th>
                                                         <th style={{ textAlign: "center" }}>CURRENT PRICE</th>
-                                                        <th></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -656,18 +659,6 @@ class Dashboard extends React.Component {
                                                                     <td>{value.gain}%</td>
                                                                     <td>${value.price}</td>
                                                                     <td>${value.value}</td>
-                                                                    <td><button onClick={() => {
-                                                                        var shares = portfolioStocks[index].amount;
-                                                                        if (shares > 0) {
-                                                                            portfolioStocks[index].amount -= 1;
-                                                                            localStorage.setItem('balance', parseInt(localStorage.getItem('balance')) + portfolioStocks[index].price);
-                                                                            updateShares();
-                                                                            alert("You sold 1 " + portfolioStocks.name + " share!");
-                                                                            this.forceUpdate();
-                                                                        } else {
-                                                                            alert("You already sold this share!");
-                                                                        }
-                                                                    }} style={{ backgroundColor: "#35b660b5", margin: "5px", padding: "5px 15px", borderRadius: "15px", color: "rgba(255, 255, 255, 0.7)" }}>Sell x1</button></td>
                                                                 </tr>
                                                             );
                                                         })

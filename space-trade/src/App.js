@@ -82,8 +82,6 @@ var stocks = [
 
 const App = () => {
 
-    localStorage.setItem('balance', 5000);
-    localStorage.setItem('stocks', JSON.stringify(stocks));
   if (!localStorage.getItem('balance')) {
     localStorage.setItem('balance', 5000);
   }
