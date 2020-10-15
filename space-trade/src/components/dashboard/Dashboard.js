@@ -16,7 +16,7 @@ const apiKeys = [
     "7V0Q0N46CBIPHA2K",
 ];
 
-const API_KEY = keyList[Math.floor(Math.random()*apiKeys.length)];
+const API_KEY = keyList[Math.floor(Math.random()*keyList.length)];
 
 let chartData1 = [],
     chartData2 = [],

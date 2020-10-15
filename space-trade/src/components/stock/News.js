@@ -9,7 +9,7 @@ let newsImage = [];
 let newsSummary = [];
 let newsUrl = [];
 let newsRelated = [];
-const API_KEY = keyList[3];
+const API_KEY = keyList[Math.floor(Math.random()*keyList.length)];
 class News extends React.Component {
   _isMounted = false;
   constructor() {

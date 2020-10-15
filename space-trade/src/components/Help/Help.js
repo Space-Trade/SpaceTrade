@@ -5,6 +5,7 @@ import controlPanel from "../../assets/images/controlPanel.png";
 import menuPanel from "../../assets/images/menu.png";
 import dashboard from "../../assets/images/dashboard.png";
 import stock from "../../assets/images/stock.png";
+import portfolio from "../../assets/images/portfolio.png";
 
 const HelpCard = styled.div`
 	width: 49%;
@@ -110,7 +111,7 @@ export default function VerticalMenu() {
 			</HelpCard>
 			<HelpCard>
 				<HelpCardTitle>Portfolio</HelpCardTitle>
-				<img src={controlPanel} className={classes.cardImg} />
+				<img src={portfolio} className={classes.cardImg} />
 				<p className={classes.explanation}>
 					The <span style={{ color: "rgb(39,210,218,1)" }}>Portfolio</span> page you can see your stocks purchased. <br />
 					On this page, you will be able to sell your stocks, choosing the number of stocks to be sold.
