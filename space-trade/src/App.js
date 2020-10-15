@@ -81,14 +81,10 @@ var stocks = [
 ];
 
 const App = () => {
-
-    localStorage.setItem('balance', 5000);
-    localStorage.setItem('stocks', JSON.stringify(stocks));
   if (!localStorage.getItem('balance')) {
     localStorage.setItem('balance', 5000);
   }
   if (!localStorage.getItem('stocks')) {
-	console.log("JSON.stringify(stocks)", JSON.stringify(stocks));
     localStorage.setItem('stocks', JSON.stringify(stocks));
   }
   // const [balance, setBalance] = React.useState(localStorage.getItem('balance'));

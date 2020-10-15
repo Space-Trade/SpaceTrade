@@ -702,6 +702,7 @@ export default class Stock extends React.Component {
                                     <button onClick={() => {
                                         var result = localStorage.getItem('balance') - (this.state.latestPrice * document.getElementById("buy-input").value);
                                         if (result >= 0) {
+                                            console.log(123);
                                             localStorage.setItem('balance', localStorage.getItem('balance') - (this.state.latestPrice * document.getElementById("buy-input").value));
                                             let stocks = JSON.parse(localStorage.getItem('stocks'));
                                             stocks.push(
@@ -711,8 +712,10 @@ export default class Stock extends React.Component {
                                                     "price": parseInt(this.state.latestPrice)
                                                 }
                                             );
+                                            console.log(stocks);
                                             localStorage.setItem('stocks', JSON.stringify(stocks));
-                                            alert("You bought " + document.getElementById("buy-input").value + " " + stockData.name + " shares!");
+                                            console.log(JSON.parse(localStorage.getItem('stocks')));
+                                            alert("You bought " + document.getElementById("buy-input").value + " shares!");
                                         } else {
                                             alert("You do not have enough money to buy this shares!");
                                         }
