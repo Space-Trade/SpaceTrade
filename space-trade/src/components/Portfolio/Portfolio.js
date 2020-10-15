@@ -9,7 +9,7 @@ export default class portfolio extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			load: ""
+			portfolioDidLoad: ""
 		};
 		// this.handleStockSell = this.handleStockSell.bind(this);
 	}
@@ -154,6 +154,25 @@ export default class portfolio extends React.Component {
 	// 		});
 	// 	}
 	// }
+	getPorfolioStoks = async () => {
+		portfolioStocks = JSON.parse(localStorage.getItem('stocks'));
+        portfolioStocks.forEach(element => {
+            element["gain"] = 12 //getGain(value.name, value.price, value.amount);
+            element["value"] = 13 //getValue(value.name, value.amount);
+        });
+
+        if (portfolioStocks.length) {
+            this.setState({
+                portfolioDidLoad: true
+            })
+        }
+        else {
+            this.setState({
+                portfolioDidLoad: "empty"
+            })
+        }
+
+    }
 	componentDidMount() {
 		this._isMounted = true;
 
@@ -170,7 +189,8 @@ export default class portfolio extends React.Component {
 			});
 			}
 		});
-        portfolioStocks = JSON.parse(localStorage.getItem('stocks'));
+		console.log("cargó")
+        this.getPorfolioStoks();
 		document.title = `SpaceTrade - Portfolio`;
 	}
 	componentWillUnmount() {
@@ -196,47 +216,47 @@ export default class portfolio extends React.Component {
 		return (
 			<main className="portfolio">
 				<div className="portfolioContainer">
-					{this.state.load === "" && <CircularProgress style={{position: "fixed", top: "50%", left: "50%"}}/>}
-					{this.state.load === true && (
+					{this.state.portfolioDidLoad === "" && <CircularProgress style={{position: "fixed", top: "50%", left: "50%"}}/>}
+					{this.state.portfolioDidLoad === true && (
 						<table className="panel__portfolio-list" style={{ borderSpacing: "15px" }}>
-						<thead>
-							<tr>
-								<th style={{ textAlign: "center" }}>SYMBOL</th>
-								<th style={{ textAlign: "center" }}>QUANTITY</th>
-								<th style={{ textAlign: "center" }}>GAIN/LOSS (%)</th>
-								<th style={{ textAlign: "center" }}>BOUGHT PRICE</th>
-								<th style={{ textAlign: "center" }}>CURRENT PRICE</th>
-								<th></th>
-							</tr>
-						</thead>
-						<tbody>
-							{
-								portfolioStocks.map((value, index) => {
-									return (
-										<tr key={index}>
-											<td>{value.name}</td>
-											<td>{value.amount}</td>
-											<td>{value.gain}%</td>
-											<td>${value.price}</td>
-											<td>${value.value}</td>
-											<td><button onClick={() => {
-												var shares = portfolioStocks[index].amount;
-												if (shares > 0) {
-													portfolioStocks[index].amount -= 1;
-													localStorage.setItem('balance', parseInt(localStorage.getItem('balance')) + portfolioStocks[index].price);
-													updateShares();
-													alert("You sold 1 " + portfolioStocks.name + " share!");
-													this.forceUpdate();
-												} else {
-													alert("You already sold this share!");
-												}
-											}} style={{ backgroundColor: "#35b660b5", margin: "5px", padding: "5px 15px", borderRadius: "15px", color: "rgba(255, 255, 255, 0.7)" }}>Sell x1</button></td>
-										</tr>
-									);
-								})
-							}
-						</tbody>
-					</table>
+							<thead>
+								<tr>
+									<th style={{ textAlign: "center" }}>SYMBOL</th>
+									<th style={{ textAlign: "center" }}>QUANTITY</th>
+									<th style={{ textAlign: "center" }}>GAIN/LOSS (%)</th>
+									<th style={{ textAlign: "center" }}>BOUGHT PRICE</th>
+									<th style={{ textAlign: "center" }}>CURRENT PRICE</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								{
+									portfolioStocks.map((value, index) => {
+										return (
+											<tr key={index}>
+												<td style={{ textAlign: "center" }}>{value.name}</td>
+												<td style={{ textAlign: "center" }}>{value.amount}</td>
+												<td style={{ textAlign: "center" }}>{value.gain}%</td>
+												<td style={{ textAlign: "center" }}>${value.price}</td>
+												<td style={{ textAlign: "center" }}>${value.value}</td>
+												<td><button onClick={() => {
+													var shares = portfolioStocks[index].amount;
+													if (shares > 0) {
+														portfolioStocks[index].amount -= 1;
+														localStorage.setItem('balance', parseInt(localStorage.getItem('balance')) + portfolioStocks[index].price);
+														updateShares();
+														alert("You sold 1 " + portfolioStocks.name + " share!");
+														this.forceUpdate();
+													} else {
+														alert("You already sold this share!");
+													}
+												}} style={{ backgroundColor: "#35b660b5", margin: "5px", padding: "5px 15px", borderRadius: "15px", color: "rgba(255, 255, 255, 0.7)" }}>Sell x1</button></td>
+											</tr>
+										);
+									})
+								}
+							</tbody>
+						</table>
 					)}
 				</div>
 			</main>

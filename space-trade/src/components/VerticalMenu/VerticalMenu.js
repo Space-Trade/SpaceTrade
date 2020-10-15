@@ -182,7 +182,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function VerticalMenu() {
-	const [balance, setBalance] = React.useState(localStorage.getItem('balance'));
+	const balance = localStorage.getItem('balance');
 	const classes = useStyles();
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(false);
