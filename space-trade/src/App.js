@@ -19,7 +19,8 @@ import React, { useRef, useEffect } from 'react';
 import AppRoute from './utils/AppRoute';
 import ScrollReveal from './utils/ScrollReveal';
 import ReactGA from 'react-ga';
-import VerticalMenu from "./components/VerticalMenu/VerticalMenu"
+import VerticalMenu from "./components/VerticalMenu/VerticalMenu";
+import Help from "./components/Help/Help"
 
 // Layouts
 import LayoutDefault from './layouts/LayoutDefault';
@@ -78,6 +79,11 @@ const App = () => {
             <Route path="/dashboard">
               <VerticalMenu />
               <Dashboard />
+              <ChatBot />
+            </Route>
+            <Route path="/help">
+              <VerticalMenu />
+              <Help />
               <ChatBot />
             </Route>
 
