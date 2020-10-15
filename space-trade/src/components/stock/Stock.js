@@ -73,14 +73,14 @@ var options = {
     },
 };
 
-const API_KEY = keyList[Math.floor(Math.random()*apiKeys.length)];
-
 const apiKeys = [
     "SAOS0Y8B63XM4DPK",
     "4LPH6E70R1XQR2L5",
     "NOBPQ2OPX7E1XRT3",
     "7V0Q0N46CBIPHA2K",
 ];
+
+const API_KEY = keyList[Math.floor(Math.random()*apiKeys.length)];
 
 let symbol;
 
