@@ -107,7 +107,10 @@ const useStyles = makeStyles((theme) => ({
 
 export default function VerticalMenu() {
 	const classes = useStyles();
-
+	
+	React.useEffect(() => {
+		document.title = `SpaceTrade - Help!`;
+	}, [])
 	return (
 		<main className={classes.mainContainer}>
 			<HelpCard>

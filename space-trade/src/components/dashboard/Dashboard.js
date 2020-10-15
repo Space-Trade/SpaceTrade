@@ -474,12 +474,16 @@ class Dashboard extends React.Component {
     }
 
     getPorfolioStoks = async () => {
-        portfolioStocks = JSON.parse(localStorage.getItem('stocks'));
-        portfolioStocks.forEach(element => {
-            element["gain"] = 12 //getGain(value.name, value.price, value.amount);
-            element["value"] = 13 //getValue(value.name, value.amount);
-            console.log(element);
-        });
+		portfolioStocks = JSON.parse(localStorage.getItem('stocks'));
+		for(let i=0; i<5; i++){
+			portfolioStocks[i]["gain"] = 12;
+			portfolioStocks[i]["value"] = 13
+		}
+        // portfolioStocks.forEach(element => {
+        //     element["gain"] = 12 //getGain(value.name, value.price, value.amount);
+        //     element["value"] = 13 //getValue(value.name, value.amount);
+        //     console.log(element);
+        // });
 
         if (portfolioStocks.length) {
             this.setState({
@@ -495,7 +499,7 @@ class Dashboard extends React.Component {
     }
 
     componentDidMount() {
-
+		document.title = `SpaceTrade - Dashboard`;
         this.didLoad = true;
         this.setState({
             marketStatus: this.getMarketStatus()
