@@ -186,10 +186,6 @@ export default function VerticalMenu() {
 	const classes = useStyles();
 	const theme = useTheme();
 	const [open, setOpen] = React.useState(false);
-	// console.log("render")
-	// React.useEffect(() => {
-	// 	// setBalance(localStorage.getItem('balance'));
-	//   }, [])
 
 	const handleDrawerOpen = () => {
 		setOpen(true);
@@ -281,30 +277,6 @@ export default function VerticalMenu() {
 	return (
 		<nav className={classes.root}>
 			<CssBaseline />
-
-			{/* <AppBar
-				position="fixed"
-				className={clsx(classes.appBar, {
-				[classes.appBarShift]: open,
-				})}
-			>
-				<Toolbar>
-				<IconButton
-					color="inherit"
-					aria-label="open drawer"
-					onClick={handleDrawerOpen}
-					edge="start"
-					className={clsx(classes.menuButton, {
-					[classes.hide]: open,
-					})}
-				>
-					<MenuIcon />
-				</IconButton>
-				<Typography variant="h6" noWrap>
-					Mini variant drawer
-				</Typography>
-				</Toolbar>
-			</AppBar> */}
 			<AppBar position="fixed" style={{ backgroundColor: "#37465c" }} className={clsx(classes.appBar, { [classes.appBarShift]: open, })}>
 				<Toolbar>
 					<IconButton
@@ -401,13 +373,6 @@ export default function VerticalMenu() {
 						<ListItem button key="Portfolio" className={classes.itemList}>
 							<ListItemIcon className={classes.iconColor}><BusinessCenterRoundedIcon /></ListItemIcon>
 							<ListItemText primary="Portfolio" className={classes.iconColor} />
-						</ListItem>
-					</Link>
-
-					<Link to="/stocks/TSLA">
-						<ListItem button key="stock" className={classes.itemList}>
-							<ListItemIcon className={classes.iconColor}><InboxIcon /></ListItemIcon>
-							<ListItemText primary="stock TSLA" className={classes.iconColor} />
 						</ListItem>
 					</Link>
 				</List>

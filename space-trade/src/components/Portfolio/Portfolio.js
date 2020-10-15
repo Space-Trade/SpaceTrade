@@ -22,7 +22,6 @@ export default class portfolio extends React.Component {
 		this.state = {
 			portfolioDidLoad: ""
 		};
-		// this.handleStockSell = this.handleStockSell.bind(this);
 	}
 
 	getPorfolioStoks = async () => {
@@ -48,11 +47,7 @@ export default class portfolio extends React.Component {
     }
 	componentDidMount() {
 		this._isMounted = true;
-
-		/*
-		* check if market opened
-		*/
-
+		
 		fetch("https://financialmodelingprep.com/api/v3/is-the-market-open")
 		.then(res => res.json())
 		.then(result => {

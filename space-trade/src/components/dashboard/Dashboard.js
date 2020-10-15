@@ -82,7 +82,6 @@ class Dashboard extends React.Component {
         this.chartSecond = React.createRef();
         this.chartThird = React.createRef();
 
-        ////////////////////////////////////////////////////////////////////////////////////
         const labelGen = (length) => {
             let result = "0";
             for (let i = 1; i < length; i++) {
@@ -138,7 +137,7 @@ class Dashboard extends React.Component {
             const { gradient, gradientFill } = setChartStyle(canvas);
             return buildChartData(chartData3, gradient, gradientFill)
         };
-        ////////////////////////////////////////////////////////////////////////////////////
+        
     }
     getChart(dataChart, symbol, callback) {
         let b = 0;
@@ -373,7 +372,7 @@ class Dashboard extends React.Component {
                 stockSymbols.push(responseObj[i].symbol);
             }
         }
-        // PARA MOSTRAR INFO EN CHART 1
+        
         this.getStockInfo(
             stockSymbols[0],
             chartData1,
@@ -405,7 +404,7 @@ class Dashboard extends React.Component {
                 }
             }
         );
-        // PARA MOSTRAR INFO EN CHART 2
+        
         this.getStockInfo(
             stockSymbols[1],
             chartData2,
@@ -435,7 +434,7 @@ class Dashboard extends React.Component {
                 }
             },
         );
-        // PARA MOSTRAR INFO EN CHART 3
+        
         this.getStockInfo(
             stockSymbols[2],
             chartData3,
