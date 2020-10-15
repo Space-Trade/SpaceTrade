@@ -1,40 +1,11 @@
 import React from 'react';
-import { makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import styled from "styled-components";
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import logo from "../../assets/logoWhite.png";
-import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
-import SearchIcon from '@material-ui/icons/Search';
-import AccountCircleRounded from '@material-ui/icons/AccountCircleRounded';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
-import AssessmentRoundedIcon from '@material-ui/icons/AssessmentRounded';
-import BusinessCenterRoundedIcon from '@material-ui/icons/BusinessCenterRounded';
-import ExitToAppRoundedIcon from '@material-ui/icons/ExitToAppRounded';
-import HelpOutlineRoundedIcon from '@material-ui/icons/HelpOutlineRounded';
 import controlPanel from "../../assets/images/controlPanel.png";
 import menuPanel from "../../assets/images/menu.png";
 import dashboard from "../../assets/images/dashboard.png";
 import stock from "../../assets/images/stock.png";
-import {
-	Link
-} from "react-router-dom";
+
 const HelpCard = styled.div`
 	width: 49%;
 	height: auto;
@@ -81,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
 			width: "100%"
 		}
 	},
-	cardImg:{
+	cardImg: {
 		width: "49%",
 		height: "auto",
 		borderRadius: "40px",
@@ -91,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
 		}
 
 	},
-	explanation:{
+	explanation: {
 		width: "49%",
 		height: "100%",
 		marginLeft: "10px",
@@ -107,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function VerticalMenu() {
 	const classes = useStyles();
-	
+
 	React.useEffect(() => {
 		document.title = `SpaceTrade - Help!`;
 	}, [])
@@ -115,44 +86,44 @@ export default function VerticalMenu() {
 		<main className={classes.mainContainer}>
 			<HelpCard>
 				<HelpCardTitle>Control Panel</HelpCardTitle>
-				<img src={controlPanel} className={classes.cardImg}/>
+				<img src={controlPanel} className={classes.cardImg} />
 				<p className={classes.explanation}>
-					In the panel control, you will find the main control options about ypur account.<br/>
-					The message recived, notifications, account options, and the balance that you have.
+					In the panel control, you will find the main control options about your account.<br />
+					The message received, notifications, account options, and the balance that you have.
 				</p>
 			</HelpCard>
 			<HelpCard>
 				<HelpCardTitle>Menu Panel</HelpCardTitle>
-				<img src={menuPanel} className={classes.cardImg}/>
+				<img src={menuPanel} className={classes.cardImg} />
 				<p className={classes.explanation}>
-					You can expand the menu to access to the Dashboard, your Portfolio, and your total income<br/>
-					At the bottom of the vertical menu, you can logOut, and access to the <span style={{color: "rgb(39,210,218,1)"}}>Help</span> page.
+					You can expand the menu to access to the Dashboard, your Portfolio, and your total income<br />
+					At the bottom of the vertical menu, you can log out, and access to the <span style={{ color: "rgb(39,210,218,1)" }}>Help</span> page.
 				</p>
 			</HelpCard>
 			<HelpCard>
 				<HelpCardTitle>Dashboard</HelpCardTitle>
-				<img src={dashboard} className={classes.cardImg}/>
+				<img src={dashboard} className={classes.cardImg} />
 				<p className={classes.explanation}>
-					In the <span style={{color: "rgb(39,210,218,1)"}}>Dashboard</span> you can see the charts of the current top 3 winners at the moment.<br/>
+					In the <span style={{ color: "rgb(39,210,218,1)" }}>Dashboard</span> you can see the charts of the current top 3 winners at the moment.<br />
 					Below the charts, you can see a brief table of your portfolio showing your last 5 stocks purchased.
 				</p>
 			</HelpCard>
 			<HelpCard>
 				<HelpCardTitle>Portfolio</HelpCardTitle>
-				<img src={controlPanel} className={classes.cardImg}/>
+				<img src={controlPanel} className={classes.cardImg} />
 				<p className={classes.explanation}>
-					The <span style={{color: "rgb(39,210,218,1)"}}>Portfolio</span> page you can see your stocks purchased. <br/>
+					The <span style={{ color: "rgb(39,210,218,1)" }}>Portfolio</span> page you can see your stocks purchased. <br />
 					On this page, you will be able to sell your stocks, choosing the number of stocks to be sold.
 				</p>
 			</HelpCard>
 			<HelpCard>
 				<HelpCardTitle>Stock Page</HelpCardTitle>
-				<img src={stock} className={classes.cardImg}/>
+				<img src={stock} className={classes.cardImg} />
 				<p className={classes.explanation}>
-					The <span style={{color: "rgb(39,210,218,1)"}}>Stock</span> page you can see the whole information of the stock. Here you will be able to see the chart of the stock, can buy a number of stocks.<br/>
-					Get the main information with the <span style={{color: "rgb(39,210,218,1)"}}>Key Information</span> section. Or you can take a risk and bet according to the news that you can see in the <span style={{color: "rgb(39,210,218,1)"}}>news section</span>
+					The <span style={{ color: "rgb(39,210,218,1)" }}>Stock</span> page you can see the whole information of the stock. Here you will be able to see the chart of the stock, can buy a number of stocks.<br />
+					Get the main information with the <span style={{ color: "rgb(39,210,218,1)" }}>Key Information</span> section. Or you can take a risk and bet according to the news that you can see in the <span style={{ color: "rgb(39,210,218,1)" }}>news section</span>
 				</p>
 			</HelpCard>
-		</main>		
+		</main>
 	);
 }
