@@ -31,6 +31,7 @@ import HelpOutlineRoundedIcon from '@material-ui/icons/HelpOutlineRounded';
 import controlPanel from "../../assets/images/controlPanel.png";
 import menuPanel from "../../assets/images/menu.png";
 import dashboard from "../../assets/images/dashboard.png";
+import stock from "../../assets/images/stock.png";
 import {
 	Link
 } from "react-router-dom";
@@ -84,7 +85,10 @@ const useStyles = makeStyles((theme) => ({
 		width: "49%",
 		height: "auto",
 		borderRadius: "40px",
-		boxShadow: "-5px 5px 20px rgba(255, 255, 255, 0.2)"
+		boxShadow: "-5px 5px 20px rgba(255, 255, 255, 0.2)",
+		["@media only screen and (max-width:500px)"]: {
+			width: "100%"
+		}
 
 	},
 	explanation:{
@@ -92,7 +96,12 @@ const useStyles = makeStyles((theme) => ({
 		height: "100%",
 		marginLeft: "10px",
 		fontSize: "0.9em",
-		fontWeight: "100"
+		fontWeight: "100",
+		["@media only screen and (max-width:500px)"]: {
+			width: "100%",
+			marginTop: "10px",
+			marginLeft: "0px",
+		}
 	}
 }));
 
@@ -131,6 +140,14 @@ export default function VerticalMenu() {
 				<p className={classes.explanation}>
 					The <span style={{color: "rgb(39,210,218,1)"}}>Portfolio</span> page you can see your stocks purchased. <br/>
 					On this page, you will be able to sell your stocks, choosing the number of stocks to be sold.
+				</p>
+			</HelpCard>
+			<HelpCard>
+				<HelpCardTitle>Stock Page</HelpCardTitle>
+				<img src={stock} className={classes.cardImg}/>
+				<p className={classes.explanation}>
+					The <span style={{color: "rgb(39,210,218,1)"}}>Stock</span> page you can see the whole information of the stock. Here you will be able to see the chart of the stock, can buy a number of stocks.<br/>
+					Get the main information with the <span style={{color: "rgb(39,210,218,1)"}}>Key Information</span> section. Or you can take a risk and bet according to the news that you can see in the <span style={{color: "rgb(39,210,218,1)"}}>news section</span>
 				</p>
 			</HelpCard>
 		</main>		
