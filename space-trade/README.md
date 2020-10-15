@@ -1,20 +1,19 @@
 ## SpaceTrade
 
 ### Landing
-- [Landing Page](http://prntscr.com/v02xcq)
+- [Landing Page Img](http://prntscr.com/v02xcq)
 
 ### Dashboard
-- [Dashboard Page](http://prntscr.com/v030as)
+- [Dashboard Page Img](http://prntscr.com/v030as)
 
 ### Stocks/:stockid
-- [Stocks/:stockid Page](http://prntscr.com/v02y9n)
+- [Stocks/:stockid Page Img](http://prntscr.com/v02y9n)
 
 ### Portfolio
-- [Portfolio Page](http://prntscr.com/v02zbn)
+- [Portfolio Page Img](http://prntscr.com/v02zbn)
 
 ### Help
-- [Help Page](http://prntscr.com/v02yzr)
-
+- [Help Page Img](http://prntscr.com/v02yzr)
 
 ### Participants
 
