@@ -217,7 +217,8 @@ class Dashboard extends React.Component {
                         }
                     }
                 }
-            });
+			})
+			.catch(error => alert(`Fatal error loading chart of ${symbol}. AlphaAdvantage API Error`));
     }
     getStockInfo = async (symbol, dataChart, changeStash, priceStash, num, callback) => {
         const percChangeUrl = `https://cloud.iexapis.com/stable/stock/${symbol}/quote?displayPercent=true&token=${API_KEY}`;
