@@ -43,13 +43,15 @@ class News extends React.Component {
         }
       })
       .then(() => {
-        for (let i = 0; i < newsUrl.length; i++) {
+        setTimeout(() => {
+          for (let i = 0; i < newsUrl.length; i++) {
             if (document.querySelector("#img" + i) !== null) {
               document.querySelector(
                 "#img" + i,
               ).style = `background-image:url(${newsImage[parseInt(i)]})`;
             }
           }
+        }, 1000);
       })
       .then(() => {
         if (this._isMounted) {
