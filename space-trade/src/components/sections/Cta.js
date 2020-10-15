@@ -48,7 +48,7 @@ const Cta = ({
       {...props}
       className={outerClasses}
     >
-      <div className="container">
+      <div className="container-sm">
         <div
           className={innerClasses}
         >
